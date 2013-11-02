@@ -8,7 +8,7 @@
 </head>
 <body>
   <div ng-app="app">
-    <div ng-controller="TimerCtrl">
+    <div ng-controller="TimerCtrl" ng-init="timer.init()">
       <button ng-click="start()">Start</button>
       <button ng-click="pause()">Pause</button>
       {{ timer.currentEntry.description }}

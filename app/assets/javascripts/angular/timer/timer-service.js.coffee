@@ -1,7 +1,7 @@
 angular.module("timer").
   factory("TimerService", ($timeout, Entry) ->
     TimerService =
-      currentEntry: null
+      currentEntry: (new Entry)
       running: false
       setEntry: (entry) ->
         @currentEntry = entry
@@ -17,10 +17,9 @@ angular.module("timer").
         ),1000
       init: ->
         Entry.fetch().then (entries) =>
-          @currentEntry = _.find entries, (entry) -> entry.running
-
-    TimerService.init()
-    TimerService.runLoop()
+          currentEntry = _.find entries, (entry) -> entry.running
+          @currentEntry = currentEntry if currentEntry
+        @runLoop()
 
     TimerService
   )
