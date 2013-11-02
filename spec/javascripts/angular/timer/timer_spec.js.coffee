@@ -6,6 +6,8 @@ describe "timerService", ->
   beforeEach module("timer", ($provide) ->
     mockEntryService = ->
       increment: ->
+      start: ->
+      pause: ->
     $provide.value('Entry', mockEntryService)
     return false
   )
@@ -17,13 +19,16 @@ describe "timerService", ->
 
   it "has default values", ->
     expect(TimerService.currentEntry).toBeTruthy()
-    expect(TimerService.running).toBeFalsy()
 
-  it "can start and pause", ->
+  it "can start an entry", ->
+    sinon.stub(TimerService.currentEntry, "start")
     TimerService.start()
-    expect(TimerService.running).toBeTruthy()
+    sinon.assert.calledOnce(TimerService.currentEntry.start)
+
+  it "can pause an entry", ->
+    sinon.stub(TimerService.currentEntry, "pause")
     TimerService.pause()
-    expect(TimerService.running).toBeFalsy()
+    sinon.assert.calledOnce(TimerService.currentEntry.pause)
 
   it "can set an entry", ->
     someEntry = { whatever: "idunno" }
@@ -40,6 +45,7 @@ describe "timerService", ->
   it "increments the entry if it is running", ->
     inject ($timeout) ->
       sinon.stub(TimerService.currentEntry, "increment")
+      TimerService.currentEntry.running = true
       TimerService.start()
       TimerService.runLoop()
       $timeout.flush()

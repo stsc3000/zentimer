@@ -11,8 +11,21 @@
     <div ng-controller="TimerCtrl" ng-init="timer.init()">
       <button ng-click="start()">Start</button>
       <button ng-click="pause()">Pause</button>
-      {{ timer.currentEntry.description }}
+      <button ng-click="save()">Save</button>
+      <input ng-model="timer.currentEntry.description"></input>
       <ti-elapsed elapsed="timer.currentEntry.elapsed"> {{ hours }} : {{ minutes }} : {{ seconds }} </ti-elapsed>
+    </div>
+
+    <div ng-controller="EntriesListCtrl">
+      <ul>
+        <li ng-repeat="entry in entries">
+          <b ng-show="entry.running"> -> </b>
+          {{ entry.description }}
+          <ti-elapsed elapsed="entry.elapsed"> {{ hours }} : {{ minutes }} : {{ seconds }} </ti-elapsed>
+          <button ng-click="continueEntry(entry)" ng-hide="entry.running">Continue</button>
+
+        </li>
+      </ul>
     </div>
   </div>
 </body>

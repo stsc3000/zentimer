@@ -1,4 +1,4 @@
 #= require_self
 #= require_tree .
 
-angular.module("app", ["resources", "models", "timer"])
+angular.module("app", ["resources", "models", "timer", "entries-list"])

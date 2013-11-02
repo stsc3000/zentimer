@@ -11,11 +11,13 @@ angular.module("resources").
 
           entries = [
             {
+              id: 1
               elapsed: 200
               description: "First"
               running: true
             },
             {
+              id: 2
               elapsed: 400
               description: "Second"
               running: false

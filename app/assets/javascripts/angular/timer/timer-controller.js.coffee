@@ -7,4 +7,7 @@ angular.module("timer").
 
     $scope.pause = ->
       @timer.pause()
+
+    $scope.save = ->
+      @timer.save()
   )

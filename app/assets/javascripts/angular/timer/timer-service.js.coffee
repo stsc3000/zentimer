@@ -2,16 +2,32 @@ angular.module("timer").
   factory("TimerService", ($timeout, Entry) ->
     TimerService =
       currentEntry: (new Entry)
-      running: false
+
+      running: ->
+        @currentEntry.running
+
       setEntry: (entry) ->
         @currentEntry = entry
+
       start: ->
-        @running = true
+        @currentEntry.start()
+
       pause: -> 
-        @running = false
+        @currentEntry.pause()
+
+      continue: (entry) ->
+        @pause()
+        @setEntry(entry)
+        @start()
+
+      save: ->
+        @pause()
+        Entry.save(@currentEntry)
+        @setEntry(Entry.newEntry())
+
       runLoop: ->
         $timeout ( =>
-          if @running
+          if @running()
             @currentEntry.increment()
           @runLoop()
         ),1000
