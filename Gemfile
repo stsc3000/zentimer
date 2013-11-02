@@ -26,6 +26,7 @@ gem 'turbolinks'
 
 gem 'angularjs-rails'
 gem "active_model_serializers"
+gem 'lodash-rails'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
@@ -48,6 +49,7 @@ end
   # Jasmine
   gem "jasmine"
   gem "jasminerice", :git => 'https://github.com/bradphelan/jasminerice.git'
+  gem "sinon-rails"
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

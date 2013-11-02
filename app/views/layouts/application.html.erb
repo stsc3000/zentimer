@@ -8,7 +8,12 @@
 </head>
 <body>
   <div ng-app="app">
-    {{ 3 + 3 }}
+    <div ng-controller="TimerCtrl">
+      <button ng-click="start()">Start</button>
+      <button ng-click="pause()">Pause</button>
+      {{ timer.currentEntry.description }}
+      <ti-elapsed elapsed="timer.currentEntry.elapsed"> {{ hours }} : {{ minutes }} : {{ seconds }} </ti-elapsed>
+    </div>
   </div>
 </body>
 </html>

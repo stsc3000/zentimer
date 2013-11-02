@@ -12,5 +12,6 @@
 #
 #= require jquery
 #= require jquery_ujs
+#= require lodash
 #= require angular
 #= require angular/app
