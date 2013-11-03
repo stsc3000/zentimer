@@ -10,4 +10,7 @@ angular.module("timer").
 
     $scope.save = ->
       @timer.save()
+
+    $scope.toggle = ->
+      @timer.toggle()
   )

@@ -13,13 +13,13 @@ angular.module("resources").
             {
               id: 1
               elapsed: 200
-              description: "First"
-              running: true
+              description: "Fixing the CSS up"
+              running: false
             },
             {
               id: 2
               elapsed: 400
-              description: "Second"
+              description: "JSON API, #12341"
               running: false
             }
           ]

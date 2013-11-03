@@ -15,6 +15,12 @@ angular.module("timer").
       pause: -> 
         @currentEntry.pause()
 
+      toggle: ->
+        if @running()
+          @pause()
+        else
+          @start()
+
       continue: (entry) ->
         @pause()
         @setEntry(entry)

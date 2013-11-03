@@ -1,0 +1,52 @@
+<div id="timer">
+  <div class="row">
+    <div class="large-12 columns text-center">
+      <div ng-controller="TimerCtrl" ng-init="timer.init()">
+
+        <div class="row">
+          <div class="timer-counter large-12 columns">
+            <a class="timer-toggle" ng-class="{paused: !timer.running()}" ng-click="toggle()">
+              <i class="fa fa-clock-o" ng-show="timer.running()"></i>
+              <i class="fa fa-check" ng-hide="timer.running()" ng-click="save()"></i>
+              <ti-elapsed elapsed="timer.currentEntry.elapsed" >
+                <span ng-show="hours > 0">{{ hours }} :</span> {{ minutes }} : {{ seconds }}
+              </ti-elapsed>
+            </a>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="large-12 large-centered columns description-input">
+            <textarea placeholder="description..." ng-model="timer.currentEntry.description"></textarea>
+          </div>
+        </div>
+
+        <div class="timer-counter row">
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div ng-controller="EntriesListCtrl">
+  <div class="row entry-row"  ng-repeat="entry in entries" ng-click="continueEntry(entry)">
+    <div class="large-4 small-5 columns">
+      <div class="entry-time" ng-class="{active: entry.running}">
+        <ti-elapsed elapsed="entry.elapsed" >
+          <span ng-show="hours > 0">{{ hours }} :</span> {{ minutes }} : {{ seconds }}
+        </ti-elapsed>
+      </div>
+    </div>
+
+    <div class="large-8 small-7 columns">
+      <div class="entry-description" ng-class="{active: entry.running}">
+        {{ entry.description }}
+      </div>
+    </div>
+
+  </div>
+</div>
+
