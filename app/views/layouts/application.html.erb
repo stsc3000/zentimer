@@ -9,8 +9,8 @@
 <body>
   <div ng-app="app">
     <div ng-controller="TimerCtrl" ng-init="timer.init()">
-      <button ng-click="start()">Start</button>
-      <button ng-click="pause()">Pause</button>
+      <button ng-click="start()" ng-hide="timer.running()">Start</button>
+      <button ng-click="pause()" ng-show="timer.running()">Pause</button>
       <button ng-click="save()">Save</button>
       <input ng-model="timer.currentEntry.description"></input>
       <ti-elapsed elapsed="timer.currentEntry.elapsed"> {{ hours }} : {{ minutes }} : {{ seconds }} </ti-elapsed>
