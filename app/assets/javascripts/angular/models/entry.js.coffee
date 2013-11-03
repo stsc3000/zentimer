@@ -12,7 +12,8 @@ angular.module("models").
     Entry.entries = []
 
     Entry.save = (entry) ->
-      @entries.push(entry) unless entry.id
+      entry.id = (new Date).getTime()
+      @entries.push(entry) unless _.contains(@entries, entry)
 
     Entry.newEntry = ->
       new Entry

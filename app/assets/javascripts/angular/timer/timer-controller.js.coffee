@@ -8,7 +8,7 @@ angular.module("timer").
     $scope.pause = ->
       @timer.pause()
 
-    $scope.save = ->
+    $scope.save = () ->
       @timer.save()
 
     $scope.toggle = ->

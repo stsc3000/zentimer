@@ -6,8 +6,9 @@
         <div class="row">
           <div class="timer-counter large-12 columns">
             <a class="timer-toggle" ng-class="{paused: !timer.running()}" ng-click="toggle()">
-              <i class="fa fa-clock-o" ng-show="timer.running()"></i>
-              <i class="fa fa-check" ng-hide="timer.running()" ng-click="save()"></i>
+
+              <i class="fa fa-clock-o" ng-show="timer.running() || timer.currentEntry.elapsed <= 0"></i>
+              <i class="fa fa-check" ng-hide="timer.running() || timer.currentEntry.elapsed <= 0" ng-click="save(); $event.stopPropagation()"></i>
               <ti-elapsed elapsed="timer.currentEntry.elapsed" >
                 <span ng-show="hours > 0">{{ hours }} :</span> {{ minutes }} : {{ seconds }}
               </ti-elapsed>
