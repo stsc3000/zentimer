@@ -7,8 +7,8 @@
           <div class="timer-counter large-12 columns">
             <a class="timer-toggle" ng-class="{paused: !timer.running()}" ng-click="toggle()">
 
-              <i class="fa fa-clock-o" ng-show="timer.running() || timer.currentEntry.elapsed <= 0"></i>
-              <i class="fa fa-check" ng-hide="timer.running() || timer.currentEntry.elapsed <= 0" ng-click="save(); $event.stopPropagation()"></i>
+              <i id="timer-actions-pause" class="fa fa-clock-o fa-fw" ng-show="timer.running() || timer.currentEntry.elapsed <= 0"></i>
+              <i id="timer-actions-save" class="fa fa-check fa-fw" ng-hide="timer.running() || timer.currentEntry.elapsed <= 0" ng-click="save(); $event.stopPropagation()"></i>
               <ti-elapsed elapsed="timer.currentEntry.elapsed" >
                 <span ng-show="hours > 0">{{ hours }} :</span> {{ minutes }} : {{ seconds }}
               </ti-elapsed>
@@ -19,7 +19,7 @@
 
         <div class="row">
           <div class="large-12 large-centered columns description-input">
-            <textarea placeholder="description..." ng-model="timer.currentEntry.description"></textarea>
+            <textarea placeholder="..." ng-model="timer.currentEntry.description"></textarea>
           </div>
         </div>
 

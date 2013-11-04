@@ -13,7 +13,8 @@ angular.module("models").
 
     Entry.save = (entry) ->
       entry.id = (new Date).getTime()
-      @entries.push(entry) unless _.contains(@entries, entry)
+      @entries.push(entry) unless _.include(@entries, entry) || entry.elapsed == 0
+      EntryResource.save(@entries)
 
     Entry.newEntry = ->
       new Entry
@@ -31,14 +32,20 @@ angular.module("models").
           )
         return anotherPromise
 
+    Entry.prototype.save = ->
+      Entry.save(@)
+
     Entry.prototype.increment = (seconds = 1) ->
       @elapsed += seconds
+      @save()
 
     Entry.prototype.start = ->
       @running = true
+      @save()
 
     Entry.prototype.pause = ->
       @running = false
+      @save()
 
     Entry
   )

@@ -2,30 +2,16 @@ angular.module("resources").
   factory("EntryResource", ($timeout, $q) ->
     EntryResource =
       fetch: ->
-
         deferred = $q.defer()
-
         $timeout ( =>
-
-          console.log "FETCHING FROM BACKEND"
-
-          entries = [
-            {
-              id: 1
-              elapsed: 200
-              description: "Fixing the CSS up"
-              running: false
-            },
-            {
-              id: 2
-              elapsed: 400
-              description: "JSON API, #12341"
-              running: false
-            }
-          ]
-
+          if (json = localStorage.getItem("entries"))
+            entries = JSON.parse(json)
+          else
+            entries = []
           deferred.resolve entries
-        ), 500
-
+        ), 0
         return deferred.promise
+      save: (entries) ->
+        json = JSON.stringify(entries)
+        localStorage.setItem("entries", json)
   )

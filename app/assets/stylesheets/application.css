@@ -24,12 +24,9 @@ body {
 }
 
 
-#timer {
-  margin-top: 32px;
-}
-
 .timer-counter {
   margin-bottom: 32px;
+  margin-top: 32px;
 }
 
 #timer h1 {
@@ -50,7 +47,7 @@ body {
   color: #ecf0f1;
   font-size: 3em;
   transition: all 0.25s ease-in-out;
-  height: 100px;
+  height: 90px;
 }
 
 #timer textarea:focus {
@@ -63,6 +60,11 @@ body {
   color: #ecf0f1;
   font-size: 6.8em;
   padding: 0px
+}
+
+.timer-counter:hover {
+  background-color: #34495e;
+  transition: all 0.25s ease-in-out;
 }
 
 .fa-play, .fa-pause, .fa-check {
@@ -87,7 +89,7 @@ body {
   color: #ecf0f1
 }
 .timer-toggle.paused {
-  color: #95a5a6
+  color: #bdc3c7
 }
 
 .entry-row {
@@ -114,4 +116,8 @@ body {
 .description-input {
   padding-left: 0;
   padding-right: 0;
+}
+
+#timer-actions-save, #timer-actions-pause {
+  width: 1em
 }
