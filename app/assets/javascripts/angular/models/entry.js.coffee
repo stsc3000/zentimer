@@ -16,6 +16,12 @@ angular.module("models").
       @entries.push(entry) unless _.include(@entries, entry) || entry.elapsed == 0
       EntryResource.save(@entries)
 
+    Entry.delete = (entry) ->
+      #remove entry properly with splice or something
+      entriesWithoutEntry = _.remove(@entries, (searchEntry) -> searchEntry == entry)
+      angular.copy(entriesWithoutEntry, @entries)
+      EntryResource.save(@entries)
+
     Entry.newEntry = ->
       new Entry
 
@@ -37,7 +43,10 @@ angular.module("models").
 
     Entry.prototype.increment = (seconds = 1) ->
       @elapsed += seconds
-      @save()
+      @save() unless @deleted
+
+    Entry.prototype.willBeDeleted = ->
+      @deleted = true
 
     Entry.prototype.start = ->
       @running = true

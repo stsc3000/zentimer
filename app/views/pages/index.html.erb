@@ -42,9 +42,15 @@
       </div>
     </div>
 
-    <div class="large-8 small-7 columns">
+    <div class="large-7 small-6 columns">
       <div class="entry-description" ng-class="{active: entry.running}">
         {{ entry.description }}
+      </div>
+    </div>
+
+    <div id="entry-delete-tile" class="large-1 small-1 columns text-center">
+      <div class="entry-delete-button">
+        <a class="btn" ng-click="delete(entry); $event.stopPropagation()" >X</a>
       </div>
     </div>
 

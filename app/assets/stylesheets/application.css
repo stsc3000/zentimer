@@ -77,7 +77,7 @@ body {
 
 #branding h1 {
   font-size: 1em;
-  color: #ecf0f1;
+  color: #bdc3c7;
 
 }
 
@@ -104,7 +104,19 @@ body {
   background-color: #34495e;
 }
 
-.entry-time, .entry-description {
+#entry-delete-tile a, #entry-delete-tile:active {
+  color: #fff
+}
+.entry-row:hover #entry-delete-tile {
+  display: block
+}
+
+#entry-delete-tile {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.entry-time, .entry-description, .entry-delete-button {
   font-size: 3em;
   color: #bdc3c7;
 }

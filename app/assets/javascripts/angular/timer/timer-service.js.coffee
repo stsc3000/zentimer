@@ -26,17 +26,28 @@ angular.module("timer").
         @setEntry(entry)
         @start()
 
+      delete: (entry) ->
+        if @currentEntry == entry
+          @currentEntry.willBeDeleted()
+          @currentEntry = new Entry
+        Entry.delete(entry)
+
+
       save: ->
+        console.log("save", @currentEntry)
         @pause()
         Entry.save(@currentEntry)
         @setEntry(Entry.newEntry())
 
       runLoop: ->
         $timeout ( =>
-          if @running()
+          if @running() && !@blocked
             @currentEntry.increment()
+          else
+            console.log("not running!")
           @runLoop()
         ),1000
+
       init: ->
         Entry.fetch().then (entries) =>
           currentEntry = _.find entries, (entry) -> entry.running
