@@ -4,7 +4,6 @@
       <div ng-controller="TimerCtrl" ng-init="timer.init()">
 
         <div class="row">
-          {{ jsonEntries() }}
           <div class="timer-counter large-12 columns" ng-class="{paused: !timer.currentEntry.running, running: timer.currentEntry.running}" ng-click="toggle()">
             <a class="timer-toggle">
 

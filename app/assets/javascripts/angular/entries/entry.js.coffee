@@ -5,13 +5,21 @@ angular.module("entries").
       elapsed: 0
       description: ""
       running: false
+      runningSince: null
 
     Entry = (attributes) ->
       angular.extend(@, defaultAttributes)
       angular.extend(@, attributes)
+      if @runningSince
+        now = new Date
+        before = new Date(@runningSince)
+        @elapsed += Math.floor(now.getTime() / 1000)  - Math.floor( before.getTime() / 1000)
+        @runningSince = now
+      @
 
     Entry.prototype = 
       increment:  (seconds = 1) ->
+        @runningSince = new Date
         @elapsed += seconds
         Entry.save()
 
@@ -24,6 +32,7 @@ angular.module("entries").
 
       pause: ->
         @running = false
+        @runningSince = false
         Entry.save()
 
       save: ->
@@ -31,8 +40,7 @@ angular.module("entries").
         @pause()
 
       toggle: ->
-        @running = !@running
-        Entry.save()
+        if @running then @pause() else @start()
 
     Entry.save = ->
       localStorage.setItem("entries", JSON.stringify(@entries))
