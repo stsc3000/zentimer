@@ -142,8 +142,6 @@ body {
    100% {background: none;}
 }
 
-
-
 .running {
   -webkit-animation: highlight .5s ease-in 1;
   animation: highlight .5s ease-in 1;

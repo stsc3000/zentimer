@@ -10,4 +10,7 @@ angular.module("timer").
 
     $scope.showSaveButton = ->
       @timer.savable()
+
+    $scope.jsonEntries = ->
+      JSON.stringify(ZenTimer.entries)
   )

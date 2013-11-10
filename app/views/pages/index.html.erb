@@ -4,7 +4,8 @@
       <div ng-controller="TimerCtrl" ng-init="timer.init()">
 
         <div class="row">
-          <div class="timer-counter large-12 columns" ng-class="{paused: !timer.running, running: timer.running}" ng-click="toggle()">
+          {{ jsonEntries() }}
+          <div class="timer-counter large-12 columns" ng-class="{paused: !timer.currentEntry.running, running: timer.currentEntry.running}" ng-click="toggle()">
             <a class="timer-toggle">
 
               <i id="timer-actions-save" class="fa fa-check fa-fw" ng-show="timer.savable()" ng-click="save(); $event.stopPropagation()"></i>

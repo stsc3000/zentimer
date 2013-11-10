@@ -13,4 +13,6 @@ angular.module("timer").
 
     $scope.toggle = ->
       @timer.toggle()
+
+    )
   )

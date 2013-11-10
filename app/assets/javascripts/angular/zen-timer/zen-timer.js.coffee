@@ -1,33 +1,33 @@
 angular.module("zen-timer").
   factory("ZenTimer", (Entry) ->
     ZenTimer =
-      running: false
-      entries: []
-
-      addEntry: (entry) ->
-        @entries.push(entry)
-
-      createNewEntry: ->
-        @currentEntry = new Entry
-        @addEntry(@currentEntry)
+      entries: Entry.entries
+      addEntry: Entry.addEntry
 
       init: ->
         unless @currentEntry
-          @createNewEntry()
+          @currentEntry = Entry.currentEntry()
+
+      createNewEntry: ->
+        @currentEntry = Entry.createNewEntry()
+
+      running: ->
+        @currentEntry.running
 
       pause: ->
-        @running = false
+        @currentEntry.pause()
 
       start: ->
-        @running = true
+        @currentEntry.start()
 
       toggle: ->
-        @running = !@running
+        @currentEntry.toggle()
 
       savable: ->
-        !@running && @currentEntry.savable()
+        @currentEntry.savable()
 
       save: ->
+        @currentEntry.save()
         @createNewEntry()
 
       continue: (entry) ->
@@ -38,8 +38,8 @@ angular.module("zen-timer").
         if entry == @currentEntry
           @pause()
           @createNewEntry()
+        Entry.deleteEntry(entry)
 
-        _.remove(@entries, (searchEntry) -> searchEntry == entry)
 
     window.ZenTimer = ZenTimer
     ZenTimer
