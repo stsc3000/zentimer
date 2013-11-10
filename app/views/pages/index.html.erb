@@ -4,11 +4,11 @@
       <div ng-controller="TimerCtrl" ng-init="timer.init()">
 
         <div class="row">
-          <div class="timer-counter large-12 columns">
-            <a class="timer-toggle" ng-class="{paused: !timer.running()}" ng-click="toggle()">
+          <div class="timer-counter large-12 columns" ng-class="{paused: !timer.running, running: timer.running}" ng-click="toggle()">
+            <a class="timer-toggle">
 
-              <i id="timer-actions-pause" class="fa fa-clock-o fa-fw" ng-show="timer.running() || timer.currentEntry.elapsed <= 0"></i>
-              <i id="timer-actions-save" class="fa fa-check fa-fw" ng-hide="timer.running() || timer.currentEntry.elapsed <= 0" ng-click="save(); $event.stopPropagation()"></i>
+              <i id="timer-actions-save" class="fa fa-check fa-fw" ng-show="timer.savable()" ng-click="save(); $event.stopPropagation()"></i>
+              <i id="timer-actions-pause" class="fa fa-clock-o fa-fw" ng-hide="timer.savable()"></i>
               <ti-elapsed elapsed="timer.currentEntry.elapsed" >
                 <span ng-show="hours > 0">{{ hours }} :</span> {{ minutes }} : {{ seconds }}
               </ti-elapsed>
@@ -33,7 +33,7 @@
 
 
 <div ng-controller="EntriesListCtrl">
-  <div class="row entry-row"  ng-repeat="entry in entries" ng-click="continueEntry(entry)">
+  <div class="row entry-row"  ng-repeat="entry in entries | filter:hasRunOnce" ng-click="continue(entry)">
     <div class="large-4 small-5 columns">
       <div class="entry-time" ng-class="{active: entry.running}">
         <ti-elapsed elapsed="entry.elapsed" >
