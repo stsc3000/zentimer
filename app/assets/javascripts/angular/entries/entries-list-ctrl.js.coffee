@@ -10,4 +10,7 @@ angular.module("entries").
 
     $scope.continue = (entry) ->
       ZenTimer.continue(entry)
+
+    $scope.pause = ->
+      ZenTimer.pause()
   )

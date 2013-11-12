@@ -19,6 +19,10 @@ body {
   color: #ecf0f1;
 }
 
+a, a:hover, a:active {
+color: #ecf0f1;
+}
+
 [ng\:cloak], [ng-cloak], .ng-cloak {
     display: none !important;
 }
@@ -82,8 +86,29 @@ body {
 
 }
 
-.entry-row {
+.entry {
   margin-bottom: 10px;
+}
+
+.entry-row:hover .entry-row-hidden {
+  height: auto;
+}
+.entry-row-hidden {
+  background-color: #1abc9c;
+  height: 0px;
+  overflow: hidden;
+}
+
+@-webkit-keyframes highlight {   
+   0% {background: none;}
+   50% {background: #7f8c8d;}
+   100% {background: #34495e;}
+}
+
+
+
+
+.entry-row {
   cursor: pointer;
   transition: all 0.25s ease-in-out;
   padding-top: 5px;
@@ -106,9 +131,18 @@ body {
   padding-right: 0;
 }
 
-.entry-time, .entry-description, .entry-delete-button {
+.entry-time, .entry-delete-button, .entry-continue, .entry-pause  {
   font-size: 3em;
   color: #bdc3c7;
+}
+
+.entry-continue, .entry-pause {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.entry-description span {
+  font-size: 3em;
 }
 
 .entry-time.active, .entry-description.active {

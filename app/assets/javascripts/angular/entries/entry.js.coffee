@@ -27,6 +27,7 @@ angular.module("entries").
         @elapsed > 0 && !@running
 
       start: ->
+        @current = true
         @running = true
         Entry.save()
 
