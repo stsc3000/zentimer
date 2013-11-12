@@ -2,9 +2,6 @@ angular.module("entries").
   controller("EntryCtrl", ($scope, ZenTimer) ->
     $scope.editing = false
 
-    $scope.hasRunOnce = (entry) ->
-      entry.elapsed > 0
-
     $scope.delete = ->
       ZenTimer.delete(@entry)
 
@@ -15,6 +12,14 @@ angular.module("entries").
       ZenTimer.pause()
 
     $scope.toggleEdit = ->
+      @entryDouble =
+        elapsed: @entry.elapsed
+        description: @entry.description
       @editing = !@editing
+
+    $scope.update = (entryDouble) ->
+      @entry.description = entryDouble.description
+      @entry.elapsed = entryDouble.elapsed
+      @toggleEdit()
 
   )
