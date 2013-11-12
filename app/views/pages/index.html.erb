@@ -33,9 +33,9 @@
 
 
 <div ng-controller="EntriesListCtrl">
-    <div class="row entry-row" ng-repeat="entry in entries | filter:hasRunOnce">
+    <div class="row entry-row" ng-repeat="entry in entries | filter:hasRunOnce" ng-controller="EntryCtrl">
       <div class="entry" style="display: table; width: 100%;">
-        <i class="entry-continue fa fa-play fa-fw" ng-hide="entry.running"  ng-click="continue(entry)"></i>
+        <i class="entry-continue fa fa-play fa-fw" ng-hide="entry.running"  ng-click="continue()"></i>
         <i class="entry-pause fa fa-pause fa-fw" ng-show="entry.running" ng-click="pause()"></i>
 
         <div class="large-10 small-10 columns">
@@ -63,16 +63,16 @@
 
         <div class="entry-row-hidden">
           <div class="large-3 small-3 columns text-center">
-            <i class="fa fa-trash-o fa-fw"></i>
           </div>
           <div class="large-3 small-3 columns text-center">
-            <i class="fa fa-trash-o fa-fw"></i>
           </div>
           <div class="large-3 small-3 columns text-center">
-            <i class="fa fa-trash-o fa-fw"></i>
+            <a ng-click="edit()">
+              <i class="fa fa-edit fa-fw"></i>
+            </a>
           </div>
           <div class="large-3 small-3 columns text-center">
-            <a ng-click="delete(entry)">
+            <a ng-click="delete()">
               <i class="fa fa-trash-o fa-fw"></i>
               <br>
             </a>
