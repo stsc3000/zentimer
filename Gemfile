@@ -24,7 +24,7 @@ gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 
-gem 'angularjs-rails'
+gem 'angularjs-rails', "~> 1.2"
 gem "active_model_serializers"
 gem 'lodash-rails'
 
