@@ -4,14 +4,12 @@
       <div ng-controller="TimerCtrl" ng-init="timer.init()">
 
         <div class="row">
-          <div class="timer-counter large-12 columns" ng-class="{paused: !timer.currentEntry.running, running: timer.currentEntry.running}" ng-click="toggle()">
+          <div class="timer-counter large-12 columns" ng-class="{paused: !timer.currentEntry.running, running: timer.currentEntry.running}" ng-click="toggle()"  fittext data-compressor="0.6">
             <a class="timer-toggle">
 
               <i id="timer-actions-save" class="fa fa-check fa-fw" ng-show="timer.savable()" ng-click="save(); $event.stopPropagation()"></i>
               <i id="timer-actions-pause" class="fa fa-clock-o fa-fw" ng-hide="timer.savable()"></i>
-              <ti-elapsed elapsed="timer.currentEntry.elapsed" >
-                <span ng-show="hours > 0">{{ hours }} :</span> {{ minutes }} : {{ seconds }}
-              </ti-elapsed>
+              <ti-elapsed elapsed="timer.currentEntry.elapsed" > </ti-elapsed>
             </a>
           </div>
         </div>
@@ -19,7 +17,8 @@
 
         <div class="row">
           <div class="large-12 large-centered columns description-input">
-            <textarea placeholder="..." ng-model="timer.currentEntry.description"></textarea>
+            <a><i id="timer-actions-close-description" class="fa fa-times-circle fa-fw" ng-show="descriptionFocused" ng-click="descriptionFocused=false"></i></a>
+            <textarea placeholder="..." ng-model="timer.currentEntry.description" ng-focus="descriptionFocused=true" ng-blur="descriptionFocused=false"></textarea>
           </div>
         </div>
 
@@ -42,18 +41,20 @@
           <div class="row">
             <div class="large-12 small-12 columns text-left">
               <i class="fa fa-clock-o fa-fw"></i>
-              <ti-elapsed elapsed="entry.elapsed" >
-                <span ng-show="hours > 0">{{ hours }} :</span> {{ minutes }} : {{ seconds }}
-              </ti-elapsed>
+              <ti-elapsed elapsed="entry.elapsed" > </ti-elapsed>
               <i class="fa fa-square-o fa-fw"></i>
               Project
             </div>
           </div>
           <div class="row">
-            <div class="large-12 small-12 columns entry-description text-left">
-              <span ng-hide="editing" ng-click="toggleEdit()">
+
+            <div class="large-12 small-12 columns entry-description text-left" ng-click="toggleRunning()" ng-hide="editing">
+              <span ng-hide="editing">
                 {{ entry.description }}
               </span>
+            </div>
+
+            <div class="large-12 small-12 columns entry-description text-left" ng-show="editing">
               <form name="edit-entry" ng-submit="update(entryDouble)" ng-show="editing">
                 <input ng-model="entryDouble.description" >
                 <input ng-model="entryDouble.elapsed" type="number">
@@ -61,6 +62,7 @@
                 <input type="submit">
               </form>
             </div>
+
           </div>
         </div>
 

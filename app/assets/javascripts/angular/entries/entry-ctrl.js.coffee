@@ -11,6 +11,12 @@ angular.module("entries").
     $scope.pause = ->
       ZenTimer.pause()
 
+    $scope.toggleRunning = ->
+      if @entry.running
+        ZenTimer.pause()
+      else
+        ZenTimer.continue(@entry)
+
     $scope.toggleEdit = ->
       @entryDouble =
         elapsed: @entry.elapsed

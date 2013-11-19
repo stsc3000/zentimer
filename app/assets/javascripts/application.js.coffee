@@ -15,4 +15,5 @@
 #= require foundation
 #= require lodash
 #= require angular
+#= require angularjs-fittext.js
 #= require angular/app
