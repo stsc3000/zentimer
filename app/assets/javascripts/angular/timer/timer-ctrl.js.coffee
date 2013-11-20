@@ -13,4 +13,7 @@ angular.module("timer").
 
     $scope.jsonEntries = ->
       JSON.stringify(ZenTimer.entries)
+
+    $scope.delete = ->
+      @timer.deleteCurrent()
   )

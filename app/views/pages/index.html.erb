@@ -5,6 +5,7 @@
 
         <div class="row">
           <div class="timer-counter large-12 columns" ng-class="{paused: !timer.currentEntry.running, running: timer.currentEntry.running}" ng-click="toggle()"  fittext data-compressor="0.6">
+            <a><i id="timer-actions-delete" ng-show="!timer.currentEntry.running && timer.currentEntry.elapsed > 0" class="fa fa-times-circle fa-fw" ng-click="delete(); $event.stopPropagation();" ></i></a>
             <a class="timer-toggle">
 
               <i id="timer-actions-save" class="fa fa-check fa-fw" ng-show="timer.savable()" ng-click="save(); $event.stopPropagation()"></i>
@@ -48,20 +49,18 @@
           </div>
           <div class="row">
 
-            <div class="large-12 small-12 columns entry-description text-left" ng-click="toggleRunning()" ng-hide="editing">
-              <span ng-hide="editing">
-                {{ entry.description }}
-              </span>
+            <div class="large-12 small-12 columns entry-description text-left" ng-hide="editing">
+              <input ng-model="entry.description" class="description-edit">
             </div>
 
-            <div class="large-12 small-12 columns entry-description text-left" ng-show="editing">
-              <form name="edit-entry" ng-submit="update(entryDouble)" ng-show="editing">
-                <input ng-model="entryDouble.description" >
-                <input ng-model="entryDouble.elapsed" type="number">
-                <a ng-click="toggleEdit()">Cancel</a>
-                <input type="submit">
-              </form>
-            </div>
+            <%#<div class="large-12 small-12 columns entry-description text-left" ng-show="editing">%>
+              <%#<form name="edit-entry" ng-submit="update(entryDouble)" ng-show="editing">%>
+                <%#<input ng-model="entryDouble.description" class="description-edit">%>
+                <%#[><input ng-model="entryDouble.elapsed" type="number"><]%>
+                <%#<a ng-click="toggleEdit()">Cancel</a>%>
+                <%#<input type="submit">%>
+              <%#</form>%>
+            <%#</div>%>
 
           </div>
         </div>
