@@ -36,11 +36,11 @@
         <i class="entry-pause fa fa-pause fa-fw" ng-show="entry.running" ng-click="pause()"></i>
 
         <div class="">
-          <div style="display: table">
-            <div style="display: table-cell; vertical-align: top; padding-left: 5px;">
+          <div class="entry-top-level-row">
+            <div class="entry-top-level-row-elapsed-entry">
               <ti-elapsed-entry elapsed="entry.elapsed" disabled="entry.running" ></ti-elapsed-entry>
             </div>
-            <div style="display: table-cell; vertical-align: top">
+            <div class="entry-top-level-row-project-entry">
               <span>
                 <form name="dsadsa" class="entry-edit-project">
                   <i class="fa fa-square-o fa-fw"></i>
@@ -53,7 +53,8 @@
 
             <div class="entry-description text-left" style="padding-left: 5px;" >
               <form name="asdasd">
-                <input type="text" ng-model="entry.description" class="description-edit">
+                <a><i id="timer-actions-close-description" class="fa fa-times-circle fa-fw" ng-show="descriptionFocused" ng-click="descriptionFocused=false"></i></a>
+                <textarea type="text" ng-model="entry.description" class="description-edit" placeholder="..."></textarea>
               </form>
             </div>
 
@@ -69,9 +70,6 @@
           <div class="large-3 small-3 columns text-center">
           </div>
           <div class="large-3 small-3 columns text-center">
-            <a ng-click="toggleEdit()" ng-enter="toggleEdit()">
-              <i class="fa fa-edit fa-fw"></i>
-            </a>
           </div>
           <div class="large-3 small-3 columns text-center">
             <a ng-click="delete()">

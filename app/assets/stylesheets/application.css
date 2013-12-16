@@ -50,6 +50,7 @@ color: #ecf0f1;
   -moz-box-shadow: none;
   overflow: hidden;
 
+
 }
 
 #timer textarea {
@@ -62,7 +63,7 @@ color: #ecf0f1;
 
 .entry-description .description-edit {
   font-size: 2em;
-  width: 100%;
+  width: 90%;
   height: 1.5em;
 }
 
@@ -73,7 +74,6 @@ color: #ecf0f1;
 
 .entry-elapsed-form .elapsed-entry, .entry-edit-project .project-edit, .entry-description .description-edit {
   display: inline-block !important;
-  width: 80% !important;
   color: #ecf0f1;
   background-color: transparent !important;
   padding: 0;
@@ -86,10 +86,10 @@ color: #ecf0f1;
 
 .entry-elapsed-form .fa, .entry-edit-project .fa {
   float: left;
-  padding-top: 8px;
+  padding-top: 2px;
 }
 
-#timer textarea:focus {
+#timer textarea:focus, .description-edit:focus {
   height: 400px;
   overflow: scroll-y;
 }
@@ -242,4 +242,25 @@ color: #ecf0f1;
 
 form {
   margin: 0;
+}
+
+.entry-top-level-row {
+  display: table;
+}
+
+.entry-top-level-row-elapsed-entry {
+  padding-left: 5px;
+}
+.entry-top-level-row-project-entry, .entry-top-level-row-elapsed-entry {
+  display: table-cell;
+  vertical-align: top;
+}
+
+.entry-top-level-row-project-entry input, .entry-top-level-row-elapsed-entry input {
+  width: 80%;
+  height: 20px;
+}
+
+.description-edit {
+  transition: all 0.25s ease-in-out;
 }
