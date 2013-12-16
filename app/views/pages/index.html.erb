@@ -36,31 +36,26 @@
         <i class="entry-pause fa fa-pause fa-fw" ng-show="entry.running" ng-click="pause()"></i>
 
         <div class="">
-          <div class="">
-            <div class="large-6 small-6 columns text-left">
+          <div style="display: table">
+            <div style="display: table-cell; vertical-align: top; padding-left: 5px;">
               <ti-elapsed-entry elapsed="entry.elapsed" disabled="entry.running" ></ti-elapsed-entry>
             </div>
-            <div class="large-6 small-6 columns text-left ">
-              <form name="dsadsa" class="entry-edit-project">
-                <i class="fa fa-square-o fa-fw"></i>
-                <input ng-model="entry.project" class="project-edit" placeholder="Project">
-              </form>
+            <div style="display: table-cell; vertical-align: top">
+              <span>
+                <form name="dsadsa" class="entry-edit-project">
+                  <i class="fa fa-square-o fa-fw"></i>
+                  <input type="text" ng-model="entry.project" class="project-edit" placeholder="Project">
+                </form>
+              </span>
             </div>
           </div>
-          <div class="">
+          <div>
 
-            <div class="large-12 small-12 columns entry-description text-left" ng-hide="editing">
-              <input ng-model="entry.description" class="description-edit">
+            <div class="entry-description text-left" style="padding-left: 5px;" >
+              <form name="asdasd">
+                <input type="text" ng-model="entry.description" class="description-edit">
+              </form>
             </div>
-
-            <%#<div class="large-12 small-12 columns entry-description text-left" ng-show="editing">%>
-              <%#<form name="edit-entry" ng-submit="update(entryDouble)" ng-show="editing">%>
-                <%#<input ng-model="entryDouble.description" class="description-edit">%>
-                <%#[><input ng-model="entryDouble.elapsed" type="number"><]%>
-                <%#<a ng-click="toggleEdit()">Cancel</a>%>
-                <%#<input type="submit">%>
-              <%#</form>%>
-            <%#</div>%>
 
           </div>
         </div>
