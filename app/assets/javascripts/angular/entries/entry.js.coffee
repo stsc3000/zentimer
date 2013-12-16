@@ -33,6 +33,7 @@ angular.module("entries").
         @elapsed > 0 && !@running
 
       start: ->
+        @lastTick = new Date()
         @current = true
         @running = true
         Entry.save()

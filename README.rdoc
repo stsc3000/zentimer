@@ -3,4 +3,3 @@
 * Save upon mini form submissions
 * Cancel Entry Level Description Edit
 * Think about Tag Entry, ...
-* Fix logic on start ... lastTick does not count here!
