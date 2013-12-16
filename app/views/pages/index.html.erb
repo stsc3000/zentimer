@@ -23,9 +23,6 @@
           </div>
         </div>
 
-        <div class="timer-counter row">
-        </div>
-
       </div>
     </div>
   </div>
@@ -38,16 +35,19 @@
         <i class="entry-continue fa fa-play fa-fw" ng-hide="entry.running"  ng-click="continue()"></i>
         <i class="entry-pause fa fa-pause fa-fw" ng-show="entry.running" ng-click="pause()"></i>
 
-        <div class="large-10 small-10 columns">
-          <div class="row">
-            <div class="large-12 small-12 columns text-left">
-              <i class="fa fa-clock-o fa-fw"></i>
-              <ti-elapsed elapsed="entry.elapsed" > </ti-elapsed>
-              <i class="fa fa-square-o fa-fw"></i>
-              Project
+        <div class="">
+          <div class="">
+            <div class="large-6 small-6 columns text-left">
+              <ti-elapsed-entry elapsed="entry.elapsed" disabled="entry.running" ></ti-elapsed-entry>
+            </div>
+            <div class="large-6 small-6 columns text-left ">
+              <form name="dsadsa" class="entry-edit-project">
+                <i class="fa fa-square-o fa-fw"></i>
+                <input ng-model="entry.project" class="project-edit" placeholder="Project">
+              </form>
             </div>
           </div>
-          <div class="row">
+          <div class="">
 
             <div class="large-12 small-12 columns entry-description text-left" ng-hide="editing">
               <input ng-model="entry.description" class="description-edit">

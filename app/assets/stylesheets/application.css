@@ -13,6 +13,7 @@
  *= require_tree .
  *= require_self
  */
+
 body {
   background-color: #2c3e50;
   color: #ecf0f1;
@@ -39,7 +40,7 @@ color: #ecf0f1;
   color: #ecf0f1;
 }
 
-#timer textarea, .entry-description .description-edit {
+#timer textarea, .entry-description .description-edit, .entry-elapsed-form .elapsed-entry, .entry-elapsed-form .elapsed-entry:focus {
   border: none;
   overflow: auto;
   outline: none;
@@ -61,8 +62,30 @@ color: #ecf0f1;
 
 .entry-description .description-edit {
   font-size: 2em;
+  width: 100%;
+}
+
+.entry-description .description-edit, .entry-edit-project .project-edit {
   background-color: inherit;
   color: #ecf0f1;
+}
+
+.entry-elapsed-form .elapsed-entry, .entry-edit-project .project-edit {
+  display: inline-block !important;
+  width: 80% !important;
+  color: #ecf0f1;
+  background-color: transparent !important;
+  padding: 0;
+  margin: 0;
+}
+
+.entry-elapsed-form .elapsed-entry:focus, .entry-edit-project .project-edit {
+  border: 0;
+}
+
+.entry-elapsed-form .fa, .entry-edit-project .fa {
+  float: left;
+  padding-top: 8px;
 }
 
 #timer textarea:focus {
@@ -215,6 +238,3 @@ color: #ecf0f1;
   z-index: 5;
   right: 0px;
 }
-
-
-
