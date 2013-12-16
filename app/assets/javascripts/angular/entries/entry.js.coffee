@@ -3,24 +3,30 @@ angular.module("entries").
 
     defaultAttributes = 
       elapsed: 0
+      lastTick: new Date
       description: ""
       running: false
       runningSince: null
 
-    Entry = (attributes) ->
+    Entry = (attributes = {}) ->
       angular.extend(@, defaultAttributes)
+      attributes.lastTick = new Date(attributes.lastTick) if attributes.lastTick
       angular.extend(@, attributes)
-      if @runningSince
-        now = new Date
-        before = new Date(@runningSince)
-        @elapsed += Math.floor(now.getTime() / 1000)  - Math.floor( before.getTime() / 1000)
-        @runningSince = now
       @
 
     Entry.prototype = 
       increment:  (seconds = 1) ->
         @runningSince = new Date
-        @elapsed += seconds
+        @now = new Date()
+
+        if @lastTick
+          difference = Math.floor( (@now.getTime() - @lastTick.getTime()) / 1000 )
+          @elapsed += difference
+        else
+          @elapsed += 1
+
+        @lastTick = @now
+
         Entry.save()
 
       savable: ->
