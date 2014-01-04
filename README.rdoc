@@ -1,5 +1,6 @@
 == TODO
 
-* Save upon mini form submissions
 * Cancel Entry Level Description Edit
+* Add the ability to add unstarted entries, focus them for fast task entry
+
 * Think about Tag Entry, ...

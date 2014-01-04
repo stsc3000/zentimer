@@ -1,3 +1,8 @@
+pad = (n, width) ->
+  z = "0"
+  n = n + ""
+  (if n.length >= width then n else new Array(width - n.length + 1).join(z) + n)
+
 angular.module("app").
   directive("tiElapsedEntry", ->
     {
@@ -6,6 +11,7 @@ angular.module("app").
       template: '<span><form name="entry" class="entry-elapsed-form" ng-submit="save()">  <i class="fa fa-clock-o fa-fw"></i> <input class="elapsed-entry" ng-disabled="disabled" type="text" ng-model="time" ng-enter="save()"></input></form></span>'
       scope:
         elapsed: "=elapsed"
+        model: "=model"
         disabled: "=disabled"
       controller: ($scope) ->
 
@@ -21,16 +27,12 @@ angular.module("app").
 
           hours = time.pop()
           elapsed += parseInt(hours) * 3600 if hours
-          $scope.elapsed = elapsed
-          #$scope.entry.updateElapsed(elapsed)
+          $scope.model.elapsed = elapsed
+          $scope.model.persist()
 
           #$scope.persist(elapsed)
 
       link: ($scope) ->
-        pad = (n, width) ->
-          z = "0"
-          n = n + ""
-          (if n.length >= width then n else new Array(width - n.length + 1).join(z) + n)
 
         $scope.$watch "elapsed", (elapsed) ->
           if elapsed

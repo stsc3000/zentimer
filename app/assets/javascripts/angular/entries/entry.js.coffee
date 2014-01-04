@@ -47,6 +47,9 @@ angular.module("entries").
         @current = false
         @pause()
 
+      persist: ->
+        Entry.save()
+
       toggle: ->
         if @running then @pause() else @start()
 

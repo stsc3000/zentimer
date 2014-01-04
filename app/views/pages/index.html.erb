@@ -38,11 +38,11 @@
         <div class="">
           <div class="entry-top-level-row">
             <div class="entry-top-level-row-elapsed-entry">
-              <ti-elapsed-entry elapsed="entry.elapsed" disabled="entry.running" ></ti-elapsed-entry>
+              <ti-elapsed-entry model="entry" elapsed="entry.elapsed" disabled="entry.running" ></ti-elapsed-entry>
             </div>
             <div class="entry-top-level-row-project-entry">
               <span>
-                <form name="dsadsa" class="entry-edit-project">
+                <form name="entryProjectForm" class="entry-edit-project" ng-submit="entry.persist()">
                   <i class="fa fa-square-o fa-fw"></i>
                   <input type="text" ng-model="entry.project" class="project-edit" placeholder="Project">
                 </form>
