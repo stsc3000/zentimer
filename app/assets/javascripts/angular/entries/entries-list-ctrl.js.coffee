@@ -3,5 +3,8 @@ angular.module("entries").
     $scope.hasRunOnce = (entry) ->
       entry.elapsed > 0
 
+    $scope.addEntry = ->
+      ZenTimer.addEntry()
+
     $scope.entries = ZenTimer.entries
   )

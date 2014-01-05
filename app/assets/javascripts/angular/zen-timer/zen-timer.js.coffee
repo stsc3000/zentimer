@@ -50,6 +50,9 @@ angular.module("zen-timer").
           @createTempEntry()
         Entry.deleteEntry(entry)
 
+      addEntry: ->
+        Entry.createNewEntry(false)
+
 
     window.ZenTimer = ZenTimer
     ZenTimer

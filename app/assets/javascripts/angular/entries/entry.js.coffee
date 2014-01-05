@@ -62,9 +62,9 @@ angular.module("entries").
         entries = _.map(entries, (entry) -> new Entry(entry))
         angular.copy entries, @entries
 
-    Entry.createNewEntry = ->
+    Entry.createNewEntry = (current = true) ->
       entry = new Entry
-      entry.current = true
+      entry.current = current
       @entries.push(entry)
       entry
 

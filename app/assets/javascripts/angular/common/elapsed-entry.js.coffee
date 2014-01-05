@@ -30,8 +30,6 @@ angular.module("app").
           $scope.model.elapsed = elapsed
           $scope.model.persist()
 
-          #$scope.persist(elapsed)
-
       link: ($scope) ->
 
         $scope.$watch "elapsed", (elapsed) ->

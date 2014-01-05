@@ -264,3 +264,13 @@ form {
 .description-edit {
   transition: all 0.25s ease-in-out;
 }
+
+#add-entry {
+  margin-top: 20px;
+  padding: 20px;
+  transition: all 0.25s ease-in-out;
+}
+
+#add-entry:hover {
+  background-color: #34495e;
+}
