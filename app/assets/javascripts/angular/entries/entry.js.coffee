@@ -3,7 +3,7 @@ angular.module("entries").
 
     defaultAttributes = 
       elapsed: 0
-      lastTick: new Date
+      lastTick: null
       description: ""
       running: false
       runningSince: null
@@ -25,6 +25,7 @@ angular.module("entries").
         else
           @elapsed += 1
 
+        console.log @elapsed
         @lastTick = @now
 
         Entry.save()

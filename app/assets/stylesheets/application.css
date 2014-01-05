@@ -111,7 +111,7 @@ color: #ecf0f1;
   cursor: pointer;
 }
 
-.fa-play:hover, .fa-pause:hover, .fa-check:hover {
+.fa-play:hover, .fa-pause:hover, .fa-check:hover, .fa-trash-o:hover {
   color: #ecf0f1
 }
 
@@ -188,6 +188,8 @@ color: #ecf0f1;
 }
 
 #timer-actions-save, #timer-actions-pause {
+  position: absolute;
+  left: 0.5em;
   width: 1em
 }
 
@@ -237,9 +239,7 @@ color: #ecf0f1;
 
 #timer-actions-delete {
   position: absolute;
-  font-size: 0.5em;
-  z-index: 5;
-  right: 0px;
+  right: 0.5em;
 }
 
 form {
@@ -277,4 +277,48 @@ form {
 #add-entry:hover {
   background-color: rgba(44, 62, 80, 1);
   color: #ecf0f1;
+}
+
+.spinner {
+  position: absolute;
+  left: 0.5em;
+  width: 0.5em;
+  height: 0.5em;
+  margin: 0.25em;
+  opacity: 0;
+  background-color: #ecf0f1;
+  float: left;
+  border-radius: 100%;
+}
+
+.spinner.spinnerRunning {
+  -webkit-animation: scaleout 2.0s infinite ease-in-out;
+}
+
+@-webkit-keyframes scaleout {
+  0% { -webkit-transform: scale(0.0); opacity: 1; }
+  100% {
+    -webkit-transform: scale(2.0);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes scaledown {
+  0% { -webkit-transform: scale(2.0) }
+  100% {
+    -webkit-transform: scale(0.0);
+    opacity: 0.5;
+  }
+}
+
+
+@keyframes scaleout {
+  0% { 
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 100% {
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+    opacity: 0;
+  }
 }

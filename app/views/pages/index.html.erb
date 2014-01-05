@@ -5,12 +5,14 @@
 
         <div class="row">
           <div class="timer-counter large-12 columns" ng-class="{paused: !timer.currentEntry.running, running: timer.currentEntry.running}" ng-click="toggle()"  fittext data-compressor="0.6">
-            <a><i id="timer-actions-delete" ng-show="!timer.currentEntry.running && timer.currentEntry.elapsed > 0" class="fa fa-times-circle fa-fw" ng-click="delete(); $event.stopPropagation();" ></i></a>
             <a class="timer-toggle">
 
-              <i id="timer-actions-save" class="fa fa-check fa-fw" ng-show="timer.savable()" ng-click="save(); $event.stopPropagation()"></i>
-              <i id="timer-actions-pause" class="fa fa-clock-o fa-fw" ng-hide="timer.savable()"></i>
-              <ti-elapsed elapsed="timer.currentEntry.elapsed" > </ti-elapsed>
+              <div>
+                <div class="spinner" ng-class="{ spinnerPaused: !timer.currentEntry.running, spinnerRunning: timer.currentEntry.running }"></div>
+                <a><i id="timer-actions-delete" ng-show="!timer.currentEntry.running && timer.currentEntry.elapsed > 0" class="fa fa-trash-o fa-fw" ng-click="delete(); $event.stopPropagation();" ></i></a>
+                <a><i id="timer-actions-save" class="fa fa-check fa-fw" ng-show="timer.savable()" ng-click="save(); $event.stopPropagation()"></i></a>
+                <ti-elapsed elapsed="timer.currentEntry.elapsed" > </ti-elapsed>
+              </div>
             </a>
           </div>
         </div>
