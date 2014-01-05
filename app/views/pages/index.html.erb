@@ -4,7 +4,7 @@
       <div ng-controller="TimerCtrl" ng-init="timer.init()">
 
         <div class="row">
-          <div class="timer-counter large-12 columns" ng-class="{paused: !timer.currentEntry.running, running: timer.currentEntry.running}" ng-click="toggle()"  fittext data-compressor="{{ timer.currentEntry.elapsed > 3600 ? '0.75' : '0.6' }}">
+          <div class="timer-counter large-12 columns" ng-class="{paused: !timer.currentEntry.running, running: timer.currentEntry.running}" ng-click="toggle()"  fittext data-compressor="{{ timer.currentEntry.elapsed > 3600 ? '0.7' : '0.6' }}">
             <a class="timer-toggle">
 
               <div class="spinner" ng-class="{ spinnerPaused: !timer.currentEntry.running, spinnerRunning: timer.currentEntry.running }"></div>

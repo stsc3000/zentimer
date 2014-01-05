@@ -1,6 +1,4 @@
 == TODO
 
-* Cancel Entry Level Description Edit
-* Add the ability to add unstarted entries, focus them for fast task entry
-
+* Deploy to Heroku
 * Think about Tag Entry, ...
