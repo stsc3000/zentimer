@@ -8,6 +8,9 @@ angular.module("zen-timer").
         unless @currentEntry
           @currentEntry = Entry.currentEntry()
 
+      createTempEntry: ->
+        @currentEntry = Entry.tempEntry()
+
       createNewEntry: ->
         @currentEntry = Entry.createNewEntry()
 
@@ -18,9 +21,11 @@ angular.module("zen-timer").
         @currentEntry.pause()
 
       start: ->
+        @createNewEntry() if @currentEntry.temp
         @currentEntry.start()
 
       toggle: ->
+        @createNewEntry() if @currentEntry.temp
         @currentEntry.toggle()
 
       savable: ->
@@ -28,7 +33,7 @@ angular.module("zen-timer").
 
       save: ->
         @currentEntry.save()
-        @createNewEntry()
+        @createTempEntry()
 
       continue: (entry) ->
         @pause()
@@ -42,7 +47,7 @@ angular.module("zen-timer").
       delete: (entry) ->
         if entry == @currentEntry
           @pause()
-          @createNewEntry()
+          @createTempEntry()
         Entry.deleteEntry(entry)
 
 

@@ -30,7 +30,7 @@
 
 
 <div ng-controller="EntriesListCtrl">
-    <div class="row entry-row" ng-repeat="entry in entries | filter:hasRunOnce" ng-controller="EntryCtrl">
+    <div class="row entry-row" ng-repeat="entry in entries | orderBy:'lastTick':true" ng-controller="EntryCtrl">
       <div class="entry" style="display: table; width: 100%;">
         <i class="entry-continue fa fa-play fa-fw" ng-hide="entry.running"  ng-click="continue()"></i>
         <i class="entry-pause fa fa-pause fa-fw" ng-show="entry.running" ng-click="pause()"></i>

@@ -68,6 +68,9 @@ angular.module("entries").
       @entries.push(entry)
       entry
 
+    Entry.tempEntry = ->
+      return new Entry( temp: true )
+
     Entry.deleteEntry = (entry) ->
       _.remove(@entries, (searchEntry) -> searchEntry == entry)
       @save()
@@ -75,14 +78,11 @@ angular.module("entries").
     Entry.currentEntry = ->
       Entry.load()
       currentlyRunning = _.find(@entries, (entry) -> entry.current)
+
       if currentlyRunning
         return currentlyRunning
       else
-        newEntry = new Entry({current: true})
-        @entries.push(newEntry)
-        return newEntry
-
-
+        Entry.tempEntry()
 
     Entry.entries = []
 
