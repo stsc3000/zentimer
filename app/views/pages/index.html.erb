@@ -52,9 +52,9 @@
           <div>
 
             <div class="entry-description text-left" style="padding-left: 5px;" >
-              <form name="asdasd">
+              <form name="asdasd" style="position:relative">
                 <a><i id="timer-actions-close-description" class="fa fa-times-circle fa-fw" ng-show="descriptionFocused" ng-click="descriptionFocused=false"></i></a>
-                <textarea type="text" ng-model="entry.description" class="description-edit" placeholder="..."></textarea>
+                <textarea type="text" ng-model="entry.description" ng-focus="descriptionFocused=true" ng-blur="descriptionFocused=false" class="description-edit" placeholder="..."></textarea>
               </form>
             </div>
 
@@ -81,8 +81,8 @@
 
     </div>
 
-    <div class="row">
-      <a id="add-entry" class="large-12 columns text-center" style="font-size: 2em;" ng-click="addEntry()">
+    <div style="width: 100%; position:fixed; bottom: 0px;">
+      <a id="add-entry" class="large-12 columns text-center" style="font-size: 1.5em;" ng-click="addEntry()">
         <i class="fa fa-plus fa-fw"></i>
       </a>
     </div>

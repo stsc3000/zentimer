@@ -268,11 +268,13 @@ form {
 }
 
 #add-entry {
-  margin-top: 20px;
-  padding: 20px;
+  padding: 10px;
   transition: all 0.25s ease-in-out;
+  color: #bdc3c7;
+  background-color: rgba(44, 62, 80, 0.6);
 }
 
 #add-entry:hover {
-  background-color: #34495e;
+  background-color: rgba(44, 62, 80, 1);
+  color: #ecf0f1;
 }
