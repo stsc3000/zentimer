@@ -188,8 +188,6 @@ color: #ecf0f1;
 }
 
 #timer-actions-save, #timer-actions-pause {
-  position: absolute;
-  left: 0.5em;
   width: 1em
 }
 
@@ -236,12 +234,6 @@ color: #ecf0f1;
   top: 10px;
   right: 20px;
 }
-
-#timer-actions-delete {
-  position: absolute;
-  right: 0.5em;
-}
-
 form {
   margin: 0;
 }
