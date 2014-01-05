@@ -59,6 +59,7 @@ color: #ecf0f1;
   font-size: 3em;
   transition: all 0.25s ease-in-out;
   height: 90px;
+  margin-bottom: 0;
 }
 
 .entry-description .description-edit {
@@ -144,6 +145,7 @@ color: #ecf0f1;
 .entry-row {
   transition: all 0.25s ease-in-out;
   padding-top: 5px;
+  margin-top: 20px;
 }
 
 .entry-row:hover {
