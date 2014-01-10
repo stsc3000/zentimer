@@ -1,7 +1,7 @@
 <div id="timer">
   <div class="row">
     <div class="large-12 columns text-center">
-      <div ng-controller="TimerCtrl" ng-init="timer.init()">
+      <div ng-controller="ZenTimerCtrl" ng-init="timer.init()">
 
         <div class="row">
           <div class="timer-counter large-12 columns" ng-class="{paused: !timer.currentEntry.running, running: timer.currentEntry.running}" ng-click="toggle()"  fittext data-compressor="{{ timer.currentEntry.elapsed > 3600 ? '0.7' : '0.6' }}">
