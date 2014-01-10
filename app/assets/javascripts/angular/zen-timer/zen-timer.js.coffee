@@ -52,7 +52,8 @@ angular.module("zen-timer").
         Entry.createNewEntry(false)
 
       increment: ->
-        @currentEntry.increment()
+        if @running()
+          @currentEntry.increment()
 
 
     window.ZenTimer = ZenTimer

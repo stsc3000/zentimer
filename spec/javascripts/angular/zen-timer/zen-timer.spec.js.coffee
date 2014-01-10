@@ -97,7 +97,14 @@ describe "ZenTimer", ->
     ZenTimer.addEntry()
     sinon.assert.calledWith(Entry.createNewEntry, false)
 
-  it "increments the current entry", inject (ZenTimer) ->
+  it "increments the current entry if it is running", inject (ZenTimer) ->
+    sinon.stub(ZenTimer, "running").returns(true)
     sinon.stub(ZenTimer.currentEntry, 'increment')
     ZenTimer.increment()
     sinon.assert.called(ZenTimer.currentEntry.increment)
+
+  it "does not increment the current entry if it is not running", inject (ZenTimer) ->
+    sinon.stub(ZenTimer, "running").returns(false)
+    sinon.stub(ZenTimer.currentEntry, 'increment')
+    ZenTimer.increment()
+    sinon.assert.notCalled(ZenTimer.currentEntry.increment)
