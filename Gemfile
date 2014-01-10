@@ -40,6 +40,7 @@ group :doc do
 end
 
 #testing
+group :testing do
   # Guard
   gem 'guard-jasmine'
   gem "guard-bundler"
@@ -53,6 +54,8 @@ end
   gem "jasmine"
   gem "jasminerice", :git => 'https://github.com/bradphelan/jasminerice.git'
   gem "sinon-rails"
+
+end
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
