@@ -1,5 +1,6 @@
 angular.module("timer").
   controller("TimerCtrl", ($scope, ZenTimer) ->
+    ZenTimer.init()
     $scope.timer = ZenTimer
 
     $scope.save = () ->

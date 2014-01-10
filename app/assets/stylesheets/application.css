@@ -212,7 +212,7 @@ color: #ecf0f1;
 .running {
   -webkit-animation: highlight .5s ease-in 1;
   animation: highlight .5s ease-in 1;
-  background: #34495e;
+  /*background: #34495e;*/
 }
 
 .paused {
@@ -285,15 +285,16 @@ form {
 }
 
 .spinner.spinnerRunning {
-  -webkit-animation: scaleout 1.0s infinite ease-in-out;
+  -webkit-animation: scaleout 2.0s infinite ease-in-out;
 }
 
 @-webkit-keyframes scaleout {
-  0% { -webkit-transform: scale(0.0); opacity: 1; }
-  100% {
+  0% { -webkit-transform: scale(0.5); opacity: 1; }
+  50%% {
     -webkit-transform: scale(2.0);
-    opacity: 0;
+    opacity: 0.1;
   }
+  100% { -webkit-transform: scale(0.5); opacity: 1; }
 }
 
 @-webkit-keyframes scaledown {

@@ -25,7 +25,6 @@ angular.module("entries").
         else
           @elapsed += 1
 
-        console.log @elapsed
         @lastTick = @now
 
         Entry.save()
@@ -34,6 +33,7 @@ angular.module("entries").
         @elapsed > 0 && !@running
 
       start: ->
+        Entry.addEntry @
         @lastTick = new Date()
         @current = true
         @running = true
@@ -63,18 +63,20 @@ angular.module("entries").
         entries = _.map(entries, (entry) -> new Entry(entry))
         angular.copy entries, @entries
 
-    Entry.createNewEntry = (current = true) ->
-      entry = new Entry
-      entry.current = current
+    Entry.createNewEntry = (attributes) ->
+      entry = new Entry(attributes)
       @entries.push(entry)
       entry
 
-    Entry.tempEntry = ->
-      return new Entry( temp: true )
+    Entry.createTempEntry = ->
+      return new Entry()
 
     Entry.deleteEntry = (entry) ->
       _.remove(@entries, (searchEntry) -> searchEntry == entry)
       @save()
+
+    Entry.addEntry = (entry) ->
+      @entries.push(entry) unless _.include(@entries, entry)
 
     Entry.currentEntry = ->
       Entry.load()
@@ -83,7 +85,7 @@ angular.module("entries").
       if currentlyRunning
         return currentlyRunning
       else
-        Entry.tempEntry()
+        Entry.createTempEntry()
 
     Entry.entries = []
 

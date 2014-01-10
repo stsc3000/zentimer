@@ -9,7 +9,7 @@ angular.module("zen-timer").
           @currentEntry = Entry.currentEntry()
 
       createTempEntry: ->
-        @currentEntry = Entry.tempEntry()
+        @currentEntry = Entry.createTempEntry()
 
       createNewEntry: ->
         @currentEntry = Entry.createNewEntry()
@@ -17,19 +17,17 @@ angular.module("zen-timer").
       running: ->
         @currentEntry.running
 
+      savable: ->
+        @currentEntry.savable()
+
+      start: ->
+        @currentEntry.start()
+
       pause: ->
         @currentEntry.pause()
 
-      start: ->
-        @createNewEntry() if @currentEntry.temp
-        @currentEntry.start()
-
       toggle: ->
-        @createNewEntry() if @currentEntry.temp
         @currentEntry.toggle()
-
-      savable: ->
-        @currentEntry.savable()
 
       save: ->
         @currentEntry.save()
@@ -56,6 +54,4 @@ angular.module("zen-timer").
 
     window.ZenTimer = ZenTimer
     ZenTimer
-  ).run( (ZenTimer) ->
-    ZenTimer.init()
   )
