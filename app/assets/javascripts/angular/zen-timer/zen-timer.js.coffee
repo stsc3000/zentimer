@@ -51,6 +51,9 @@ angular.module("zen-timer").
       addEntry: ->
         Entry.createNewEntry(false)
 
+      increment: ->
+        @currentEntry.increment()
+
 
     window.ZenTimer = ZenTimer
     ZenTimer

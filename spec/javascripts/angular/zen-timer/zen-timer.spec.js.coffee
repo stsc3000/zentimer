@@ -8,6 +8,7 @@ describe "ZenTimer", ->
       createNewEntry: ->
       deleteEntry: ->
       currentEntry: ->
+        increment: ->
         start: ->
         pause: ->
         toggle: ->
@@ -96,19 +97,7 @@ describe "ZenTimer", ->
     ZenTimer.addEntry()
     sinon.assert.calledWith(Entry.createNewEntry, false)
 
-  #it "does not increment the entry if it is not running", ->
-    #inject ($timeout) ->
-      #sinon.stub(TimerService.currentEntry, "increment")
-      #TimerService.runLoop()
-      #$timeout.flush()
-      #sinon.assert.notCalled(TimerService.currentEntry.increment)
-
-  #it "increments the entry if it is running", ->
-    #inject ($timeout) ->
-      #sinon.stub(TimerService.currentEntry, "increment")
-      #TimerService.currentEntry.running = true
-      #TimerService.start()
-      #TimerService.runLoop()
-      #$timeout.flush()
-      #sinon.assert.calledOnce(TimerService.currentEntry.increment)
-
+  it "increments the current entry", inject (ZenTimer) ->
+    sinon.stub(ZenTimer.currentEntry, 'increment')
+    ZenTimer.increment()
+    sinon.assert.called(ZenTimer.currentEntry.increment)

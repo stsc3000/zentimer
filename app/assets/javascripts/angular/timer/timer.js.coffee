@@ -5,7 +5,7 @@ angular.module("timer").
       runLoop: ->
         $timeout ( =>
           if ZenTimer.running()
-            ZenTimer.currentEntry.increment()
+            ZenTimer.increment()
           @runLoop()
         ),1000
 
