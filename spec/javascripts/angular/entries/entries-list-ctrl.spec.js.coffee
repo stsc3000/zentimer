@@ -1,4 +1,4 @@
-describe "ZenTimerCtrl", ->
+describe "EntriesListCtrl", ->
 
   $scope = undefined
   $location = undefined
