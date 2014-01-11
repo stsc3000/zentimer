@@ -54,6 +54,9 @@ angular.module("entries").
       toggle: ->
         if @running then @pause() else @start()
 
+      hasRunOnce: ->
+        @elapsed > 0
+
     Entry.save = ->
       localStorage.setItem("entries", JSON.stringify(@entries))
 
