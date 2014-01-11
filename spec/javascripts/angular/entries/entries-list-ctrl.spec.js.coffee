@@ -5,7 +5,7 @@ describe "ZenTimerCtrl", ->
   $rootScope = undefined
   createController = undefined
 
-  beforeEach module("zen-timer")
+  beforeEach module("entries")
 
   beforeEach module(($provide) ->
     $provide.value "ZenTimer",
