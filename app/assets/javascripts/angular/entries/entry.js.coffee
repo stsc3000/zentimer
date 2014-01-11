@@ -14,10 +14,13 @@ angular.module("entries").
       angular.extend(@, attributes)
       @
 
+    Entry.nowDate = ->
+      new Date()
+
     Entry.prototype = 
       increment:  (seconds = 1) ->
-        @runningSince = new Date
-        @now = new Date()
+        @runningSince = Entry.nowDate()
+        @now = Entry.nowDate()
 
         if @lastTick
           difference = Math.floor( (@now.getTime() - @lastTick.getTime()) / 1000 )
@@ -30,13 +33,13 @@ angular.module("entries").
         Entry.save()
 
       savable: ->
-        @elapsed > 0 && !@running
+        @hasRunOnce() && !@running
 
       start: ->
-        Entry.addEntry @
-        @lastTick = new Date()
+        @lastTick = Entry.nowDate()
         @current = true
         @running = true
+        Entry.addEntry @
         Entry.save()
 
       pause: ->
@@ -58,10 +61,10 @@ angular.module("entries").
         @elapsed > 0
 
     Entry.save = ->
-      localStorage.setItem("entries", JSON.stringify(@entries))
+      Entry.storage().setItem("entries", JSON.stringify(@entries))
 
     Entry.load = ->
-      if (entriesJSON = localStorage.getItem("entries"))
+      if (entriesJSON = Entry.storage().getItem("entries"))
         entries = JSON.parse(entriesJSON)
         entries = _.map(entries, (entry) -> new Entry(entry))
         angular.copy entries, @entries
@@ -71,8 +74,8 @@ angular.module("entries").
       @entries.push(entry)
       entry
 
-    Entry.createTempEntry = ->
-      return new Entry()
+    Entry.createTempEntry =  (attributes) ->
+      return new Entry(attributes)
 
     Entry.deleteEntry = (entry) ->
       _.remove(@entries, (searchEntry) -> searchEntry == entry)
@@ -91,6 +94,9 @@ angular.module("entries").
         Entry.createTempEntry()
 
     Entry.entries = []
+
+    Entry.storage = ->
+      localStorage
 
     Entry
 
