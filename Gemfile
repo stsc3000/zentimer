@@ -40,7 +40,7 @@ group :doc do
 end
 
 #testing
-group :testing do
+group :development do
   # Guard
   gem 'guard-jasmine'
   gem "guard-bundler"
