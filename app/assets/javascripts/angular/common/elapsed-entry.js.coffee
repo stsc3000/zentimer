@@ -8,7 +8,12 @@ angular.module("app").
     {
       restrict: "E",
       replace: true,
-      template: '<span><form name="entry" class="entry-elapsed-form" ng-submit="save()">  <i class="fa fa-clock-o fa-fw"></i> <input class="elapsed-entry" ng-disabled="disabled" type="text" ng-model="time" ng-enter="save()"></input></form></span>'
+      template: '<span>
+                  <form name="entry" class="entry-elapsed-form" ng-submit="save()">
+                    <i class="fa fa-clock-o fa-fw"></i> 
+                    <input class="elapsed-entry" ng-disabled="disabled" type="text" ng-model="time" ng-enter="save()"></input>
+                  </form>
+                </span>'
       scope:
         elapsed: "=elapsed"
         model: "=model"

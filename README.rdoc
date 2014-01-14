@@ -1,4 +1,4 @@
 == TODO
 
-* Deploy to Heroku
+* Show sum
 * Think about Tag Entry, ...
