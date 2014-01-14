@@ -6,6 +6,7 @@ describe "EntriesListCtrl", ->
   createController = undefined
 
   beforeEach module("entries")
+  beforeEach module("app")
 
   beforeEach module(($provide) ->
     $provide.value "ZenTimer",
@@ -13,6 +14,7 @@ describe "EntriesListCtrl", ->
       totalElapsed: ->
       addEntry: ->
       init: ->
+      clear: ->
     return undefined
   )
 
@@ -44,6 +46,24 @@ describe "EntriesListCtrl", ->
     total = $scope.totalElapsed()
     sinon.assert.calledOnce(ZenTimer.totalElapsed)
     expect(total).toBe(10)
+
+  describe "clearing entries", ->
+    beforeEach inject (ZenTimer) ->
+      sinon.stub(ZenTimer, "clear")
+      sinon.restore(window.confirm)
+      sinon.stub(window, 'confirm')
+
+    it "clears all entries if confirmed", inject (ZenTimer) ->
+      window.confirm.returns(true)
+      controller = createController()
+      $scope.clear()
+      sinon.assert.calledOnce(ZenTimer.clear)
+
+    it "keeps all entries if not confirmed", inject (ZenTimer) ->
+      window.confirm.returns(false)
+      controller = createController()
+      $scope.clear()
+      sinon.assert.notCalled(ZenTimer.clear)
 
   it "knows when an entry has run once", ->
     entryThatHasNotRun = 

@@ -58,6 +58,9 @@ angular.module("zen-timer").
       totalElapsed: ->
         Entry.totalElapsed()
 
+      clear: ->
+        Entry.clear()
+
 
     window.ZenTimer = ZenTimer
     ZenTimer

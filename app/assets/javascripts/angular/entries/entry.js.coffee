@@ -96,6 +96,11 @@ angular.module("entries").
     Entry.totalElapsed = ->
       _.inject @entries, ((sum, entry) -> sum + entry.elapsed), 0
 
+    Entry.clear = ->
+        angular.copy [], @entries
+        Entry.save()
+
+
     Entry.entries = []
 
     Entry.storage = ->

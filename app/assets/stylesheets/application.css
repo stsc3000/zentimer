@@ -289,10 +289,18 @@ form {
 }
 
 #entries-total-elapsed {
+  font-size: 0.9em;
   right: 10px;
   position: absolute;
   line-height: 45px;
   color: #bdc3c7;
+}
+
+#entries-clear {
+  font-size: 0.9em;
+  left: 10px;
+  position: absolute;
+  line-height: 45px;
 }
 
 @-webkit-keyframes scaleout {

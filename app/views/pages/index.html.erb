@@ -86,9 +86,10 @@
       <a id="add-entry" class="large-12 columns text-center" style="font-size: 1.5em;" ng-click="addEntry()">
         <i class="fa fa-plus fa-fw"></i>
       </a>
-      <span id="entries-total-elapsed" class="">
-        Total: <ti-elapsed elapsed="totalElapsed()" > </ti-elapsed>
+      <span id="entries-total-elapsed">
+        <ti-elapsed elapsed="totalElapsed()" > </ti-elapsed>
       </span>
+      <a id="entries-clear" ng-click="clear()" class="fa fa-trash-o fa-fw" ng-show="entries.length > 0"> </a>
     </div>
 
   </div>

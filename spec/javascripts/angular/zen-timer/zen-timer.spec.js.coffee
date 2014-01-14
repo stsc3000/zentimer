@@ -8,6 +8,7 @@ describe "ZenTimer", ->
       totalElapsed: ->
       createNewEntry: ->
       deleteEntry: ->
+      clear: ->
       currentEntry: ->
         increment: ->
         start: ->
@@ -115,6 +116,13 @@ describe "ZenTimer", ->
     total = ZenTimer.totalElapsed()
     sinon.assert.called(Entry.totalElapsed)
     expect(total).toBe(10)
+
+  it "calculates the total elapsed sum", inject (ZenTimer, Entry) ->
+    sinon.stub(Entry, 'clear')
+    ZenTimer.clear()
+    sinon.assert.called(Entry.clear)
+
+
 
 
 

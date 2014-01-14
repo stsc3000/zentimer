@@ -9,5 +9,10 @@ angular.module("entries").
     $scope.totalElapsed = ->
       ZenTimer.totalElapsed()
 
+    $scope.clear = ->
+      question = "Are you sure you want to clear all entries?"
+      if window.confirm(question)
+        ZenTimer.clear()
+
     $scope.entries = ZenTimer.entries
   )
