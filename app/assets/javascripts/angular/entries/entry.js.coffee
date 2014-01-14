@@ -93,6 +93,9 @@ angular.module("entries").
       else
         Entry.createTempEntry()
 
+    Entry.totalElapsed = ->
+      _.inject @entries, ((sum, entry) -> sum + entry.elapsed), 0
+
     Entry.entries = []
 
     Entry.storage = ->

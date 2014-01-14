@@ -288,6 +288,13 @@ form {
   -webkit-animation: scaleout 2.0s infinite ease-in-out;
 }
 
+#entries-total-elapsed {
+  right: 10px;
+  position: absolute;
+  line-height: 45px;
+  color: #bdc3c7;
+}
+
 @-webkit-keyframes scaleout {
   0% { -webkit-transform: scale(0.5); opacity: 1; }
   50% {

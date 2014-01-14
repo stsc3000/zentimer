@@ -6,5 +6,8 @@ angular.module("entries").
     $scope.addEntry = ->
       ZenTimer.addEntry()
 
+    $scope.totalElapsed = ->
+      ZenTimer.totalElapsed()
+
     $scope.entries = ZenTimer.entries
   )

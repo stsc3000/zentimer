@@ -55,6 +55,9 @@ angular.module("zen-timer").
         if @running()
           @currentEntry.increment()
 
+      totalElapsed: ->
+        Entry.totalElapsed()
+
 
     window.ZenTimer = ZenTimer
     ZenTimer

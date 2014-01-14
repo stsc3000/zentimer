@@ -5,6 +5,7 @@ describe "ZenTimer", ->
   beforeEach module(($provide) ->
     $provide.value "Entry",
       createTempEntry: ->
+      totalElapsed: ->
       createNewEntry: ->
       deleteEntry: ->
       currentEntry: ->
@@ -108,3 +109,12 @@ describe "ZenTimer", ->
     sinon.stub(ZenTimer.currentEntry, 'increment')
     ZenTimer.increment()
     sinon.assert.notCalled(ZenTimer.currentEntry.increment)
+
+  it "calculates the total elapsed sum", inject (ZenTimer, Entry) ->
+    sinon.stub(Entry, 'totalElapsed').returns(10)
+    total = ZenTimer.totalElapsed()
+    sinon.assert.called(Entry.totalElapsed)
+    expect(total).toBe(10)
+
+
+

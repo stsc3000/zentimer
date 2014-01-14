@@ -182,6 +182,12 @@ describe "Entry", ->
   it "starts with empty entries", inject (Entry) ->
     expect(Entry.entries).toEqual([])
 
+  it "calculates the total elapsed of entries", inject (Entry) ->
+    an_entry = Entry.createNewEntry description: "an entry", elapsed: 10
+    another_entry = Entry.createNewEntry description: "an entry", elapsed: 30
+    expect(Entry.totalElapsed()).toEqual(40);
+
+
 
 
 

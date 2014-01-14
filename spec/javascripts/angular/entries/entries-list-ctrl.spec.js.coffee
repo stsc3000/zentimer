@@ -10,6 +10,7 @@ describe "EntriesListCtrl", ->
   beforeEach module(($provide) ->
     $provide.value "ZenTimer",
       entries: []
+      totalElapsed: ->
       addEntry: ->
       init: ->
     return undefined
@@ -35,6 +36,14 @@ describe "EntriesListCtrl", ->
     controller = createController()
     $scope.addEntry()
     sinon.assert.calledOnce(ZenTimer.addEntry)
+
+
+  it "calculates the entries sum", inject (ZenTimer) ->
+    sinon.stub(ZenTimer, "totalElapsed").returns(10)
+    controller = createController()
+    total = $scope.totalElapsed()
+    sinon.assert.calledOnce(ZenTimer.totalElapsed)
+    expect(total).toBe(10)
 
   it "knows when an entry has run once", ->
     entryThatHasNotRun = 
