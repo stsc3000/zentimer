@@ -341,3 +341,7 @@ form {
   width: 50px;
   font-size: 1.5em;
 }
+
+#entries-total-elapsed {
+  font-size: 1.5em;
+}
