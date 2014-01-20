@@ -63,11 +63,13 @@ angular.module("entries").
     Entry.save = ->
       Entry.storage().setItem("entries", JSON.stringify(@entries))
 
+
     Entry.load = ->
-      if (entriesJSON = Entry.storage().getItem("entries"))
+      if (!@loaded && entriesJSON = Entry.storage().getItem("entries"))
         entries = JSON.parse(entriesJSON)
         entries = _.map(entries, (entry) -> new Entry(entry))
         angular.copy entries, @entries
+      @loaded = true
 
     Entry.createNewEntry = (attributes) ->
       entry = new Entry(attributes)
@@ -97,9 +99,10 @@ angular.module("entries").
       _.inject @entries, ((sum, entry) -> sum + entry.elapsed), 0
 
     Entry.clear = ->
-        angular.copy [], @entries
-        Entry.save()
-
+      currentEntry = @currentEntry()
+      @entries.clear()
+      @entries[0] = currentEntry
+      Entry.save()
 
     Entry.entries = []
 
