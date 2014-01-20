@@ -187,8 +187,10 @@ color: #ecf0f1;
   padding-right: 0;
 }
 
+#timer-actions-save {
+  float: left;
+}
 #timer-actions-save, #timer-actions-pause {
-  width: 1em
 }
 
 @-webkit-keyframes highlight {   
@@ -273,14 +275,10 @@ form {
 }
 
 .spinner {
-  position: absolute;
-  left: 0.5em;
-  width: 0.5em;
-  height: 0.5em;
-  margin: 0.25em;
+  width: 1em;
+  height: 1em;
   opacity: 0;
   background-color: #ecf0f1;
-  float: left;
   border-radius: 100%;
 }
 
@@ -304,22 +302,13 @@ form {
 }
 
 @-webkit-keyframes scaleout {
-  0% { -webkit-transform: scale(0.5); opacity: 1; }
+  0% { -webkit-transform: scale(0.25); opacity: 1; }
   50% {
-    -webkit-transform: scale(2.0);
+    -webkit-transform: scale(1.0);
     opacity: 0.1;
   }
-  100% { -webkit-transform: scale(0.5); opacity: 1; }
+  100% { -webkit-transform: scale(0.25); opacity: 1; }
 }
-
-@-webkit-keyframes scaledown {
-  0% { -webkit-transform: scale(2.0) }
-  100% {
-    -webkit-transform: scale(0.0);
-    opacity: 0.5;
-  }
-}
-
 
 @keyframes scaleout {
   0% { 

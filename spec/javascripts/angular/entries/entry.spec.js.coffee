@@ -130,8 +130,19 @@ describe "Entry", ->
 
     expect(Entry.entries).toEqual([])
     Entry.load()
+    expect(Entry.loaded).toBeTruthy()
 
     expect(Entry.entries.length).toEqual(1)
+
+  it "doesnt load if it has already loaded", inject (Entry) ->
+    Entry.loaded = true
+    entriesJSON = JSON.stringify [description: "an entry"]
+    storage = { getItem: -> entriesJSON }
+    sinon.stub(Entry, 'storage').returns(storage)
+
+    expect(Entry.entries).toEqual([])
+    Entry.load()
+    expect(Entry.entries).toEqual([])
 
   it "creates a new Entry and pushes it to its collection", inject (Entry) ->
     entry = Entry.createNewEntry description: "an entry"
@@ -170,9 +181,9 @@ describe "Entry", ->
   it "loads and gets the current Entry", inject (Entry) ->
     sinon.stub(Entry, 'load')
     entry = Entry.createNewEntry description: "an entry", current: true
-
     expect(Entry.currentEntry()).toEqual(entry)
     sinon.assert.calledOnce(Entry.load)
+
 
   it "creates a temporary entry if there is no current Entry", inject (Entry) ->
     sinon.stub(Entry, 'load')
@@ -185,18 +196,19 @@ describe "Entry", ->
   describe "batch action", ->
     beforeEach inject (Entry) ->
       an_entry = Entry.createNewEntry description: "an entry", elapsed: 10
-      another_entry = Entry.createNewEntry description: "an entry", elapsed: 30
+      another_entry = Entry.createNewEntry description: "an entry", elapsed: 20
+      another_entry = Entry.createNewEntry description: "an entry", elapsed: 10, current: true
 
     it "calculates the total elapsed of entries", inject (Entry) ->
-      an_entry = Entry.createNewEntry description: "an entry", elapsed: 10
+      expect(Entry.totalElapsed()).toBe(40)
 
-    it "clears all entries", inject (Entry) ->
+    it "clears all entries but the current one", inject (Entry) ->
       sinon.stub(Entry, 'save')
-      expect(Entry.entries.length).toBe(2)
+      expect(Entry.entries.length).toBe(3)
 
       Entry.clear()
 
-      expect(Entry.entries.length).toBe(0)
+      expect(Entry.entries.length).toBe(1)
       sinon.assert.calledOnce(Entry.save)
 
 
