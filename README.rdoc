@@ -1,4 +1,6 @@
 == TODO
 
-* Show sum
+* list of allowed tags
+* archive
+* js snippet to insert into freckle
 * Think about Tag Entry, ...
