@@ -263,6 +263,7 @@ form {
 }
 
 #add-entry {
+  font-size: 1.5em;
   padding: 10px;
   transition: all 0.25s ease-in-out;
   color: #bdc3c7;
@@ -295,9 +296,9 @@ form {
 }
 
 #entries-clear {
+  font-size: 1.5em;
   width: 50px;
   display: block;
-  font-size: 0.9em;
   left: 10px;
   position: absolute;
   line-height: 45px;
@@ -334,4 +335,9 @@ form {
 
 #app-info-modal ul {
   list-style-position: inside;
+}
+
+#help-link {
+  width: 50px;
+  font-size: 1.5em;
 }
