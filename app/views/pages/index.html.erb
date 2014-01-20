@@ -91,17 +91,47 @@
       <a id="add-entry" class="large-12 columns text-center" style="font-size: 1.5em;" ng-click="addEntry()">
         <i class="fa fa-plus fa-fw"></i>
       </a>
-      <span id="entries-total-elapsed">
-        <a class="fa fa-question-circle fa-fw" ng-click="displayAppInfo = true"></a>
+      <span id="bottombar-right">
+        <span id="appInfo" ng-controller="helpCtrl">
+          <a class="fa fa-question-circle fa-fw" ng-click="displayAppInfo = true"></a>
+          <div id="app-info-modal" ti-reveal-modal="displayAppInfo" class="reveal-modal">
+            <h2>Welcome To ZenTimer.</h2>
+            <p>
+              <h3>Keyboard Shortcuts:</h3>
+              <ul>
+                <li>Ctrl-Y toggles the current entry.</li>
+                <li> &gt; saves the current entry and starts a new one.</li>
+              </ul>
+            </p>
+            <p>
+              <h3>Legal Tags:</h3>
+              <ul>
+                <li>Konzeption</li>
+                <li>Integration/Deployment</li>
+                <li>Testing</li>
+                <li>Qualitätssicherung</li>
+                <li>Nachbesserungen</li>
+                <li>Bugfixing</li>
+                <li>Refactoring</li>
+                <li>Projektkoordination</li>
+                <li>Support</li>
+                <li>Kunden-Meeting</li>
+                <li>Team-Meeting</li>
+                <li>Pair Programming</li>
+                <li>Cross-Browser</li>
+                <li>Infrastruktur</li>
+                <li>SEO</li>
+                <li>Conversion-Optimierung</li>
+                <li>Design</li>
+              </ul>
+            </p>
+            <a class="close-reveal-modal"ng-click="displayAppInfo = false">&#215;</a>
+          </div>
+        </span>
 
-        <div ti-reveal-modal="displayAppInfo" class="reveal-modal">
-          <h2>Awesome. I have it.</h2>
-          <p class="lead">Your couch.  It is mine.</p>
-          <p>Im a cool paragraph that lives inside of an even cooler modal. Wins</p>
-          <a class="close-reveal-modal"ng-click="displayAppInfo = false">&#215;</a>
-        </div>
-
-        <ti-elapsed elapsed="totalElapsed()" > </ti-elapsed>
+        <span id="entries-total-elapsed" >
+          <ti-elapsed elapsed="totalElapsed()" > </ti-elapsed>
+        </span>
       </span>
       <a id="entries-clear" ng-click="clear()" class="fa fa-trash-o fa-fw" ng-show="entries.length > 0"> </a>
     </div>

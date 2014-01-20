@@ -286,7 +286,7 @@ form {
   -webkit-animation: scaleout 2.0s infinite ease-in-out;
 }
 
-#entries-total-elapsed {
+#bottombar-right {
   font-size: 0.9em;
   right: 10px;
   position: absolute;
@@ -321,4 +321,17 @@ form {
     -webkit-transform: scale(1.0);
     opacity: 0;
   }
+}
+
+#app-info-modal {
+  background-color: #e67e22;
+  color: #ecf0f1;
+}
+
+#app-info-modal h1, h2, h3, h4, h5, h6{
+  color: #ecf0f1;
+}
+
+#app-info-modal ul {
+  list-style-position: inside;
 }
