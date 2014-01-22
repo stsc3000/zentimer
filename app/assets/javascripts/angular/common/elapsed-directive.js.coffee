@@ -16,7 +16,7 @@ angular.module("app").
           if elapsed
             $scope.hours = pad Math.floor( elapsed / Math.pow( 60, 2 )), 2
             $scope.minutes = pad Math.floor( elapsed / 60 ) % 60, 2
-            $scope.seconds = pad (elapsed % 60), 2
+            $scope.seconds = pad Math.floor(elapsed % 60), 2
           else
             $scope.hours = $scope.minutes = $scope.seconds = "00"
 

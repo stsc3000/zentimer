@@ -23,7 +23,7 @@ angular.module("entries").
         @now = Entry.nowDate()
 
         if @lastTick
-          difference = Math.floor( (@now.getTime() - @lastTick.getTime()) / 1000 )
+          difference = ( (@now.getTime() - @lastTick.getTime()) / 1000 )
           @elapsed += difference
         else
           @elapsed += 1
