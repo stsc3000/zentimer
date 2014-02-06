@@ -1,6 +1,7 @@
 == TODO
 
-* list of allowed tags
 * archive
 * js snippet to insert into freckle
+* json export
+* json bucket
 * Think about Tag Entry, ...
