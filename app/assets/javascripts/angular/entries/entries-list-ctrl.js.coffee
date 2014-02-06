@@ -11,8 +11,7 @@ angular.module("entries").
 
     $scope.clear = ->
       question = "Are you sure you want to clear all entries?"
-      if window.confirm(question)
-        ZenTimer.clear()
+      ZenTimer.clear() if window.confirm(question)
 
     $scope.entries = ZenTimer.entries
   )
