@@ -1,12 +1,11 @@
 angular.module("entries").
-  factory("Entry", ->
+  factory("Entry", ($timeout) ->
 
     defaultAttributes = 
       elapsed: 0
       lastTick: null
       description: ""
       running: false
-      runningSince: null
 
     Entry = (attributes = {}) ->
       angular.extend(@, defaultAttributes)
@@ -18,8 +17,7 @@ angular.module("entries").
       new Date()
 
     Entry.prototype = 
-      increment:  (seconds = 1) ->
-        @runningSince = Entry.nowDate()
+      increment: ->
         @now = Entry.nowDate()
 
         if @lastTick
@@ -41,15 +39,23 @@ angular.module("entries").
         @running = true
         Entry.addEntry @
         Entry.save()
+        @runLoop()
 
       pause: ->
         @running = false
-        @runningSince = false
         Entry.save()
 
       save: ->
         @current = false
         @pause()
+
+      runLoop: ->
+        $timeout ( =>
+          console.log("runLoop")
+          if @running
+            @increment()
+            @runLoop()
+        ), 1000
 
       persist: ->
         Entry.save()
@@ -91,6 +97,7 @@ angular.module("entries").
       currentlyRunning = _.find(@entries, (entry) -> entry.current)
 
       if currentlyRunning
+        currentlyRunning.runLoop()
         return currentlyRunning
       else
         Entry.createTempEntry()
@@ -109,6 +116,7 @@ angular.module("entries").
     Entry.storage = ->
       localStorage
 
+    window.entries = Entry.entries
     Entry
 
   )

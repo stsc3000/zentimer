@@ -1,1 +1,1 @@
-angular.module("zen-timer", ["timer", "entries"])
+angular.module("zen-timer", ["entries"])

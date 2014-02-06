@@ -10,7 +10,6 @@ describe "Entry", ->
     expect(entry.description).toBe("")
     expect(entry.lastTick).toBeFalsy()
     expect(entry.running).toBeFalsy()
-    expect(entry.runningSince).toBeFalsy()
 
   it "creates a new Entry with a date as last tick", inject (Entry) ->
     entry = new Entry(lastTick: "2012,12,12")
@@ -34,12 +33,6 @@ describe "Entry", ->
     entry = new Entry
     entry.increment()
     expect(entry.lastTick).toEqual(new Date("2012,12,12 12:00"))
-
-  it "sets the runningSince value to the currentTime after incrementing", inject (Entry) ->
-    sinon.stub(Entry, "nowDate").returns(new Date("2012,12,12 12:00"))
-    entry = new Entry
-    entry.increment()
-    expect(entry.runningSince).toEqual(new Date("2012,12,12 12:00"))
 
   it "is savable when it has run once but is not running", inject (Entry) ->
     entry = new Entry
@@ -65,11 +58,10 @@ describe "Entry", ->
   it "pauses an entry", inject (Entry) ->
     sinon.stub(Entry, 'save')
 
-    entry = new Entry(running: true, runningSince: "whatever")
+    entry = new Entry(running: true)
     entry.pause()
 
     expect(entry.running).toBeFalsy()
-    expect(entry.runningSince).toBeFalsy()
     sinon.assert.calledOnce(Entry.save)
 
   it "persists itself", inject (Entry) ->
