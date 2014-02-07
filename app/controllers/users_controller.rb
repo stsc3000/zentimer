@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.create
-    redirect_to @user
+    render json: { url: user_url(@user) }
   end
 
   def show

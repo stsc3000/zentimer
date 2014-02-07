@@ -9,8 +9,9 @@ describe UsersController do
       }.to change{ User.count }
     end
 
-    it "redirects to the user" do
-      expect(post :create).to redirect_to user_url(assigns(:user))
+    it "returns the user url" do
+      post :create
+      expect(JSON.parse(response.body)).to eq({ "url" => user_url(assigns(:user)) })
     end
 
   end
