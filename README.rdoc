@@ -1,7 +1,9 @@
 == TODO
 
-* archive
+* haml and multiple templates
 * js snippet to insert into freckle
 * json export
 * json bucket
+  * archive
+* copy to clipboard (what?)
 * Think about Tag Entry, ...
