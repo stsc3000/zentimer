@@ -30,6 +30,7 @@ gem 'lodash-rails'
 
 gem 'zurb-foundation'
 gem 'font-awesome-rails'
+gem 'pry-rails'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
