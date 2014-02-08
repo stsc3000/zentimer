@@ -6,8 +6,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by_token!(params[:token])
-    render "pages/index"
+    @user = current_user
+    respond_to do |format|
+      format.html { render "pages/index" }
+      format.json { render json: @user.to_json(only: :entries) }
+    end
   end
 
 end

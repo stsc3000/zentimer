@@ -17,6 +17,12 @@ describe UsersController do
   end
 
   context "#get show" do
-    it "returns the users json"
+    render_views
+
+    it "returns the users json" do
+      user = User.create
+      get :show, token: user.token, format: :json
+      expect(JSON.parse(response.body)).to eq({ "entries" => [] })
+    end
   end
 end
