@@ -1,5 +1,5 @@
 angular.module("entries").
-  factory("Entry", ($timeout) ->
+  factory("Entry", ($timeout, LocalStorageAdapter) ->
 
     defaultAttributes = 
       elapsed: 0
@@ -70,12 +70,15 @@ angular.module("entries").
       Entry.storage().setItem("entries", JSON.stringify(@entries))
 
 
-    Entry.load = ->
-      if (!@loaded && entriesJSON = Entry.storage().getItem("entries"))
-        entries = JSON.parse(entriesJSON)
-        entries = _.map(entries, (entry) -> new Entry(entry))
-        angular.copy entries, @entries
-      @loaded = true
+    Entry.load = (callback) ->
+      if !@loaded
+        Entry.storage().getItem "entries", (entriesJSON) ->
+          if entriesJSON
+            entries = JSON.parse(entriesJSON)
+            entries = _.map(entries, (entry) -> new Entry(entry))
+            angular.copy entries, @entries
+            @loaded = true
+            callback(@entries) if callback
 
     Entry.createNewEntry = (attributes) ->
       entry = new Entry(attributes)
@@ -114,7 +117,7 @@ angular.module("entries").
     Entry.entries = []
 
     Entry.storage = ->
-      localStorage
+      LocalStorageAdapter
 
     window.entries = Entry.entries
     Entry

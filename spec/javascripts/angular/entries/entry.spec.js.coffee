@@ -97,7 +97,7 @@ describe "Entry", ->
     entry.elapsed = 1
     expect(entry.hasRunOnce()).toBeTruthy()
 
-  it "saves entries to localStorage", inject (Entry) ->
+  it "saves entries to storage", inject (Entry) ->
     storage = { setItem: ->  }
     sinon.stub(storage, 'setItem')
     sinon.stub(Entry, 'storage').returns(storage)
@@ -107,24 +107,16 @@ describe "Entry", ->
 
     sinon.assert.calledWith(storage.setItem, "entries", '[{"description":"an Entry"}]')
 
-  it "does not load entries if there are none", inject (Entry) ->
-    storage = { getItem: -> undefined }
-    sinon.stub(Entry, 'storage').returns(storage)
-
-    Entry.load()
-
-    expect(Entry.entries).toEqual([])
-
-  it "does load entries from localStorage", inject (Entry) ->
+  it "does load entries from stroage", inject (Entry) ->
     entriesJSON = JSON.stringify [description: "an entry"]
     storage = { getItem: -> entriesJSON }
     sinon.stub(Entry, 'storage').returns(storage)
 
     expect(Entry.entries).toEqual([])
-    Entry.load()
-    expect(Entry.loaded).toBeTruthy()
+    Entry.load ->
+      expect(Entry.loaded).toBeTruthy()
 
-    expect(Entry.entries.length).toEqual(1)
+      expect(Entry.entries.length).toEqual(1)
 
   it "doesnt load if it has already loaded", inject (Entry) ->
     Entry.loaded = true
