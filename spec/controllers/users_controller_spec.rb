@@ -11,8 +11,12 @@ describe UsersController do
 
     it "returns the user url" do
       post :create
-      expect(JSON.parse(response.body)).to eq({ "url" => user_url(assigns(:user)) })
+      expect(JSON.parse(response.body)).to eq({ "url" => user_url(assigns(:user).token) })
     end
 
+  end
+
+  context "#get show" do
+    it "returns the users json"
   end
 end
