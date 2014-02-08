@@ -2,8 +2,8 @@ angular.module("entries").
   service("AjaxAdapter", ($http, user) ->
     {
       getItem: (key, callback) ->
-        item = window.localStorage.getItem(key)
-        callback(item) if callback
+        $http.get("/#{user.token}").success (response) ->
+          callback response[key]
 
       setItem: (key, value, callback) ->
         data = {}
