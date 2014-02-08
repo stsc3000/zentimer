@@ -91,6 +91,14 @@
       <a id="add-entry" class="large-12 columns text-center" style="font-size: 1.5em;" ng-click="addEntry()">
         <i class="fa fa-plus fa-fw"></i>
       </a>
+      <span ng-controller="CreateUserCtrl">
+        <span ng-if="user">
+          {{ user.token }}
+        </span>
+        <a id="create-user" ng-click="createUser()" ng-if="!user">
+          createUser
+        </a>
+      </span>
       <span id="bottombar-right">
         <span id="appInfo" ng-controller="helpCtrl">
           <a id="help-link" class="fa fa-question-circle fa-fw" ng-click="displayAppInfo = true"></a>
