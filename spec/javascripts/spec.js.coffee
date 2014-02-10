@@ -6,5 +6,5 @@
 #
 #=require ../../app/assets/javascripts/application
 #=require ./support/angular-mocks
-#=require sinon
+#=require sinon-1.8.1
 #=require_tree ./

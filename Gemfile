@@ -54,7 +54,6 @@ group :development do
   # Jasmine
   gem "jasmine"
   gem "jasminerice", :git => 'https://github.com/bradphelan/jasminerice.git'
-  gem "sinon-rails"
 
 end
 
