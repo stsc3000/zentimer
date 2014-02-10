@@ -14,9 +14,4 @@ describe User do
     expect(user).not_to be_valid
   end
 
-  it "has an empty array in entries by default" do
-    user = User.new
-    expect(user.entries).to eq([])
-  end
-
 end

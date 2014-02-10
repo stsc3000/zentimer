@@ -3,14 +3,6 @@ class User < ActiveRecord::Base
 
   validates :token, length: { is: 64 }
 
-  def entries
-    read_attribute(:entries).try(:[], "entries") || []
-  end
-
-  def entries=(entries_array)
-    write_attribute(:entries, { "entries" => entries_array })
-  end
-
   private
 
   def add_secure_token
