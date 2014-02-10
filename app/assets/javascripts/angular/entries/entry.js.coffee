@@ -1,5 +1,5 @@
 angular.module("entries").
-  factory("Entry", ($timeout, LocalStorageAdapter) ->
+  factory("Entry", ($timeout, LocalStorageAdapter, AjaxAdapter, user) ->
 
     defaultAttributes = 
       elapsed: 0
@@ -27,8 +27,6 @@ angular.module("entries").
           @elapsed += 1
 
         @lastTick = @now
-
-        Entry.save()
 
       savable: ->
         @hasRunOnce() && !@running
@@ -95,15 +93,17 @@ angular.module("entries").
     Entry.addEntry = (entry) ->
       @entries.push(entry) unless _.include(@entries, entry)
 
-    Entry.currentEntry = ->
-      Entry.load()
-      currentlyRunning = _.find(@entries, (entry) -> entry.current)
+    Entry.currentEntry = (callback) ->
+      Entry.load =>
+        currentlyRunning = _.find(@entries, (entry) -> entry.current)
 
-      if currentlyRunning
-        currentlyRunning.runLoop()
-        return currentlyRunning
-      else
-        Entry.createTempEntry()
+        if currentlyRunning
+          currentlyRunning.runLoop()
+          currentEntry = currentlyRunning
+        else
+          currentEntry = Entry.createTempEntry()
+        callback(currentEntry)
+
 
     Entry.totalElapsed = ->
       _.inject @entries, ((sum, entry) -> sum + entry.elapsed), 0
@@ -117,7 +117,11 @@ angular.module("entries").
     Entry.entries = []
 
     Entry.storage = ->
-      LocalStorageAdapter
+      if user
+        AjaxAdapter
+      else
+        LocalStorageAdapter
+
 
     window.entries = Entry.entries
     Entry

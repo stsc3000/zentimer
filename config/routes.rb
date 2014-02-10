@@ -1,6 +1,7 @@
 NgRailsTimeTracker::Application.routes.draw do
   root 'pages#index'
   get ':token' => 'users#show', as: :user
+  put ':token' => 'users#update', as: :update_user
   post 'users' => 'users#create'
 
   # The priority is based upon order of creation: first created -> highest priority.

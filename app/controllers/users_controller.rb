@@ -13,4 +13,16 @@ class UsersController < ApplicationController
     end
   end
 
+  def update
+    @user = current_user
+    @user.update user_parameters
+    render json: { status: "success" }
+  end
+
+  private
+
+  def user_parameters
+    params.require(:user).permit!
+  end
+
 end

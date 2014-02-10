@@ -24,5 +24,16 @@ describe UsersController do
       get :show, token: user.token, format: :json
       expect(JSON.parse(response.body)).to eq({ "entries" => [] })
     end
+
+  end
+
+  context "#put update" do
+    render_views
+
+    it "updates the users entries" do
+      user = User.create
+      put :update, user: { entries: [{ "name" => "myEntry"}] }, token: user.token, format: :json
+      expect(user.reload.entries).to eq([{ "name" => "myEntry"}])
+    end
   end
 end

@@ -1,31 +1,35 @@
 describe "ZenTimer", ->
+  currentEntry = null
+  currentEntryStub = null
+
+  beforeEach ->
+    currentEntryStub =
+      increment: ->
+      start: ->
+      pause: ->
+      toggle: ->
+      running: "running"
+      savable: -> "savable"
+      save: ->
+      current: true
 
   beforeEach module "zen-timer"
 
   beforeEach module(($provide) ->
+    currentEntry = sinon.stub()
     $provide.value "Entry",
       createTempEntry: ->
       totalElapsed: ->
       createNewEntry: ->
       deleteEntry: ->
       clear: ->
-      currentEntry: ->
-        increment: ->
-        start: ->
-        pause: ->
-        toggle: ->
-        running: "running"
-        savable: -> "savable"
-        save: ->
-        current: true
+      currentEntry: currentEntry
     return undefined
   )
 
   beforeEach inject (ZenTimer) ->
     ZenTimer.init()
-
-  it "has default values", inject (ZenTimer) ->
-    expect(ZenTimer.currentEntry).toBeTruthy()
+    currentEntry.yield(currentEntryStub)
 
   it "creates a tempEntry", inject (ZenTimer, Entry) ->
     sinon.stub(Entry, "createTempEntry")

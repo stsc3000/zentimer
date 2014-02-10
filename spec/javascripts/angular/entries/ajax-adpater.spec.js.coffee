@@ -28,20 +28,11 @@ describe "AjaxAdapter", ->
   describe "getting entries", ->
     beforeEach inject ($injector) ->
       $httpBackend = $injector.get('$httpBackend')
-      $httpBackend.when("GET", "/1234").respond({entries: []})
+      $httpBackend.when("GET", "/1234.json").respond({entries: []})
 
     it "gets entries via ajax", inject (AjaxAdapter) ->
-      $httpBackend.expectGET('/1234')
+      $httpBackend.expectGET('/1234.json')
       callback = sinon.spy()
       AjaxAdapter.getItem "entries", callback
       $httpBackend.flush()
       sinon.assert.calledWith callback, []
-
-
-
-
-  #it "reads entries from localstorage", inject (LocalStorageAdapter) ->
-    #localStorage.setItem("foo", "bar")
-    #LocalStorageAdapter.getItem "foo", (foo) ->
-      #expect(foo).toEqual("bar")
-

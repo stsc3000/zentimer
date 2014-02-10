@@ -2,7 +2,7 @@ angular.module("entries").
   service("AjaxAdapter", ($http, user) ->
     {
       getItem: (key, callback) ->
-        $http.get("/#{user.token}").success (response) ->
+        $http.get("/#{user.token}.json").success (response) ->
           callback response[key]
 
       setItem: (key, value, callback) ->

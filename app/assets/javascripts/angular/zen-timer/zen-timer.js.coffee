@@ -5,8 +5,8 @@ angular.module("zen-timer").
       addEntry: Entry.addEntry
 
       init: ->
-        unless @currentEntry
-          @currentEntry = Entry.currentEntry()
+        Entry.currentEntry (currentEntry) =>
+          @currentEntry = currentEntry
 
       createTempEntry: ->
         @currentEntry = Entry.createTempEntry()
@@ -15,19 +15,19 @@ angular.module("zen-timer").
         @currentEntry = Entry.createNewEntry()
 
       running: ->
-        @currentEntry.running
+        @currentEntry.running if @currentEntry
 
       savable: ->
-        @currentEntry.savable()
+        @currentEntry.savable() if @currentEntry
 
       start: ->
-        @currentEntry.start()
+        @currentEntry.start() if @currentEntry
 
       pause: ->
-        @currentEntry.pause()
+        @currentEntry.pause() if @currentEntry
 
       toggle: ->
-        @currentEntry.toggle()
+        @currentEntry.toggle() if @currentEntry
 
       save: ->
         @currentEntry.save()

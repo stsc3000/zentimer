@@ -4,6 +4,11 @@ describe "Entry", ->
   beforeEach ->
     localStorage.clear()
 
+  beforeEach module(($provide) ->
+    $provide.value "user", undefined
+    return undefined
+  )
+
   it "creates a new Entry with default instance values", inject (Entry) ->
     entry = new Entry
     expect(entry.elapsed).toBe(0)
@@ -165,8 +170,10 @@ describe "Entry", ->
   it "loads and gets the current Entry", inject (Entry) ->
     sinon.stub(Entry, 'load')
     entry = Entry.createNewEntry description: "an entry", current: true
-    expect(Entry.currentEntry()).toEqual(entry)
-    sinon.assert.calledOnce(Entry.load)
+    Entry.currentEntry (currentEntry) ->
+      expect(currentEntry).toEqual(entry)
+      sinon.assert.calledOnce(Entry.load)
+    Entry.load.yield()
 
 
   it "creates a temporary entry if there is no current Entry", inject (Entry) ->
