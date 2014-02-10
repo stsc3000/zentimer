@@ -28,11 +28,11 @@ describe "AjaxAdapter", ->
   describe "getting entries", ->
     beforeEach inject ($injector) ->
       $httpBackend = $injector.get('$httpBackend')
-      $httpBackend.when("GET", "/1234.json").respond({entries: []})
+      $httpBackend.when("GET", "/1234.json").respond({entries: '{ "foo": "bar" }'})
 
     it "gets entries via ajax", inject (AjaxAdapter) ->
       $httpBackend.expectGET('/1234.json')
       callback = sinon.spy()
       AjaxAdapter.getItem "entries", callback
       $httpBackend.flush()
-      sinon.assert.calledWith callback, []
+      sinon.assert.calledWith callback, { foo: "bar" }

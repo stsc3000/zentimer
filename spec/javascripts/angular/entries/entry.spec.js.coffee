@@ -16,9 +16,11 @@ describe "Entry", ->
     expect(entry.lastTick).toBeFalsy()
     expect(entry.running).toBeFalsy()
 
-  it "creates a new Entry with a date as last tick", inject (Entry) ->
-    entry = new Entry(lastTick: "2012,12,12")
-    expect(entry.lastTick).toEqual(new Date("2012,12,12"))
+  it "updates a new Entry to its current elapsed value if there is a last tick", inject (Entry) ->
+    sinon.stub(Entry, "nowDate").returns(new Date("2012,12,12 12:01"))
+    entry = new Entry(lastTick: "2012,12,12 12:00")
+    expect(entry.elapsed).toEqual(60)
+
 
   it "increments a new Entry by a second", inject (Entry) ->
     entry = new Entry
@@ -27,10 +29,16 @@ describe "Entry", ->
     expect(entry.elapsed).toEqual(1)
 
   it "increments an existing Entry by the difference from its lastTick and now", inject (Entry) ->
+    nowDate = sinon.stub(Entry, "nowDate")
+    nowDate.onCall(0).returns(new Date("2012,12,12 12:00"))
+    nowDate.onCall(1).returns(new Date("2012,12,12 12:01"))
+
     entry = new Entry(lastTick: "2012,12,12 12:00")
-    sinon.stub(Entry, "nowDate").returns(new Date("2012,12,12 12:01"))
+
     expect(entry.elapsed).toEqual(0)
+
     entry.increment()
+
     expect(entry.elapsed).toEqual(60)
 
   it "sets the lastTick to the currentTime after incrementing", inject (Entry) ->

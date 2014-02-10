@@ -11,22 +11,38 @@ angular.module("entries").
       angular.extend(@, defaultAttributes)
       attributes.lastTick = new Date(attributes.lastTick) if attributes.lastTick
       angular.extend(@, attributes)
+
+      if @lastTick
+        @beforeTick()
+        @updateLastTickDifference()
+        @tickDone(@now)
+
       @
 
     Entry.nowDate = ->
       new Date()
 
     Entry.prototype = 
-      increment: ->
+
+      beforeTick: ->
         @now = Entry.nowDate()
 
+      tickDone: (now) ->
+        @lastTick = now
+
+      increment: ->
+        @beforeTick()
+
         if @lastTick
-          difference = ( (@now.getTime() - @lastTick.getTime()) / 1000 )
-          @elapsed += difference
+          @updateLastTickDifference()
         else
           @elapsed += 1
 
-        @lastTick = @now
+        @tickDone(@now)
+
+      updateLastTickDifference: ->
+        difference = ( (@now.getTime() - @lastTick.getTime()) / 1000 )
+        @elapsed += difference
 
       savable: ->
         @hasRunOnce() && !@running
@@ -108,10 +124,10 @@ angular.module("entries").
       _.inject @entries, ((sum, entry) -> sum + entry.elapsed), 0
 
     Entry.clear = ->
-      currentEntry = @currentEntry()
-      @entries.clear()
-      @entries[0] = currentEntry
-      Entry.save()
+      currentEntry = @currentEntry (currentEntry) =>
+        @entries.clear()
+        @entries[0] = currentEntry
+        Entry.save()
 
     Entry.entries = []
 

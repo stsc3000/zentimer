@@ -9,7 +9,7 @@ describe "LocalStorageAdapter", ->
     expect(localStorage.getItem("foo")).toEqual("bar")
 
   it "reads entries from localstorage", inject (LocalStorageAdapter) ->
-    localStorage.setItem("foo", "bar")
+    localStorage.setItem("foo", '{ "bar": true }')
     LocalStorageAdapter.getItem "foo", (foo) ->
-      expect(foo).toEqual("bar")
+      expect(foo).toEqual({ bar: true })
 
