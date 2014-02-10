@@ -5,6 +5,5 @@
 * json export
 * json bucket
   * archive
-* save on blur
 * copy to clipboard (what?)
 * Think about Tag Entry, ...

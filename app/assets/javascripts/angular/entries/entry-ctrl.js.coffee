@@ -15,4 +15,7 @@ angular.module("entries").
       else
         ZenTimer.continue(@entry)
 
+    $scope.persist = ->
+      @entry.persist()
+
   )

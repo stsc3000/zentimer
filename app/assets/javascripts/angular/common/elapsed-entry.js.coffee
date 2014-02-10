@@ -11,7 +11,7 @@ angular.module("app").
       template: '<span>
                   <form name="entry" class="entry-elapsed-form" ng-submit="save()">
                     <i class="fa fa-clock-o fa-fw"></i> 
-                    <input class="elapsed-entry" ng-disabled="disabled" type="text" ng-model="time" ng-enter="save()"></input>
+                    <input class="elapsed-entry" ng-disabled="disabled" type="text" ng-model="time" ng-enter="save()" ng-blur="save()"></input>
                   </form>
                 </span>'
       scope:
