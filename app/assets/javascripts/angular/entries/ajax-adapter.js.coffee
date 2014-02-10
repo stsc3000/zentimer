@@ -3,7 +3,7 @@ angular.module("entries").
     {
       getItem: (key, callback) ->
         $http.get("/#{user.token}.json").success (response) ->
-          callback response[key]
+          callback JSON.parse(response[key])
 
       setItem: (key, value, callback) ->
         data = {}

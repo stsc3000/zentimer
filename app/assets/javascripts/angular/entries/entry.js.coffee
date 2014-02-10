@@ -70,13 +70,12 @@ angular.module("entries").
 
     Entry.load = (callback) ->
       if !@loaded
-        Entry.storage().getItem "entries", (entriesJSON) ->
-          if entriesJSON
-            entries = JSON.parse(entriesJSON)
+        Entry.storage().getItem "entries", (entries) ->
+          if entries
             entries = _.map(entries, (entry) -> new Entry(entry))
             angular.copy entries, @entries
             @loaded = true
-            callback(@entries) if callback
+          callback(@entries) if callback
 
     Entry.createNewEntry = (attributes) ->
       entry = new Entry(attributes)
