@@ -32,8 +32,7 @@ gem 'zurb-foundation'
 gem 'font-awesome-rails'
 gem 'pry-rails'
 
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 1.2'
+gem 'active_model_serializers'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
