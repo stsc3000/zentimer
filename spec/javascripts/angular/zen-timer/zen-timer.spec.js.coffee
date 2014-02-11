@@ -10,7 +10,7 @@ describe "ZenTimer", ->
       toggle: ->
       running: "running"
       savable: -> "savable"
-      save: ->
+      done: ->
       current: true
 
   beforeEach module "zen-timer"
@@ -62,15 +62,15 @@ describe "ZenTimer", ->
     ZenTimer.toggle()
     sinon.assert.calledOnce(ZenTimer.currentEntry.toggle)
 
-  it "saves an entry", inject (ZenTimer) ->
+  it "dones an entry", inject (ZenTimer) ->
     currentEntry = ZenTimer.currentEntry
-    sinon.stub(ZenTimer.currentEntry, "save")
-    ZenTimer.save()
-    sinon.assert.calledOnce(currentEntry.save)
+    sinon.stub(ZenTimer.currentEntry, "done")
+    ZenTimer.done()
+    sinon.assert.calledOnce(currentEntry.done)
 
-  it "creates a temporary entry when saved", inject (ZenTimer) ->
+  it "creates a temporary entry when done", inject (ZenTimer) ->
     sinon.stub(ZenTimer, "createTempEntry")
-    ZenTimer.save()
+    ZenTimer.done()
     sinon.assert.calledOnce(ZenTimer.createTempEntry)
 
   it "continues an entry", inject (ZenTimer) ->

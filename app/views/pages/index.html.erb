@@ -7,7 +7,7 @@
           <div class="timer-counter large-12 columns" ng-class="{paused: !timer.currentEntry.running, running: timer.currentEntry.running}" ng-click="toggle()"  fittext data-compressor="{{ timer.currentEntry.elapsed > 3600 ? '0.7' : '0.6' }}">
             <div id="left-from-timer" class="text-left" style="float:left; width: 20%; min-height: 1px">
               <%#<div class="spinner" ng-class="{ spinnerPaused: !timer.currentEntry.running, spinnerRunning: timer.currentEntry.running }" ng-show="timer.currentEntry.running"></div>%>
-              <a><i id="timer-actions-save" class="fa fa-check fa-fw" ng-show="timer.savable()" ng-click="save(); $event.stopPropagation()"></i></a>
+              <a><i id="timer-actions-save" class="fa fa-check fa-fw" ng-show="timer.savable()" ng-click="done(); $event.stopPropagation()"></i></a>
             </div>
             <a class="timer-toggle" style="float:left; display: block; width: 60%;">
 

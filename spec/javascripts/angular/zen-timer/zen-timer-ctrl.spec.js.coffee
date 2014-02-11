@@ -10,7 +10,7 @@ describe "ZenTimerCtrl", ->
   beforeEach module(($provide) ->
     $provide.value "ZenTimer",
       init: ->
-      save: ->
+      done: ->
       toggle: ->
       savable: ->
       deleteCurrent: ->
@@ -37,11 +37,11 @@ describe "ZenTimerCtrl", ->
     controller = createController()
     expect($scope.timer).toEqual(ZenTimer)
 
-  it "should save an entry", inject (ZenTimer) ->
-    sinon.stub(ZenTimer, 'save')
+  it "should done an entry", inject (ZenTimer) ->
+    sinon.stub(ZenTimer, 'done')
     controller = createController()
-    $scope.save()
-    sinon.assert.calledOnce(ZenTimer.save)
+    $scope.done()
+    sinon.assert.calledOnce(ZenTimer.done)
 
   it "should toggle an entry", inject (ZenTimer) ->
     sinon.stub(ZenTimer, 'toggle')
@@ -52,7 +52,7 @@ describe "ZenTimerCtrl", ->
   it "should know when to show a save Button", inject (ZenTimer) ->
     sinon.stub(ZenTimer, 'savable').returns(true)
     controller = createController()
-    expect($scope.showSaveButton()).toBeTruthy()
+    expect($scope.showDoneButton()).toBeTruthy()
 
   it "should delete the current entry", inject (ZenTimer) ->
     sinon.stub(ZenTimer, 'deleteCurrent')

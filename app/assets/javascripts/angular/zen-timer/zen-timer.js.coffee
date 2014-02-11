@@ -29,8 +29,8 @@ angular.module("zen-timer").
       toggle: ->
         @currentEntry.toggle() if @currentEntry
 
-      save: ->
-        @currentEntry.save()
+      done: ->
+        @currentEntry.done()
         @createTempEntry()
 
       continue: (entry) ->

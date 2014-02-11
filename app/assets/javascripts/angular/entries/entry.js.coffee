@@ -12,7 +12,7 @@ angular.module("entries").
       attributes.lastTick = new Date(attributes.lastTick) if attributes.lastTick
       angular.extend(@, attributes)
 
-      if @lastTick
+      if @lastTick && @running
         @beforeTick()
         @updateLastTickDifference()
         @tickDone(@now)
@@ -59,7 +59,7 @@ angular.module("entries").
         @running = false
         Entry.save()
 
-      save: ->
+      done: ->
         @current = false
         @pause()
 

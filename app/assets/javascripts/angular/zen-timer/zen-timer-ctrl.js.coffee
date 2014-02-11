@@ -3,13 +3,13 @@ angular.module("zen-timer").
     ZenTimer.init()
     $scope.timer = ZenTimer
 
-    $scope.save = () ->
-      @timer.save()
+    $scope.done = () ->
+      @timer.done()
 
     $scope.toggle = ->
       @timer.toggle()
 
-    $scope.showSaveButton = ->
+    $scope.showDoneButton = ->
       @timer.savable()
 
     $scope.delete = ->
@@ -19,5 +19,5 @@ angular.module("zen-timer").
       event.ctrlKey && $scope.toggle()
 
     $scope.$on 'keypress:62', (whateverThisIs, event) ->
-      event.shiftKey && $scope.save() && $scope.toggle()
+      event.shiftKey && $scope.done() && $scope.toggle()
   )
