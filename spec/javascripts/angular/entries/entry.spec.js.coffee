@@ -18,7 +18,7 @@ describe "Entry", ->
 
   it "updates a new Entry to its current elapsed value if there is a last tick", inject (Entry) ->
     sinon.stub(Entry, "nowDate").returns(new Date("2012,12,12 12:01"))
-    entry = new Entry(lastTick: "2012,12,12 12:00")
+    entry = new Entry(lastTick: "2012,12,12 12:00", running: true)
     expect(entry.elapsed).toEqual(60)
 
 
@@ -33,7 +33,7 @@ describe "Entry", ->
     nowDate.onCall(0).returns(new Date("2012,12,12 12:00"))
     nowDate.onCall(1).returns(new Date("2012,12,12 12:01"))
 
-    entry = new Entry(lastTick: "2012,12,12 12:00")
+    entry = new Entry(lastTick: "2012,12,12 12:00", running: true)
 
     expect(entry.elapsed).toEqual(0)
 
