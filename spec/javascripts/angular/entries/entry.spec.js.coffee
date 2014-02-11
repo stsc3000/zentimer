@@ -111,27 +111,32 @@ describe "Entry", ->
     expect(entry.hasRunOnce()).toBeTruthy()
 
   it "saves entries to storage", inject (Entry) ->
-    storage = { setItem: ->  }
-    sinon.stub(storage, 'setItem')
+    entry = new Entry
+    storage = { save: ->  }
+    sinon.stub(storage, 'save')
     sinon.stub(Entry, 'storage').returns(storage)
-    Entry.entries = [{description: "an Entry"}]
 
-    Entry.save()
+    Entry.save(entry)
 
-    sinon.assert.calledWith(storage.setItem, "entries", '[{"description":"an Entry"}]')
+    sinon.assert.calledWith(storage.save, entry)
 
-  it "does load entries from stroage", inject (Entry) ->
-    entriesJSON = JSON.stringify [description: "an entry"]
-    storage = { getItem: -> entriesJSON }
+  it "does load entries from stroage", inject (Entry, $rootScope, $q) ->
+    entries = [description: "an entry"]
+
+    deferred = $q.defer()
+    deferred.resolve(entries)
+
+    storage = { index: -> deferred.promise }
     sinon.stub(Entry, 'storage').returns(storage)
 
     expect(Entry.entries).toEqual([])
-    Entry.load ->
-      expect(Entry.loaded).toBeTruthy()
+    Entry.load()
+    $rootScope.$apply()
 
-      expect(Entry.entries.length).toEqual(1)
+    expect(Entry.loaded).toBeTruthy()
+    expect(Entry.entries.length).toEqual(1)
 
-  it "doesnt load if it has already loaded", inject (Entry) ->
+  it "doesnt load if it has already loaded", inject (Entry, $rootScope) ->
     Entry.loaded = true
     entriesJSON = JSON.stringify [description: "an entry"]
     storage = { getItem: -> entriesJSON }
@@ -139,6 +144,8 @@ describe "Entry", ->
 
     expect(Entry.entries).toEqual([])
     Entry.load()
+    $rootScope.$apply()
+
     expect(Entry.entries).toEqual([])
 
   it "creates a new Entry and pushes it to its collection", inject (Entry) ->
@@ -149,15 +156,14 @@ describe "Entry", ->
     entry = Entry.createTempEntry description: "an entry"
     expect(Entry.entries).toEqual([])
 
-  it "deletes an entry", inject (Entry) ->
+  it "deletes an entry", inject (Entry, $rootScope) ->
     entry = Entry.createNewEntry description: "an entry"
-    sinon.stub(Entry, 'save')
     expect(Entry.entries[0]).toEqual(entry)
 
     Entry.deleteEntry(entry)
+    $rootScope.$apply()
 
     expect(Entry.entries).toEqual([])
-    sinon.assert.calledOnce(Entry.save)
 
   it "adds a new Entry to the collection", inject (Entry) ->
     entry = Entry.createTempEntry description: "an entry"
@@ -201,11 +207,12 @@ describe "Entry", ->
     it "calculates the total elapsed of entries", inject (Entry) ->
       expect(Entry.totalElapsed()).toBe(40)
 
-    it "clears all entries but the current one", inject (Entry) ->
+    it "clears all entries but the current one", inject (Entry, $rootScope) ->
       sinon.stub(Entry, 'save')
       expect(Entry.entries.length).toBe(3)
 
       Entry.clear()
+      $rootScope.$apply()
 
       expect(Entry.entries.length).toBe(1)
       sinon.assert.calledOnce(Entry.save)

@@ -41,7 +41,9 @@ describe "LocalStorageAdapter", ->
 
     LocalStorageAdapter.index().then (entries) ->
       expect(entries.length).toEqual(2)
-      expect(entries[0].id).toEqual(12)
+      expect(entries[0].id).toEqual("12")
+
+    $rootScope.$apply()
 
   it "deletes an entry", inject (LocalStorageAdapter, $rootScope) ->
     window.localStorage.setItem "entries", JSON.stringify [
@@ -54,12 +56,15 @@ describe "LocalStorageAdapter", ->
       expect(entries.length).toEqual(1)
       expect(entries[0].id).toEqual("13")
 
-  #it "sets entries in localstorage", inject (LocalStorageAdapter) ->
-    #LocalStorageAdapter.setItem("foo", "bar")
-    #expect(localStorage.getItem("foo")).toEqual("bar")
+    $rootScope.$apply()
 
-  #it "reads entries from localstorage", inject (LocalStorageAdapter) ->
-    #localStorage.setItem("foo", '{ "bar": true }')
-    #LocalStorageAdapter.getItem "foo", (foo) ->
-      #expect(foo).toEqual({ bar: true })
+  it "clears all entries", inject (LocalStorageAdapter, $rootScope) ->
+    window.localStorage.setItem "entries", JSON.stringify [
+      { id: "12", description: "whatever" }, { id: "13", description: "some other entry" }
+    ]
+
+    LocalStorageAdapter.clear().then (entries) ->
+      expect(entries.length).toEqual(0)
+
+    $rootScope.$apply()
 

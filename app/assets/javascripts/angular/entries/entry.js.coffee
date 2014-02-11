@@ -23,6 +23,13 @@ angular.module("entries").
       new Date()
 
     Entry.prototype = 
+      toJSON: ->
+        elapsed: @elapsed
+        lastTick: @lastTick
+        description: @description
+        current: @current
+        running: @running
+        id: @id
 
       beforeTick: ->
         @now = Entry.nowDate()
@@ -52,12 +59,12 @@ angular.module("entries").
         @current = true
         @running = true
         Entry.addEntry @
-        Entry.save()
+        Entry.save(@)
         @runLoop()
 
       pause: ->
         @running = false
-        Entry.save()
+        Entry.save(@)
 
       done: ->
         @current = false
@@ -72,7 +79,7 @@ angular.module("entries").
         ), 1000
 
       persist: ->
-        Entry.save()
+        Entry.save(@)
 
       toggle: ->
         if @running then @pause() else @start()
@@ -80,18 +87,20 @@ angular.module("entries").
       hasRunOnce: ->
         @elapsed > 0
 
-    Entry.save = ->
-      Entry.storage().setItem("entries", JSON.stringify(@entries))
-
+    Entry.save = (entry) ->
+      Entry.storage().save(entry)
 
     Entry.load = (callback) ->
+      that = @
       if !@loaded
-        Entry.storage().getItem "entries", (entries) ->
+        Entry.storage().index().then (entries) =>
           if entries
             entries = _.map(entries, (entry) -> new Entry(entry))
-            angular.copy entries, @entries
-            @loaded = true
-          callback(@entries) if callback
+            angular.copy entries, that.entries
+            that.loaded = true
+            callback(@entries) if callback
+      else
+        callback(@entries) if callback
 
     Entry.createNewEntry = (attributes) ->
       entry = new Entry(attributes)
@@ -102,15 +111,15 @@ angular.module("entries").
       return new Entry(attributes)
 
     Entry.deleteEntry = (entry) ->
+      Entry.storage().delete(entry)
       _.remove(@entries, (searchEntry) -> searchEntry == entry)
-      @save()
 
     Entry.addEntry = (entry) ->
       @entries.push(entry) unless _.include(@entries, entry)
 
     Entry.currentEntry = (callback) ->
       Entry.load =>
-        currentlyRunning = _.find(@entries, (entry) -> entry.current)
+        currentlyRunning = Entry.currentlyRunning()
 
         if currentlyRunning
           currentlyRunning.runLoop()
@@ -119,15 +128,19 @@ angular.module("entries").
           currentEntry = Entry.createTempEntry()
         callback(currentEntry)
 
+    Entry.currentlyRunning = ->
+      _.find(@entries, (entry) -> entry.current)
 
     Entry.totalElapsed = ->
       _.inject @entries, ((sum, entry) -> sum + entry.elapsed), 0
 
     Entry.clear = ->
-      currentEntry = @currentEntry (currentEntry) =>
-        @entries.clear()
-        @entries[0] = currentEntry
-        Entry.save()
+      that = @
+      currentlyRunning = Entry.currentlyRunning()
+      LocalStorageAdapter.clear().then =>
+        that.entries.clear()
+        that.entries[0] = currentlyRunning if currentlyRunning
+        currentlyRunning.persist()
 
     Entry.entries = []
 

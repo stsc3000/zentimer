@@ -295,13 +295,17 @@ form {
   color: #bdc3c7;
 }
 
-#entries-clear {
+#left-icons {
+  position: absolute;
+  left: 10px;
+}
+
+#entries-clear, #create-user {
   font-size: 1.5em;
   width: 50px;
   display: block;
-  left: 10px;
-  position: absolute;
   line-height: 45px;
+  float:left;
 }
 
 @-webkit-keyframes scaleout {
