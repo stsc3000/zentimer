@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   after_initialize :add_secure_token
+  has_many :entries, dependent: :destroy, inverse_of: :user
 
   validates :token, length: { is: 64 }
 
