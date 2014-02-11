@@ -26,6 +26,12 @@ class EntriesController < ApplicationController
     render json: { status: "success" }
   end
 
+  def clear
+    @entries = current_user!.entries.where("running is not true")
+    @entries.destroy_all
+    render json: { status: "success" }
+  end
+
   private
 
   def entry_params

@@ -1,9 +1,11 @@
 NgRailsTimeTracker::Application.routes.draw do
   root 'pages#index'
+
+  resources :entries do
+    delete '/', to: :clear, on: :collection
+  end
   get ':token' => 'users#show', as: :user
   post 'users' => 'users#create'
-
-  resources :entries
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

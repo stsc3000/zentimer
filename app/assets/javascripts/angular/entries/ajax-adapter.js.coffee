@@ -5,7 +5,7 @@ angular.module("entries").
         console.log "save", entry
         deferred = $q.defer()
         @saveRequest(entry).success (response) =>
-          _.assign entry, response.entry
+          entry.assign response.entry
           deferred.resolve(entry)
         deferred.promise
 

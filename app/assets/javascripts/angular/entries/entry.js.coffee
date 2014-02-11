@@ -31,6 +31,10 @@ angular.module("entries").
         running: @running
         id: @id
 
+      assign: (attributes) ->
+        attributes.lastTick = new Date(attributes.lastTick) if attributes.lastTick
+        _.assign(@, attributes)
+
       beforeTick: ->
         @now = Entry.nowDate()
 
@@ -105,6 +109,7 @@ angular.module("entries").
     Entry.createNewEntry = (attributes) ->
       entry = new Entry(attributes)
       @entries.push(entry)
+      Entry.save(entry)
       entry
 
     Entry.createTempEntry =  (attributes) ->
@@ -137,10 +142,11 @@ angular.module("entries").
     Entry.clear = ->
       that = @
       currentlyRunning = Entry.currentlyRunning()
-      LocalStorageAdapter.clear().then =>
+      Entry.storage().clear().then =>
         that.entries.clear()
-        that.entries[0] = currentlyRunning if currentlyRunning
-        currentlyRunning.persist()
+        if currentlyRunning
+          that.entries[0] = currentlyRunning if currentlyRunning
+          currentlyRunning.persist()
 
     Entry.entries = []
 

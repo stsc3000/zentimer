@@ -129,4 +129,17 @@ describe EntriesController do
       expect(json_response).to eq({ status: "success" })
     end
   end
+
+  context "DELETE #index" do
+    it "clears all entries that are not running" do
+      @user.entries.create(description: "its running", running: true)
+      @user.entries.create(description: "my description")
+
+      expect {
+        delete :clear, token: @user.token
+      }.to change{Entry.count}.from(2).to(1)
+
+      expect(Entry.first.description).to eq("its running")
+    end
+  end
 end
