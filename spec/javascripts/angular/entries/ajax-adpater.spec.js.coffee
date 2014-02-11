@@ -13,26 +13,74 @@ describe "AjaxAdapter", ->
     $httpBackend.verifyNoOutstandingExpectation()
     $httpBackend.verifyNoOutstandingRequest()
 
-  describe "setting entries", ->
+  describe "creating entries", ->
     beforeEach inject ($injector) ->
       $httpBackend = $injector.get('$httpBackend')
-      $httpBackend.when("PUT", "/1234").respond({status: "success"})
+      $httpBackend.when("POST", "/entries").respond({ entry: { id: "1", description: "whatever" } })
 
-    it "sets entries via ajax", inject (AjaxAdapter) ->
-      $httpBackend.expectPUT('/1234', { foo: "bar" })
-      callback = sinon.spy()
-      AjaxAdapter.setItem "foo", "bar", callback
+    it "creates entries via ajax", inject (AjaxAdapter, $rootScope) ->
+      $httpBackend.expectPOST('/entries', { entry: { description: "whatever"}, token: 1234 })
+      entry = { toJSON: -> { description: "whatever"} }
+
+      AjaxAdapter.save(entry).then (entry) ->
+        expect(entry.id).toEqual("1")
+
       $httpBackend.flush()
-      sinon.assert.calledWith callback, { status: "success" }
+      $rootScope.$apply()
 
-  describe "getting entries", ->
+  describe "updating entries", ->
     beforeEach inject ($injector) ->
       $httpBackend = $injector.get('$httpBackend')
-      $httpBackend.when("GET", "/1234.json").respond({entries: '{ "foo": "bar" }'})
+      $httpBackend.when("PUT", "/entries/1").respond({ entry: { id: "1", description: "an updated description" } })
 
-    it "gets entries via ajax", inject (AjaxAdapter) ->
-      $httpBackend.expectGET('/1234.json')
-      callback = sinon.spy()
-      AjaxAdapter.getItem "entries", callback
+    it "updates entries via ajax", inject (AjaxAdapter, $rootScope) ->
+      $httpBackend.expectPUT('/entries/1', { entry: { id: 1,  description: "whatever"}, token: 1234 })
+      entry = { id: 1,  toJSON: -> { id: 1, description: "whatever"} }
+
+      AjaxAdapter.save(entry).then (entry) ->
+        expect(entry.description).toEqual("an updated description")
+
       $httpBackend.flush()
-      sinon.assert.calledWith callback, { foo: "bar" }
+      $rootScope.$apply()
+
+  describe "index entries", ->
+    beforeEach inject ($injector) ->
+      $httpBackend = $injector.get('$httpBackend')
+      $httpBackend.when("GET", "/entries?token=#{1234}").respond({ entries: [{ id: "1", description: "an updated description" }] })
+
+    it "loads all entries", inject (AjaxAdapter, $rootScope) ->
+      $httpBackend.expectGET("/entries?token=#{1234}")
+
+      AjaxAdapter.index().then (entries) ->
+        expect(entries.length).toEqual(1)
+        expect(entries[0].id).toEqual("1")
+
+      $httpBackend.flush()
+      $rootScope.$apply()
+
+  describe "deleting entry", ->
+    beforeEach inject ($injector) ->
+      $httpBackend = $injector.get('$httpBackend')
+      $httpBackend.when("DELETE", "/entries/1?token=1234").respond({ success: "true" })
+
+    it "deletes an entry", inject (AjaxAdapter, $rootScope) ->
+      $httpBackend.expectDELETE("/entries/1?token=1234")
+      entry = { id: "1", toJSON: -> { description: "description"} }
+
+      AjaxAdapter.delete(entry)
+
+      $httpBackend.flush()
+      $rootScope.$apply()
+
+  describe "clearing all entries", ->
+    beforeEach inject ($injector) ->
+      $httpBackend = $injector.get('$httpBackend')
+      $httpBackend.when("DELETE", "/entries?token=1234").respond({ success: "true" })
+
+    it "clears all entries", inject (AjaxAdapter, $rootScope) ->
+      $httpBackend.expectDELETE("/entries?token=1234")
+
+      AjaxAdapter.clear()
+
+      $httpBackend.flush()
+      $rootScope.$apply()
