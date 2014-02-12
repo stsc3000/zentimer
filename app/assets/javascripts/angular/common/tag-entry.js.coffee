@@ -5,7 +5,7 @@ angular.module("app").
       replace: true,
       template: '<div class="tags-entry">
                   <ul data-role="tags" class="tags">
-                    <li ng-repeat="tag in targetValue">{{ tag }} <i class="fa fa-times-circle fa-fw"class="fa fa-times-circle fa-fw"></i> </li>
+                    <ti-tag ng-repeat="tag in targetValue" tag="tag"></ti-tag>
                   </ul>
                   <input data-role="tag-entry" class="tag-entry"></input>
                   <div style="clear:both"></div>
@@ -13,8 +13,18 @@ angular.module("app").
       scope:
         targetValue: "=on"
 
+      controller: ($scope) ->
+        $scope.removeTag = (tag) ->
+          $scope.targetValue.splice _.indexOf($scope.targetValue, _.find($scope.targetValue, (item) ->
+            item is tag
+          )), 1
+        $scope
+
       link: ($scope, el) ->
         input = el.find("[data-role=tag-entry]")
+
+        el.click ->
+          input.focus()
 
         el.keyup (event) ->
           #press backspace
