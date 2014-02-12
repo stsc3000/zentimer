@@ -79,7 +79,6 @@ angular.module("entries").
 
       runLoop: ->
         $timeout ( =>
-          console.log("runLoop")
           if @running
             @increment()
             @runLoop()

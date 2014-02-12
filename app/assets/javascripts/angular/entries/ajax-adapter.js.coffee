@@ -2,7 +2,6 @@ angular.module("entries").
   service("AjaxAdapter", ($http, $q, user) ->
     {
       save: (entry) ->
-        console.log "save", entry
         deferred = $q.defer()
         @saveRequest(entry).success (response) =>
           entry.assign response.entry
