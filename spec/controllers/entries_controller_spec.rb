@@ -16,7 +16,7 @@ describe EntriesController do
           [{:id=>entry.id,
             :elapsed=>nil,
             :lastTick=>nil,
-            :description=>nil,
+            :description=>[],
             :running=>nil,
             :current=>nil}
           ]
@@ -33,7 +33,7 @@ describe EntriesController do
           entry: {:id=>entry.id,
                   :elapsed=>nil,
                   :lastTick=>nil,
-                  :description=>nil,
+                  :description=>[],
                   :running=>nil,
                   :current=>nil}
         }
@@ -47,7 +47,7 @@ describe EntriesController do
       params = {
         :elapsed=>10,
         :lastTick=>"2012,12,12",
-        :description=>"a description",
+        :description=>["a description"],
         :running=>true,
         :current=>true
       }
@@ -60,7 +60,7 @@ describe EntriesController do
       params = {
         :elapsed=>10,
         :lastTick=>"2012-12-12",
-        :description=>"a description",
+        :description=>["a description"],
         :running=>true,
         :current=>true
       }
@@ -71,7 +71,7 @@ describe EntriesController do
           {:id=>entry_id,
           :elapsed=>10,
           :lastTick=>"2012-12-12T00:00:00Z",
-          :description=>"a description",
+          :description=>["a description"],
           :running=>true,
           :current=>true}
         }
@@ -83,23 +83,23 @@ describe EntriesController do
   context "PUT #update" do
 
     it "updates an entry" do
-      entry = @user.entries.create(description: "my description")
+      entry = @user.entries.create(description: ["my description"])
 
       params = {
-        description: "new description"
+        description: ["new description"]
       }
 
       expect {
         put :update, id: entry.id, entry: params, token: @user.token
-      }.to change{entry.reload.description}.to("new description")
+      }.to change{entry.reload.description}.to(["new description"])
 
     end
 
     it "renders the entry" do
-      entry = @user.entries.create(description: "my description")
+      entry = @user.entries.create(description: ["my description"])
 
       params = {
-        description: "new description"
+        description: ["new description"]
       }
 
       put :update, id: entry.id, entry: params, token: @user.token
@@ -109,7 +109,7 @@ describe EntriesController do
           {:id=>entry.id,
           :elapsed=> nil,
           :lastTick=> nil,
-          :description=>"new description",
+          :description=>["new description"],
           :running=>nil,
           :current=>nil}
         }
@@ -120,7 +120,7 @@ describe EntriesController do
 
   context "DELETE #destroy" do
     it "destroys the entry" do
-      entry = @user.entries.create(description: "my description")
+      entry = @user.entries.create(description: ["my description"])
 
       expect {
         delete :destroy, id: entry.id, token: @user.token
@@ -132,14 +132,14 @@ describe EntriesController do
 
   context "DELETE #index" do
     it "clears all entries that are not running" do
-      @user.entries.create(description: "its running", running: true)
-      @user.entries.create(description: "my description")
+      @user.entries.create(description: ["its running"], running: true)
+      @user.entries.create(description: ["my description"])
 
       expect {
         delete :clear, token: @user.token
       }.to change{Entry.count}.from(2).to(1)
 
-      expect(Entry.first.description).to eq("its running")
+      expect(Entry.first.description).to eq(["its running"])
     end
   end
 end

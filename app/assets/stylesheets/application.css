@@ -360,9 +360,10 @@ form {
   border: none;
   color: #fff;
   box-shadow: none;
-  padding: 10px;
-  margin: 10px;
+  margin-top: 10px;
+  margin-left: 10px;
   outline: none;
+  line-height: 45px;
 }
 
 .tags li {
@@ -370,6 +371,26 @@ form {
   float: left;
   padding: 10px;
   margin: 10px;
+  margin-right: 0;
   color: #fff;
   background-color: #2c3e50;
+}
+
+.entry .tags-entry {
+  background-color: inherit;
+  position: relative;
+  top: -10px;
+}
+
+.entry .tags-entry .tag-entry {
+  background-color: inherit;
+  margin-left: 10px;
+  margin-top: 0px;
+}
+
+.entry .tags li {
+  margin: 0;
+  margin-left: 10px;
+  background-color: #2c3e50;
+
 }

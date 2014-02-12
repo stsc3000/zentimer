@@ -12,12 +12,14 @@ angular.module("app").
                 </div>'
       scope:
         targetValue: "=on"
+        update: "&"
 
       controller: ($scope) ->
         $scope.removeTag = (tag) ->
           $scope.targetValue.splice _.indexOf($scope.targetValue, _.find($scope.targetValue, (item) ->
             item is tag
           )), 1
+          $scope.update()
         $scope
 
       link: ($scope, el) ->
@@ -30,12 +32,14 @@ angular.module("app").
           #press backspace
           if event.keyCode == 8 && input.val() == ""
             $scope.targetValue.pop()
+            $scope.update()
           #press , or enter
           if event.keyCode == 188 || event.keyCode == 13
             tag = input.val().replace(",","")
             unless _.include($scope.targetValue, tag) || !tag
               $scope.targetValue.push(tag)
             input.val("")
+            $scope.update()
           $scope.$apply()
 
     }

@@ -31,7 +31,7 @@
               <%#<input type="text"></input>%>
               <%#<div style="clear: both"></div>%>
             <%#</div>%>
-            <ti-tag-entry on="timer.currentEntry.description"></ti-tag-entry>
+            <ti-tag-entry on="timer.currentEntry.description" update="timer.currentEntry.persist()"></ti-tag-entry>
             <%#<textarea placeholder="..." ng-model="timer.currentEntry.description" ng-focus="descriptionFocused=true" ng-blur="descriptionFocused=false; persistCurrentEntry()"></textarea>%>
           </div>
         </div>
@@ -62,18 +62,14 @@
               </span>
             </div>
           </div>
-          <div>
 
-            <div class="entry-description text-left" style="padding-left: 5px;" >
 
-              <ti-tag-entry on="entry.description"></ti-tag-entry>
+              <ti-tag-entry on="entry.description" update="entry.persist()"></ti-tag-entry>
               <%#<form name="asdasd" style="position:relative">%>
                 <%#<a><i id="timer-actions-close-description" class="fa fa-times-circle fa-fw" ng-show="descriptionFocused" ng-click="descriptionFocused=false"></i></a>%>
                 <%#<textarea type="text" ng-model="entry.description" ng-focus="descriptionFocused=true" ng-blur="descriptionFocused=false; persist()" class="description-edit" placeholder="..."></textarea>%>
               <%#</form>%>
-            </div>
 
-          </div>
         </div>
 
 
