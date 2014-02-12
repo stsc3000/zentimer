@@ -1,5 +1,5 @@
 angular.module("entries").
-  factory("Entry", ($timeout, LocalStorageAdapter, AjaxAdapter, user) ->
+  factory("Entry", ($timeout, LocalStorageAdapter, AjaxAdapter, user, Title) ->
 
     defaultAttributes = 
       elapsed: 0
@@ -49,6 +49,8 @@ angular.module("entries").
         else
           @elapsed += 1
 
+        Title.set(@elapsed)
+
         @tickDone(@now)
 
       updateLastTickDifference: ->
@@ -68,6 +70,7 @@ angular.module("entries").
 
       pause: ->
         @running = false
+        Title.set()
         Entry.save(@)
 
       done: ->
@@ -155,7 +158,6 @@ angular.module("entries").
         AjaxAdapter
       else
         LocalStorageAdapter
-
 
     window.entries = Entry.entries
     Entry
