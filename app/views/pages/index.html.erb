@@ -25,7 +25,14 @@
         <div class="row">
           <div class="large-12 large-centered columns description-input">
             <a><i id="timer-actions-close-description" class="fa fa-times-circle fa-fw" ng-show="descriptionFocused" ng-click="descriptionFocused=false"></i></a>
-            <textarea placeholder="..." ng-model="timer.currentEntry.description" ng-focus="descriptionFocused=true" ng-blur="descriptionFocused=false; persistCurrentEntry()"></textarea>
+            <%#<div style="background-color: #34495e; min-height: 45px; font-size: 1.5em;">%>
+              <%#<div style="background-color: #2c3e50; float: left; margin: 10px; padding: 15px; padding-right: 10px;">Konzeption<i class="fa fa-times-circle fa-fw"></i></div>%>
+              <%#[><div style="background-color: #2c3e50; float: left; margin: 10px; padding: 15px; padding-right: 10px;">Refactoring<i class="fa fa-times-circle fa-fw"></i></div><]%>
+              <%#<input type="text"></input>%>
+              <%#<div style="clear: both"></div>%>
+            <%#</div>%>
+            <ti-tag-entry on="timer.currentEntry.description"></ti-tag-entry>
+            <%#<textarea placeholder="..." ng-model="timer.currentEntry.description" ng-focus="descriptionFocused=true" ng-blur="descriptionFocused=false; persistCurrentEntry()"></textarea>%>
           </div>
         </div>
 
@@ -58,10 +65,12 @@
           <div>
 
             <div class="entry-description text-left" style="padding-left: 5px;" >
-              <form name="asdasd" style="position:relative">
-                <a><i id="timer-actions-close-description" class="fa fa-times-circle fa-fw" ng-show="descriptionFocused" ng-click="descriptionFocused=false"></i></a>
-                <textarea type="text" ng-model="entry.description" ng-focus="descriptionFocused=true" ng-blur="descriptionFocused=false; persist()" class="description-edit" placeholder="..."></textarea>
-              </form>
+
+              <ti-tag-entry on="entry.description"></ti-tag-entry>
+              <%#<form name="asdasd" style="position:relative">%>
+                <%#<a><i id="timer-actions-close-description" class="fa fa-times-circle fa-fw" ng-show="descriptionFocused" ng-click="descriptionFocused=false"></i></a>%>
+                <%#<textarea type="text" ng-model="entry.description" ng-focus="descriptionFocused=true" ng-blur="descriptionFocused=false; persist()" class="description-edit" placeholder="..."></textarea>%>
+              <%#</form>%>
             </div>
 
           </div>

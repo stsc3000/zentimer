@@ -4,7 +4,7 @@ angular.module("entries").
     defaultAttributes = 
       elapsed: 0
       lastTick: null
-      description: ""
+      description: []
       running: false
 
     Entry = (attributes = {}) ->
