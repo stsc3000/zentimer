@@ -20,10 +20,11 @@ describe "AjaxAdapter", ->
 
     it "creates entries via ajax", inject (AjaxAdapter, $rootScope) ->
       $httpBackend.expectPOST('/entries', { entry: { description: "whatever"}, token: 1234 })
-      entry = { toJSON: -> { description: "whatever"} }
+      entry = { toJSON: (-> { description: "whatever"}), assign: -> }
+      sinon.stub(entry, "assign")
 
       AjaxAdapter.save(entry).then (entry) ->
-        expect(entry.id).toEqual("1")
+        sinon.assert.calledWith(entry.assign, { id: "1", description: "whatever" })
 
       $httpBackend.flush()
       $rootScope.$apply()
@@ -35,10 +36,11 @@ describe "AjaxAdapter", ->
 
     it "updates entries via ajax", inject (AjaxAdapter, $rootScope) ->
       $httpBackend.expectPUT('/entries/1', { entry: { id: 1,  description: "whatever"}, token: 1234 })
-      entry = { id: 1,  toJSON: -> { id: 1, description: "whatever"} }
+      entry = { id: 1,  toJSON: ( -> { id: 1, description: "whatever"}), assign: -> }
+      sinon.stub(entry, "assign")
 
       AjaxAdapter.save(entry).then (entry) ->
-        expect(entry.description).toEqual("an updated description")
+        sinon.assert.calledWith(entry.assign, { id: "1", description: "an updated description" })
 
       $httpBackend.flush()
       $rootScope.$apply()

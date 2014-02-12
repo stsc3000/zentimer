@@ -9,6 +9,12 @@ describe "Entry", ->
     return undefined
   )
 
+  beforeEach module(($provide) ->
+    $provide.value "Title", { set: -> }
+    return undefined
+  )
+
+
   it "creates a new Entry with default instance values", inject (Entry) ->
     entry = new Entry
     expect(entry.elapsed).toBe(0)
