@@ -5,18 +5,19 @@
 
         <div class="row">
           <div class="timer-counter large-12 columns" ng-class="{paused: !timer.currentEntry.running, running: timer.currentEntry.running}" ng-click="toggle()"  fittext data-compressor="{{ timer.currentEntry.elapsed > 3600 ? '0.7' : '0.6' }}">
+
             <div id="left-from-timer" class="text-left" style="float:left; width: 20%; min-height: 1px">
-              <%#<div class="spinner" ng-class="{ spinnerPaused: !timer.currentEntry.running, spinnerRunning: timer.currentEntry.running }" ng-show="timer.currentEntry.running"></div>%>
               <a><i id="timer-actions-save" class="fa fa-check fa-fw" ng-show="timer.savable()" ng-click="done(); $event.stopPropagation()"></i></a>
             </div>
+
             <a class="timer-toggle" style="float:left; display: block; width: 60%;">
-
               <ti-elapsed elapsed="timer.currentEntry.elapsed" > </ti-elapsed>
-
             </a>
+
             <div id="right-from-timer" style="width: 20%; float: left;">
               <a><i id="timer-actions-delete" ng-show="!timer.currentEntry.running && timer.currentEntry.elapsed > 0" class="fa fa-trash-o fa-fw" ng-click="delete(); $event.stopPropagation();" ></i></a>
             </div>
+
           </div>
         </div>
 
@@ -24,7 +25,7 @@
         <div class="row">
           <div class="large-12 large-centered columns description-input">
             <a><i id="timer-actions-close-description" class="fa fa-times-circle fa-fw" ng-show="descriptionFocused" ng-click="descriptionFocused=false"></i></a>
-            <textarea placeholder="..." ng-model="timer.currentEntry.description" ng-focus="descriptionFocused=true" ng-blur="descriptionFocused=false"></textarea>
+            <textarea placeholder="..." ng-model="timer.currentEntry.description" ng-focus="descriptionFocused=true" ng-blur="descriptionFocused=false; persistCurrentEntry()"></textarea>
           </div>
         </div>
 

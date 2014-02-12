@@ -15,6 +15,9 @@ angular.module("zen-timer").
     $scope.delete = ->
       @timer.deleteCurrent()
 
+    $scope.persistCurrentEntry = ->
+      @timer.persistCurrentEntry()
+
     $scope.$on 'keypress:25', (whateverThisIs, event) ->
       event.ctrlKey && $scope.toggle()
 

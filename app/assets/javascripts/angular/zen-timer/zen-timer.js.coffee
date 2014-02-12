@@ -61,6 +61,9 @@ angular.module("zen-timer").
       clear: ->
         Entry.clear()
 
+      persistCurrentEntry: ->
+        @currentEntry.persist() if @currentEntry
+
 
     window.ZenTimer = ZenTimer
     ZenTimer
