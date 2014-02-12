@@ -93,11 +93,9 @@
       </a>
       <span ng-controller="CreateUserCtrl">
         <div id="left-icons">
-          <span ng-if="user">
-            {{ user.token }}
-          </span>
           <a id="entries-clear" ng-click="clear()" class="fa fa-trash-o fa-fw" ng-show="entries.length > 0"> </a>
           <a id="create-user" class="fa fa-user fa-fw" ng-click="createUser()" ng-if="!user"> </a>
+          <a ng-href="/{{user.token}}" id="create-user" class="fa fa-user fa-fw" ng-click="createUser()" ng-if="user" target="_self" name="ZenTimer" title="Drag me to your bookmarks!"><span style="display: none;">ZenTimer</span></a>
         </div>
       </span>
       <span id="bottombar-right">
