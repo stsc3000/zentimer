@@ -136,6 +136,10 @@ color: #ecf0f1;
   transition: all 0.25s ease-in-out;
 }
 
+.entry-row-hidden.hover {
+  height: 25px;
+}
+
 @-webkit-keyframes highlight {   
    0% {background: none;}
    50% {background: #7f8c8d;}

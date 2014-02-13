@@ -13,6 +13,7 @@
 #= require shims
 #= require jquery
 #= require jquery_ujs
+#= require zeroclipboard
 #= require foundation
 #= require lodash
 #= require angular
