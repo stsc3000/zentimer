@@ -4,5 +4,4 @@
 * js snippet to insert into freckle
 * json export
 * archive
-* copy to clipboard (what?)
-* Think about Tag Entry, ...
+* Tag suggest
