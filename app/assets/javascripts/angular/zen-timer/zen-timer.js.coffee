@@ -2,7 +2,6 @@ angular.module("zen-timer").
   factory("ZenTimer", (Entry) ->
     ZenTimer =
       entries: Entry.entries
-      addEntry: Entry.addEntry
 
       init: ->
         Entry.currentEntry (currentEntry) =>
@@ -49,7 +48,7 @@ angular.module("zen-timer").
         Entry.deleteEntry(entry)
 
       addEntry: ->
-        Entry.createNewEntry(false)
+        Entry.createNewEntry({})
 
       increment: ->
         if @running()

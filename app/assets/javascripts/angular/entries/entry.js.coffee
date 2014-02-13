@@ -1,14 +1,14 @@
 angular.module("entries").
   factory("Entry", ($timeout, LocalStorageAdapter, AjaxAdapter, user, Title) ->
 
-    defaultAttributes = 
+    defaultAttributes = ->
       elapsed: 0
       lastTick: null
       description: []
       running: false
 
     Entry = (attributes = {}) ->
-      angular.extend(@, defaultAttributes)
+      angular.extend(@, defaultAttributes())
       attributes.lastTick = new Date(attributes.lastTick) if attributes.lastTick
       angular.extend(@, attributes)
 
