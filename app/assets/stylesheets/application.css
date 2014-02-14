@@ -368,6 +368,7 @@ form {
   margin-left: 10px;
   outline: none;
   line-height: 45px;
+  font-size: 1em;
 }
 
 .tags li {
