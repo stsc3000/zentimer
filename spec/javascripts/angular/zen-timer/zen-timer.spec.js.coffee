@@ -101,7 +101,7 @@ describe "ZenTimer", ->
     newEntry = {}
     sinon.stub(Entry, 'createNewEntry')
     ZenTimer.addEntry()
-    sinon.assert.calledWith(Entry.createNewEntry, false)
+    sinon.assert.calledWith(Entry.createNewEntry, {})
 
   it "increments the current entry if it is running", inject (ZenTimer) ->
     sinon.stub(ZenTimer, "running").returns(true)

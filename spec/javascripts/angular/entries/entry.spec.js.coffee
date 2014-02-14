@@ -18,7 +18,7 @@ describe "Entry", ->
   it "creates a new Entry with default instance values", inject (Entry) ->
     entry = new Entry
     expect(entry.elapsed).toBe(0)
-    expect(entry.description).toBe("")
+    expect(entry.description).toEqual([])
     expect(entry.lastTick).toBeFalsy()
     expect(entry.running).toBeFalsy()
 
