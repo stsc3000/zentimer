@@ -93,7 +93,7 @@ angular.module("app").
             tag = $scope.currentTag
             suggestions.css("left", input.position().left)
             if tag && tag.length > 0
-              allSuggestions = _.filter( $scope.tagDomain, ((potentialMatch) -> potentialMatch.indexOf(tag) == 0 ))
+              allSuggestions = _.filter( $scope.tagDomain, ((potentialMatch) -> potentialMatch.toLowerCase().indexOf(tag.toLowerCase()) == 0 ))
               $scope.suggestions = _.difference(allSuggestions, $scope.targetValue)
             if $scope.suggestions.length == 0
               $scope.suggestionIndex = -1
