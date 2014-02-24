@@ -6,6 +6,8 @@ angular.module("entries").
       lastTick: null
       description: []
       running: false
+      project: ""
+      temp: false
 
     Entry = (attributes = {}) ->
       angular.extend(@, defaultAttributes())
@@ -60,7 +62,11 @@ angular.module("entries").
       savable: ->
         @hasRunOnce() && !@running
 
+      persistable: ->
+        !this.temp
+
       start: ->
+        @temp = false
         @lastTick = Entry.nowDate()
         @current = true
         @running = true
@@ -94,7 +100,7 @@ angular.module("entries").
         @elapsed > 0
 
     Entry.save = (entry) ->
-      Entry.storage().save(entry)
+      Entry.storage().save(entry) if entry.persistable()
 
     Entry.load = (callback) ->
       that = @
@@ -114,7 +120,8 @@ angular.module("entries").
       Entry.save(entry)
       entry
 
-    Entry.createTempEntry =  (attributes) ->
+    Entry.createTempEntry =  (attributes = {}) ->
+      attributes.temp = true
       return new Entry(attributes)
 
     Entry.deleteEntry = (entry) ->
