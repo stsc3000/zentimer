@@ -11,7 +11,7 @@ angular.module("app").
                   <div style="clear:both"></div>
                   <div class="suggestions">
                     <ul >
-                      <li class="suggestion" ng-class="{active:$index==suggestionIndex}" ng-click="selectTag(suggestion)" ng-repeat="suggestion in suggestions">
+                      <li class="suggestion" ng-class="{active:$index==suggestionIndex}" ng-mousedown="selectTag(suggestion)" ng-repeat="suggestion in suggestions">
                         <a>{{ suggestion }}</a>
                       </li>
                       <div style="clear:both"></div>
