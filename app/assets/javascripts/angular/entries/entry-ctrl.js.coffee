@@ -1,5 +1,12 @@
 angular.module("entries").
-  controller("EntryCtrl", ($scope, ZenTimer) ->
+  controller("EntryCtrl", ($scope, ZenTimer, Projects, Tags) ->
+
+    Tags.tags().then (tags) ->
+      $scope.tagSuggestions = tags
+
+    Projects.projects().then (projects) ->
+      $scope.projectSuggestions = projects
+
     $scope.delete = ->
       ZenTimer.delete(@entry)
 

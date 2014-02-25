@@ -47,15 +47,11 @@
               <ti-elapsed-entry model="entry" elapsed="entry.elapsed" disabled="entry.running" ></ti-elapsed-entry>
             </div>
             <div class="entry-top-level-row-project-entry">
-              <span>
-                <form name="entryProjectForm" class="entry-edit-project" ng-submit="entry.persist()">
-                  <i class="fa fa-square-o fa-fw"></i>
-                  <input type="text" ng-model="entry.project" class="project-edit" placeholder="Project" ng-blur="persist()">
-                </form>
-              </span>
+              <ti-project-entry on="entry.project" update="entry.persist()" suggestion-domain="projectSuggestions"></ti-project-entry>
+
             </div>
           </div>
-          <ti-tag-entry on="entry.description" update="entry.persist()"></ti-tag-entry>
+          <ti-tag-entry on="entry.description" suggestion-domain="tagSuggestions" update="entry.persist()"></ti-tag-entry>
         </div>
 
 
@@ -109,7 +105,7 @@
               <h3> Projects </h3>
               Add projects here to enable autocomplete for your projects.
 
-              <ti-tag-entry on="projects" update="saveProjects()"></ti-tag-entry>
+              <ti-tag-entry on="projects" update="saveProjects()" suggestion-domain="projects"></ti-tag-entry>
 
             </p>
 

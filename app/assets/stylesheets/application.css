@@ -424,6 +424,11 @@ form {
   font-size: 1em;
 }
 
+.entry-edit-project .suggestions li {
+  margin-left: 0;
+}
+
+
 .suggestions li.active {
   border: 1px solid #496179;
   background-color: #2c3e50;
