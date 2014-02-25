@@ -2,7 +2,7 @@ angular.module("settings").
   service("Tags", (user, LocalStorageSettingsAdapter) ->
     {
       tags: ->
-        @storage().index("tags")
+        @storage().fetch("tags")
 
       save: (tags) ->
         @storage().save("tags", tags)

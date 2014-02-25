@@ -102,9 +102,17 @@
               <h3> Tags </h3>
               Add tags here to enable autocomplete for your entry description.
 
-              <ti-tag-entry on="tags" update="save()"></ti-tag-entry>
+              <ti-tag-entry on="tags" update="saveTags()"></ti-tag-entry>
 
             </p>
+            <p>
+              <h3> Projects </h3>
+              Add projects here to enable autocomplete for your projects.
+
+              <ti-tag-entry on="projects" update="saveProjects()"></ti-tag-entry>
+
+            </p>
+
             <a class="close-reveal-modal" ng-click="displaySettings = false">&#215;</a>
           </div>
         </span>
