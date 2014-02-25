@@ -17,6 +17,13 @@ describe "ZenTimerCtrl", ->
     return undefined
   )
 
+  beforeEach module(($provide) ->
+    $provide.value "Tags",
+      tags: ->
+        then: ->
+    return undefined
+  )
+
 
   beforeEach inject(($injector) ->
     $rootScope = $injector.get("$rootScope")

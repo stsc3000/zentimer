@@ -2,7 +2,7 @@
 #= require_tree .
 
 
-angular.module("app", ["zen-timer", "fitText", "users", "entries", "tags"])
+angular.module("app", ["zen-timer", "fitText", "users", "entries", "settings"])
 
 angular.element(document).ready ->
   if $("meta[name=user-token]").length > 0

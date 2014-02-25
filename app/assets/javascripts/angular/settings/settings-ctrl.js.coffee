@@ -1,4 +1,4 @@
-angular.module("app").
+angular.module("settings").
   controller("settingsCtrl", ($scope, Tags) ->
     Tags.tags().then (tags) ->
       $scope.tags = tags
