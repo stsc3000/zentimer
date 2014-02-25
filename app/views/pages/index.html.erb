@@ -55,14 +55,7 @@
               </span>
             </div>
           </div>
-
-
-              <ti-tag-entry on="entry.description" update="entry.persist()"></ti-tag-entry>
-              <%#<form name="asdasd" style="position:relative">%>
-                <%#<a><i id="timer-actions-close-description" class="fa fa-times-circle fa-fw" ng-show="descriptionFocused" ng-click="descriptionFocused=false"></i></a>%>
-                <%#<textarea type="text" ng-model="entry.description" ng-focus="descriptionFocused=true" ng-blur="descriptionFocused=false; persist()" class="description-edit" placeholder="..."></textarea>%>
-              <%#</form>%>
-
+          <ti-tag-entry on="entry.description" update="entry.persist()"></ti-tag-entry>
         </div>
 
 
@@ -101,9 +94,9 @@
         </div>
       </span>
       <span id="bottombar-right">
-        <span id="settings">
+        <span id="settings" ng-controller="settingsCtrl">
           <a id="settings-link" class="fa fa-gear fa-fw" ng-click="displaySettings = true"></a>
-          <div id="settings-modal" ti-reveal-modal="displaySettings" class="reveal-modal" ng-controller="tagsCtrl">
+          <div id="settings-modal" ti-reveal-modal="displaySettings" class="reveal-modal" >
             <h2> ZenTimer Settings </h2>
             <p>
               <h3> Tags </h3>
