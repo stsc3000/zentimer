@@ -1,11 +1,14 @@
 angular.module("tags").
-  service("Tag", (user) ->
+  service("Tags", (user, LocalStorageTagsAdapter) ->
     {
       tags: ->
-        @tags ||= @fetchTags()
+        @storage().index()
 
-      fetchTags: ->
-        LocalStorageTagAdaper
+      save: (tags) ->
+        @storage().save(tags)
+
+      storage: ->
+        LocalStorageTagsAdapter
 
     }
 

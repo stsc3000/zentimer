@@ -21,16 +21,19 @@ angular.module("app").
       scope:
         targetValue: "=on"
         update: "&"
+        suggestionDomain: "="
 
       controller: ($scope) ->
         $scope.suggestionIndex = -1
         $scope.suggestions = []
+        $scope.suggestionsEnabled = ->
+          $scope.suggestionDomain && $scope.suggestionDomain.length > 0
+
         $scope.removeTag = (tag) ->
           $scope.targetValue.splice _.indexOf($scope.targetValue, _.find($scope.targetValue, (item) ->
             item is tag
           )), 1
           $scope.update()
-        $scope.tagDomain=[ "Konzeption", "Integration/Deployment","Testing","Qualitätssicherung","Nachbesserungen","Bugfixing","Refactoring","Projektkoordination","Support","Kunden-Meeting","Team-Meeting","Pair Programming","Cross-Browser","Infrastruktur","SEO","Conversion-Optimierung","Design"]
 
         $scope.addTag = (tag) ->
           unless _.include($scope.targetValue, tag) || !tag
@@ -42,23 +45,27 @@ angular.module("app").
           $scope.currentTag = ""
 
         $scope.clearSuggestions = ->
-          $scope.suggestionIndex = -1
-          $scope.suggestions.clear()
+          if $scope.suggestionsEnabled()
+            $scope.suggestionIndex = -1
+            $scope.suggestions.clear()
 
         $scope.showSuggestions = ->
-          tag = $scope.currentTag || ""
-          if tag
-            allSuggestions = _.filter( $scope.tagDomain, ((potentialMatch) -> potentialMatch.toLowerCase().indexOf(tag.toLowerCase()) == 0 ))
-            $scope.suggestions = _.difference(allSuggestions, $scope.targetValue)
-          else
-            $scope.clearSuggestions()
-          if $scope.suggestions.length == 0
-            $scope.suggestionIndex = -1
+          if $scope.suggestionsEnabled()
+            tag = $scope.currentTag || ""
+            if tag
+              allSuggestions = _.filter( $scope.suggestionDomain, ((potentialMatch) -> potentialMatch.toLowerCase().indexOf(tag.toLowerCase()) == 0 ))
+              $scope.suggestions = _.difference(allSuggestions, $scope.targetValue)
+            else
+              $scope.clearSuggestions()
+            if $scope.suggestions.length == 0
+              $scope.suggestionIndex = -1
 
 
         $scope
 
       link: ($scope, el) ->
+
+
         input = el.find("[data-role=tag-entry]")
         suggestions = el.find(".suggestions")
 

@@ -11,11 +11,12 @@ angular.module("tags").
       index: ->
         deferred = $q.defer()
         @ensureTags()
-        deferred.resolve @fetchTags()
+        @tags ||= @fetchTags()
+        deferred.resolve @tags
         deferred.promise
 
       fetchTags: ->
-        JSON.parse(window.localStorage.getItem("tags"))
+        @tags = JSON.parse(window.localStorage.getItem("tags"))
 
       ensureTags: ->
         unless window.localStorage.getItem("tags")
