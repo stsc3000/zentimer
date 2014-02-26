@@ -17,12 +17,20 @@ describe "ZenTimerCtrl", ->
     return undefined
   )
 
+
   beforeEach module(($provide) ->
-    $provide.value "Tags",
+    $provide.value "Settings",
       tags: ->
+        then: ->
+      saveTags: ->
+        then: ->
+      projects: ->
+        then: ->
+      saveProjects: ->
         then: ->
     return undefined
   )
+
 
 
   beforeEach inject(($injector) ->

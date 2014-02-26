@@ -1,9 +1,9 @@
 angular.module("zen-timer").
-  controller("ZenTimerCtrl", ($scope, ZenTimer, Tags) ->
+  controller("ZenTimerCtrl", ($scope, ZenTimer, Settings) ->
     ZenTimer.init()
     $scope.timer = ZenTimer
 
-    Tags.tags().then (tags) ->
+    Settings.tags().then (tags) ->
       $scope.suggestions = tags
 
     $scope.done = () ->

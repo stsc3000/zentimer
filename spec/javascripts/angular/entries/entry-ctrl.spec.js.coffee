@@ -16,6 +16,20 @@ describe "EntryCtrl", ->
   )
 
 
+  beforeEach module(($provide) ->
+    $provide.value "Settings",
+      tags: ->
+        then: ->
+      saveTags: ->
+        then: ->
+      projects: ->
+        then: ->
+      saveProjects: ->
+        then: ->
+    return undefined
+  )
+
+
   beforeEach inject(($injector) ->
     $rootScope = $injector.get("$rootScope")
     $scope = $rootScope.$new()
