@@ -4,6 +4,9 @@ class User < ActiveRecord::Base
 
   validates :token, length: { is: 64 }
 
+  serialize :tags, Array
+  serialize :projects, Array
+
   private
 
   def add_secure_token

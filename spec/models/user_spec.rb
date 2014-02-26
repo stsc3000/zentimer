@@ -14,4 +14,15 @@ describe User do
     expect(user).not_to be_valid
   end
 
+  it "has tags" do
+    user = User.new
+    expect(user.tags).to eq([])
+  end
+
+  it "has projects" do
+    user = User.new
+    expect(user.projects).to eq([])
+  end
+
+
 end
