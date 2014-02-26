@@ -26,7 +26,15 @@ class UsersController < ApplicationController
   private
 
   def user_parameters
+    set_array_for_nil(:tags)
+    set_array_for_nil(:projects)
     params.require(:user).permit(tags: [], projects: [])
+  end
+
+  def set_array_for_nil(key)
+    if params[:user].has_key?(key) && !params[:user][key]
+      params[:user][key] = []
+    end
   end
 
 

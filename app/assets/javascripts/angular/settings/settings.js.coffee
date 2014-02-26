@@ -1,5 +1,5 @@
 angular.module("settings").
-  service("Settings", (user, LocalStorageSettingsAdapter) ->
+  service("Settings", (user, LocalStorageSettingsAdapter, AjaxSettingsAdapter) ->
     {
       tags: ->
         @storage().fetch("tags")
@@ -14,7 +14,10 @@ angular.module("settings").
         @storage().save("projects", projects)
 
       storage: ->
-        LocalStorageSettingsAdapter
+        if user
+          AjaxSettingsAdapter
+        else
+          LocalStorageSettingsAdapter
 
     }
 

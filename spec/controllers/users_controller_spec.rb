@@ -52,6 +52,25 @@ describe UsersController do
       })
 
     end
+
+    it "clears the users settings" do
+      user = User.create( tags: ["tag1"] )
+      expect(user.tags).to eq(["tag1"])
+
+      put :update,
+        token: user.token,
+        user: { tags:  nil },
+        format: :json
+
+      expect(user.reload.tags).to eq([])
+
+      expect(JSON.parse(response.body)).to eq({
+        "tags" => [],
+        "projects" => []
+      })
+
+    end
+
   end
 
 end
