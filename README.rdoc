@@ -4,4 +4,3 @@
 * js snippet to insert into freckle
 * json export
 * archive
-* Tag suggest
