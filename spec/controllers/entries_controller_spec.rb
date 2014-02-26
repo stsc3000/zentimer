@@ -18,7 +18,8 @@ describe EntriesController do
             :lastTick=>nil,
             :description=>[],
             :running=>nil,
-            :current=>nil}
+            :current=>nil,
+            :project=>nil}
           ]
         })
     end
@@ -35,7 +36,8 @@ describe EntriesController do
                   :lastTick=>nil,
                   :description=>[],
                   :running=>nil,
-                  :current=>nil}
+                  :current=>nil,
+                  :project=>nil}
         }
       )
     end
@@ -49,7 +51,8 @@ describe EntriesController do
         :lastTick=>"2012,12,12",
         :description=>["a description"],
         :running=>true,
-        :current=>true
+        :current=>true,
+        :project=>"a project"
       }
       expect{
         post :create, entry: params, token: @user.token
@@ -62,7 +65,8 @@ describe EntriesController do
         :lastTick=>"2012-12-12",
         :description=>["a description"],
         :running=>true,
-        :current=>true
+        :current=>true,
+        :project=>"a project"
       }
       post :create, entry: params, token: @user.token
       entry_id = assigns(:entry).id
@@ -73,7 +77,8 @@ describe EntriesController do
           :lastTick=>"2012-12-12T00:00:00Z",
           :description=>["a description"],
           :running=>true,
-          :current=>true}
+          :current=>true,
+          :project=>"a project"}
         }
       )
     end
@@ -111,7 +116,8 @@ describe EntriesController do
           :lastTick=> nil,
           :description=>["new description"],
           :running=>nil,
-          :current=>nil}
+          :current=>nil,
+          :project=>nil}
         }
       )
     end
