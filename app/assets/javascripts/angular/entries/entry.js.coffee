@@ -31,6 +31,7 @@ angular.module("entries").
         description: @description
         current: @current
         running: @running
+        project: @project
         id: @id
 
       assign: (attributes) ->

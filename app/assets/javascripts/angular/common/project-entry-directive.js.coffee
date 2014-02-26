@@ -27,12 +27,6 @@ angular.module("app").
         $scope.suggestionsEnabled = ->
           $scope.suggestionDomain && $scope.suggestionDomain.length > 0
 
-        $scope.removeTag = (tag) ->
-          $scope.targetValue.splice _.indexOf($scope.targetValue, _.find($scope.targetValue, (item) ->
-            item is tag
-          )), 1
-          $scope.update()
-
         $scope.selectProject = (suggestion) ->
           $scope.targetValue = suggestion
           $scope.suggestions.clear()
@@ -61,6 +55,7 @@ angular.module("app").
 
         input.blur ->
           $scope.clearSuggestions()
+          $scope.update()
           $scope.$apply()
 
         el.click ->
@@ -84,13 +79,13 @@ angular.module("app").
             if ($scope.suggestionIndex > -1)
               $scope.targetValue = $scope.suggestions[$scope.suggestionIndex]
             $scope.clearSuggestions()
+            $scope.$apply()
             $scope.update()
           #update suggestions
           else
             $scope.showSuggestions()
             suggestions.css("left", input.position().left)
-
-          $scope.$apply()
+            $scope.$apply()
 
     }
   )
