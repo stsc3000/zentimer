@@ -4,7 +4,7 @@
       <div ng-controller="ZenTimerCtrl">
 
         <div class="row">
-          <div class="timer-counter large-12 columns" ng-class="{paused: !timer.currentEntry.running, running: timer.currentEntry.running}" ng-click="toggle()"  fittext watch="timer.currentEntry.elapsed" compressor="0.75">
+          <div class="timer-counter large-12 columns" ng-class="{paused: !timer.currentEntry.running, running: timer.currentEntry.running}" ng-click="toggle()">
 
             <div id="left-from-timer" class="text-center" style="float:left; width: 15%; min-height: 1px">
               <a><i id="timer-actions-save" class="fa fa-check" ng-show="timer.savable()" ng-click="done(); $event.stopPropagation()"></i></a>
@@ -36,7 +36,7 @@
 
 
 <div ng-controller="EntriesListCtrl">
-    <div class="row entry-row" ng-repeat="entry in entries | orderBy:'lastTick':true" ng-controller="EntryCtrl">
+    <div class="row entry-row my-repeat-animation" ng-repeat="entry in entries | orderBy:'lastTick':true" ng-controller="EntryCtrl">
       <div class="entry" style="display: table; width: 100%;">
         <i class="entry-continue fa fa-play fa-fw" ng-hide="entry.running"  ng-click="continue()"></i>
         <i class="entry-pause fa fa-pause fa-fw" ng-show="entry.running" ng-click="pause()"></i>
