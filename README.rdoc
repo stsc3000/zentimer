@@ -3,4 +3,11 @@
 * haml and multiple templates
 * js snippet to insert into freckle
 * json export
-* archive
+* archive (possibly duplicates analytics)
+  * fetch only "today" by default
+  * fetch older on scroll? go by "next day that something was done"?
+* settings via routes and "off-canvas" ?
+* analytics! "off-canvas"?
+  * show all entries of the given time scope?
+  * can continue entry?
+* remove help? or make it a tour?
