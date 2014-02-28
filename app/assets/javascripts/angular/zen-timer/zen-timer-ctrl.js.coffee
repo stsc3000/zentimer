@@ -1,7 +1,5 @@
 angular.module("zen-timer").
-  controller("ZenTimerCtrl", ($scope, ZenTimer, Settings, $rootScope, PageAnimations) ->
-
-    PageAnimations.enable()
+  controller("ZenTimerCtrl", ($scope, ZenTimer, Settings, $rootScope) ->
 
     ZenTimer.init()
     $scope.timer = ZenTimer

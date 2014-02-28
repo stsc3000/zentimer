@@ -15,3 +15,11 @@ angular.module("app")
     $routeProvider.when('/', { templateUrl: 'tpls/timer' })
     .when('/settings', { templateUrl: 'tpls/settings' })
     .when('/analytics', { templateUrl: 'tpls/analytics' })
+
+angular.module("app")
+  .run ($rootScope, $timeout) ->
+    $rootScope.$on "$viewContentLoaded", ->
+      #HACK! but I can't find a relevant callback for this
+      $timeout ( ->
+        $rootScope.enableAnimations = true unless $rootScope.enableAnimations
+      ), 200
