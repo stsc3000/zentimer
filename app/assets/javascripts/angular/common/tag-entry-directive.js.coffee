@@ -99,7 +99,7 @@ angular.module("app").
           #press , or enter
           if event.keyCode == 188 || event.keyCode == 13
             if ($scope.suggestionIndex > -1)
-              tag = $scope.suggestions[$scope.suggestionIndex]
+              tag = $scope.suggestions.sort()[$scope.suggestionIndex]
             else
               tag = $scope.currentTag.replace(",","")
 
