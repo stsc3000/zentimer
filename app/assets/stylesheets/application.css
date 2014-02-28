@@ -19,6 +19,7 @@ body {
   color: #ecf0f1;
   font-family: 'Roboto Condensed', sans-serif; font-weight: 300;
   min-height: 900px;
+  overflow-x: hidden;
 }
 
 a, a:hover, a:active {
@@ -327,14 +328,11 @@ form {
   }
 }
 
-#app-info-modal, #settings-modal {
+#app-info-modal {
   background-color: #2c3e50;
   color: #ecf0f1;
 }
 
-#settings-modal h1, h2, h3, h4, h5, h6{
-  color: #ecf0f1;
-}
 
 #app-info-modal h1, h2, h3, h4, h5, h6{
   color: #ecf0f1;
@@ -469,4 +467,54 @@ form {
 .my-repeat-animation.ng-move.ng-move-active {
   opacity:1;
   left: 0;
+}
+
+.page {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+#analytics-page {
+  background-color: #d35400;
+  color: #fff;
+}
+
+#analytics-page h1, h2, h3, h4, h5, h6 {
+  color: #fff;
+}
+
+.close-page {
+  float: right;
+  font-size: 2em;
+}
+
+#settings-page {
+  background-color: #27ae60;
+}
+
+#timer-page {
+  background-color: #2c3e50;
+}
+
+.view-animation.ng-enter, 
+.view-animation.ng-leave {
+  -webkit-transition: 0.5s ease-in-out all;
+  transition: 0.5s ease-in-out all;
+}
+
+.view-animation.ng-enter {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  width: 100%;
+  height: 100%;
+}
+.view-animation.ng-enter.ng-enter-active {
+  left: 0;
+}
+
+.view-animation.ng-leave {
+}
+.view-animation.ng-leave.ng-leave-active {
 }

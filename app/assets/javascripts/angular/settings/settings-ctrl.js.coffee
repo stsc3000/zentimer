@@ -1,5 +1,7 @@
 angular.module("settings").
-  controller("settingsCtrl", ($scope, Settings) ->
+  controller("settingsCtrl", ($scope, Settings, PageAnimations) ->
+    PageAnimations.enable()
+
     Settings.tags().then (tags) ->
       $scope.tags = tags
 

@@ -27,9 +27,18 @@
     <div id="branding" class="row">
     </div>
 
-    <div ng-cloak>
-      <%= yield %>
+    <div ng-cloak ng-view ng-class="{'view-animation': enableAnimations}">
     </div>
+
+    <script type="text/ng-template" id="tpls/timer">
+      <%= render partial: "tpls/timer" %>
+    </script>
+    <script type="text/ng-template" id="tpls/settings">
+      <%= render partial: "tpls/settings" %>
+    </script>
+    <script type="text/ng-template" id="tpls/analytics">
+      <%= render partial: "tpls/analytics" %>
+    </script>
 
     <%= javascript_include_tag "application" %>
   </body>

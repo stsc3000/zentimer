@@ -1,5 +1,8 @@
 angular.module("zen-timer").
-  controller("ZenTimerCtrl", ($scope, ZenTimer, Settings) ->
+  controller("ZenTimerCtrl", ($scope, ZenTimer, Settings, $rootScope, PageAnimations) ->
+
+    PageAnimations.enable()
+
     ZenTimer.init()
     $scope.timer = ZenTimer
 
@@ -21,9 +24,4 @@ angular.module("zen-timer").
     $scope.persistCurrentEntry = ->
       @timer.persistCurrentEntry()
 
-    $scope.$on 'keypress:25', (whateverThisIs, event) ->
-      event.ctrlKey && $scope.toggle()
-
-    $scope.$on 'keypress:62', (whateverThisIs, event) ->
-      event.shiftKey && $scope.done() && $scope.toggle()
   )

@@ -18,5 +18,6 @@
 #= require lodash
 #= require angular
 #= require angular-animate
+#= require angular-route
 #= require angularjs-fittext.js
 #= require angular/app
