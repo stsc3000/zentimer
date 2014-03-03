@@ -14,13 +14,13 @@
             </div>
           </div>
 
-          <div class="row actions-animation" style="font-weight: 700;" ng-show="timer.savable()" >
-              <div class="large-6 small-6 columns text-center"  style="font-size: 200%;" ng-click="done(); $event.stopPropagation()">
+          <div class="row" style="font-weight: 700;" ng-show="timer.savable()">
+              <div class="large-6 small-6 columns text-center"  style="font-size: 200%;" ng-click="done(); $event.stopPropagation()" id="timer-actions-save-button">
                 <a><i id="timer-actions-save" class="fa fa-check" ></i> 
                   <span> DONE </span> </a>
               </div>
 
-              <div class="large-6 small-6 columns text-center" style="font-size: 200%;" ng-click="delete(); $event.stopPropagation();">
+              <div class="large-6 small-6 columns text-center" style="font-size: 200%;" ng-click="delete(); $event.stopPropagation();" id="timer-actions-delete-button">
                 <a><i id="timer-actions-delete" class="fa fa-trash-o"  ></i>
                   <span>DELETE</span></a>
               </div>
@@ -40,7 +40,7 @@
   </div>
 
 
-  <div ng-controller="EntriesListCtrl">
+  <div ng-controller="EntriesListCtrl" class="row" id="entries">
       <div class="row entry-row my-repeat-animation" ng-repeat="entry in entries | orderBy:'lastTick':true" ng-controller="EntryCtrl">
         <div class="entry" style="display: table; width: 100%;">
           <i class="entry-continue fa fa-play fa-fw" ng-hide="entry.running"  ng-click="continue()"></i>
