@@ -44,7 +44,7 @@ a, a:hover, a:active {
   color: #ecf0f1;
 }
 
-#timer textarea, .entry-edit-project .project-edit, .entry-edit-project .project-edit:focus, .entry-description .description-edit, .entry-description .description-edit:focus, .entry-elapsed-form .elapsed-entry, .entry-elapsed-form .elapsed-entry:focus {
+#timer textarea, .entry-edit-project .project-edit, .entry-edit-project .project-edit:focus, .entry-tag-list .tag-list-edit, .entry-tag-list .tag-list-edit:focus, .entry-elapsed-form .elapsed-entry, .entry-elapsed-form .elapsed-entry:focus {
   border: none;
   overflow: auto;
   outline: none;
@@ -66,18 +66,18 @@ a, a:hover, a:active {
   margin-bottom: 0;
 }
 
-.entry-description .description-edit {
+.entry-tag-list .tag-list-edit {
   font-size: 2em;
   width: 90%;
   height: 1.5em;
 }
 
-.entry-description .description-edit, .entry-edit-project .project-edit {
+.entry-tag-list .tag-list-edit, .entry-edit-project .project-edit {
   background-color: inherit;
   color: #ecf0f1;
 }
 
-.entry-elapsed-form .elapsed-entry, .entry-edit-project .project-edit, .entry-description .description-edit {
+.entry-elapsed-form .elapsed-entry, .entry-edit-project .project-edit, .entry-tag-list .tag-list-edit {
   display: inline-block !important;
   color: #ecf0f1;
   background-color: transparent !important;
@@ -94,7 +94,7 @@ a, a:hover, a:active {
   padding-top: 2px;
 }
 
-#timer textarea:focus, .description-edit:focus {
+#timer textarea:focus, .tag-list-edit:focus {
   height: 400px;
   overflow: scroll-y;
 }
@@ -170,15 +170,15 @@ a, a:hover, a:active {
   vertical-align: middle;
 }
 
-.entry-description span {
+.entry-tag-list span {
   font-size: 3em;
 }
 
-.entry-time.active, .entry-description.active {
+.entry-time.active, .entry-tag-list.active {
   color: #ecf0f1;
 }
 
-.description-input {
+.tag-list-input {
   padding-left: 0;
   padding-right: 0;
 }
@@ -220,7 +220,7 @@ a, a:hover, a:active {
   color: #bdc3c7;
 }
 
-#timer-actions-close-description {
+#timer-actions-close-tag-list {
   position: absolute;
   font-size: 2em;
   top: 10px;
@@ -248,7 +248,7 @@ form {
   height: 20px;
 }
 
-.description-edit {
+.tag-list-edit {
   transition: all 0.25s ease-in-out;
 }
 

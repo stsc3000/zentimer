@@ -18,7 +18,7 @@ describe "Entry", ->
   it "creates a new Entry with default instance values", inject (Entry) ->
     entry = new Entry
     expect(entry.elapsed).toBe(0)
-    expect(entry.description).toEqual([])
+    expect(entry.tag_list).toEqual([])
     expect(entry.lastTick).toBeFalsy()
     expect(entry.running).toBeFalsy()
 
@@ -127,7 +127,7 @@ describe "Entry", ->
     sinon.assert.calledWith(storage.save, entry)
 
   it "does load entries from stroage", inject (Entry, $rootScope, $q) ->
-    entries = [description: "an entry"]
+    entries = [tag_list: "an entry"]
 
     deferred = $q.defer()
     deferred.resolve(entries)
@@ -144,7 +144,7 @@ describe "Entry", ->
 
   it "doesnt load if it has already loaded", inject (Entry, $rootScope) ->
     Entry.loaded = true
-    entriesJSON = JSON.stringify [description: "an entry"]
+    entriesJSON = JSON.stringify [tag_list: "an entry"]
     storage = { getItem: -> entriesJSON }
     sinon.stub(Entry, 'storage').returns(storage)
 
@@ -155,15 +155,15 @@ describe "Entry", ->
     expect(Entry.entries).toEqual([])
 
   it "creates a new Entry and pushes it to its collection", inject (Entry) ->
-    entry = Entry.createNewEntry description: "an entry"
+    entry = Entry.createNewEntry tag_list: "an entry"
     expect(Entry.entries[0]).toEqual(entry)
 
   it "creates a new Entry and does not push it to its collection", inject (Entry) ->
-    entry = Entry.createTempEntry description: "an entry"
+    entry = Entry.createTempEntry tag_list: "an entry"
     expect(Entry.entries).toEqual([])
 
   it "deletes an entry", inject (Entry, $rootScope) ->
-    entry = Entry.createNewEntry description: "an entry"
+    entry = Entry.createNewEntry tag_list: "an entry"
     expect(Entry.entries[0]).toEqual(entry)
 
     Entry.deleteEntry(entry)
@@ -172,7 +172,7 @@ describe "Entry", ->
     expect(Entry.entries).toEqual([])
 
   it "adds a new Entry to the collection", inject (Entry) ->
-    entry = Entry.createTempEntry description: "an entry"
+    entry = Entry.createTempEntry tag_list: "an entry"
     expect(Entry.entries).toEqual([])
 
     Entry.addEntry(entry)
@@ -180,7 +180,7 @@ describe "Entry", ->
     expect(Entry.entries[0]).toEqual(entry)
 
   it "does not add a new Entry to the collection if its already in there", inject (Entry) ->
-    entry = Entry.createNewEntry description: "an entry"
+    entry = Entry.createNewEntry tag_list: "an entry"
     expect(Entry.entries.length).toEqual(1)
 
     Entry.addEntry(entry)
@@ -189,7 +189,7 @@ describe "Entry", ->
 
   it "loads and gets the current Entry", inject (Entry) ->
     sinon.stub(Entry, 'load')
-    entry = Entry.createNewEntry description: "an entry", current: true
+    entry = Entry.createNewEntry tag_list: "an entry", current: true
     Entry.currentEntry (currentEntry) ->
       expect(currentEntry).toEqual(entry)
       sinon.assert.calledOnce(Entry.load)
@@ -198,7 +198,7 @@ describe "Entry", ->
 
   it "creates a temporary entry if there is no current Entry", inject (Entry) ->
     sinon.stub(Entry, 'load')
-    entry = Entry.createNewEntry description: "an entry", current: false
+    entry = Entry.createNewEntry tag_list: "an entry", current: false
     expect(Entry.currentEntry()).not.toEqual(entry)
 
   it "starts with empty entries", inject (Entry) ->
@@ -206,9 +206,9 @@ describe "Entry", ->
 
   describe "batch action", ->
     beforeEach inject (Entry) ->
-      an_entry = Entry.createNewEntry description: "an entry", elapsed: 10
-      another_entry = Entry.createNewEntry description: "an entry", elapsed: 20
-      another_entry = Entry.createNewEntry description: "an entry", elapsed: 10, current: true
+      an_entry = Entry.createNewEntry tag_list: "an entry", elapsed: 10
+      another_entry = Entry.createNewEntry tag_list: "an entry", elapsed: 20
+      another_entry = Entry.createNewEntry tag_list: "an entry", elapsed: 10, current: true
 
     it "calculates the total elapsed of entries", inject (Entry) ->
       expect(Entry.totalElapsed()).toBe(40)

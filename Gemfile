@@ -33,6 +33,7 @@ gem 'font-awesome-rails'
 gem 'pry-rails'
 
 gem 'active_model_serializers'
+gem 'acts-as-taggable-on'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

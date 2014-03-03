@@ -16,15 +16,15 @@ describe "AjaxAdapter", ->
   describe "creating entries", ->
     beforeEach inject ($injector) ->
       $httpBackend = $injector.get('$httpBackend')
-      $httpBackend.when("POST", "/entries").respond({ entry: { id: "1", description: "whatever" } })
+      $httpBackend.when("POST", "/entries").respond({ entry: { id: "1", tag_list: "whatever" } })
 
     it "creates entries via ajax", inject (AjaxAdapter, $rootScope) ->
-      $httpBackend.expectPOST('/entries', { entry: { description: "whatever"}, token: 1234 })
-      entry = { toJSON: (-> { description: "whatever"}), assign: -> }
+      $httpBackend.expectPOST('/entries', { entry: { tag_list: "whatever"}, token: 1234 })
+      entry = { toJSON: (-> { tag_list: "whatever"}), assign: -> }
       sinon.stub(entry, "assign")
 
       AjaxAdapter.save(entry).then (entry) ->
-        sinon.assert.calledWith(entry.assign, { id: "1", description: "whatever" })
+        sinon.assert.calledWith(entry.assign, { id: "1", tag_list: "whatever" })
 
       $httpBackend.flush()
       $rootScope.$apply()
@@ -32,15 +32,15 @@ describe "AjaxAdapter", ->
   describe "updating entries", ->
     beforeEach inject ($injector) ->
       $httpBackend = $injector.get('$httpBackend')
-      $httpBackend.when("PUT", "/entries/1").respond({ entry: { id: "1", description: "an updated description" } })
+      $httpBackend.when("PUT", "/entries/1").respond({ entry: { id: "1", tag_list: "an updated tag_list" } })
 
     it "updates entries via ajax", inject (AjaxAdapter, $rootScope) ->
-      $httpBackend.expectPUT('/entries/1', { entry: { id: 1,  description: "whatever"}, token: 1234 })
-      entry = { id: 1,  toJSON: ( -> { id: 1, description: "whatever"}), assign: -> }
+      $httpBackend.expectPUT('/entries/1', { entry: { id: 1,  tag_list: "whatever"}, token: 1234 })
+      entry = { id: 1,  toJSON: ( -> { id: 1, tag_list: "whatever"}), assign: -> }
       sinon.stub(entry, "assign")
 
       AjaxAdapter.save(entry).then (entry) ->
-        sinon.assert.calledWith(entry.assign, { id: "1", description: "an updated description" })
+        sinon.assert.calledWith(entry.assign, { id: "1", tag_list: "an updated tag_list" })
 
       $httpBackend.flush()
       $rootScope.$apply()
@@ -48,7 +48,7 @@ describe "AjaxAdapter", ->
   describe "index entries", ->
     beforeEach inject ($injector) ->
       $httpBackend = $injector.get('$httpBackend')
-      $httpBackend.when("GET", "/entries?token=#{1234}").respond({ entries: [{ id: "1", description: "an updated description" }] })
+      $httpBackend.when("GET", "/entries?token=#{1234}").respond({ entries: [{ id: "1", tag_list: "an updated tag_list" }] })
 
     it "loads all entries", inject (AjaxAdapter, $rootScope) ->
       $httpBackend.expectGET("/entries?token=#{1234}")
@@ -67,7 +67,7 @@ describe "AjaxAdapter", ->
 
     it "deletes an entry", inject (AjaxAdapter, $rootScope) ->
       $httpBackend.expectDELETE("/entries/1?token=1234")
-      entry = { id: "1", toJSON: -> { description: "description"} }
+      entry = { id: "1", toJSON: -> { tag_list: "tag_list"} }
 
       AjaxAdapter.delete(entry)
 

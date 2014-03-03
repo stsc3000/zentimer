@@ -1,5 +1,5 @@
 class EntrySerializer < ActiveModel::Serializer
-  attributes :id, :elapsed, :lastTick, :description, :running,
+  attributes :id, :elapsed, :lastTick, :tag_list, :running,
     :current, :project
 
   def lastTick

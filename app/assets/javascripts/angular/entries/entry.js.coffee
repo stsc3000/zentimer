@@ -4,7 +4,7 @@ angular.module("entries").
     defaultAttributes = ->
       elapsed: 0
       lastTick: null
-      description: []
+      tag_list: []
       running: false
       project: ""
       temp: false
@@ -28,7 +28,7 @@ angular.module("entries").
       toJSON: ->
         elapsed: @elapsed
         lastTick: @lastTick
-        description: @description
+        tag_list: @tag_list
         current: @current
         running: @running
         project: @project
