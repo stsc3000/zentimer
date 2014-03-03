@@ -1,25 +1,29 @@
 <div class="page" id="timer-page">
   <div id="timer">
     <div class="row">
-      <div class="large-12 columns text-center">
+      <div class="large-12">
         <div ng-controller="ZenTimerCtrl">
 
-          <div class="row">
-            <div class="timer-counter large-12 columns" ng-class="{paused: !timer.currentEntry.running, running: timer.currentEntry.running}" ng-click="toggle()">
+          <div class="row text-center">
+            <div class="large-12 columns timer-counter" ng-class="{paused: !timer.currentEntry.running, running: timer.currentEntry.running}" ng-click="toggle()" data-fittext="0.5">
 
-              <div id="left-from-timer" class="text-center" style="float:left; width: 15%; min-height: 1px">
-                <a><i id="timer-actions-save" class="fa fa-check" ng-show="timer.savable()" ng-click="done(); $event.stopPropagation()"></i></a>
-              </div>
-
-              <a class="timer-toggle" style="float:left; display: block; width: 70%;">
+              <a class="timer-toggle">
                 <ti-elapsed elapsed="timer.currentEntry.elapsed" > </ti-elapsed>
               </a>
 
-              <div id="right-from-timer" class="text-center" style="width: 15%; float: left; ">
-                <a><i id="timer-actions-delete" ng-show="!timer.currentEntry.running && timer.currentEntry.elapsed > 0" class="fa fa-trash-o" ng-click="delete(); $event.stopPropagation();" ></i></a>
+            </div>
+          </div>
+
+          <div class="row actions-animation" style="font-weight: 700;" ng-show="timer.savable()" >
+              <div class="large-6 small-6 columns text-center"  style="font-size: 200%;" ng-click="done(); $event.stopPropagation()">
+                <a><i id="timer-actions-save" class="fa fa-check" ></i> 
+                  <span> DONE </span> </a>
               </div>
 
-            </div>
+              <div class="large-6 small-6 columns text-center" style="font-size: 200%;" ng-click="delete(); $event.stopPropagation();">
+                <a><i id="timer-actions-delete" class="fa fa-trash-o"  ></i>
+                  <span>DELETE</span></a>
+              </div>
           </div>
 
 
