@@ -12,9 +12,10 @@ describe Entry do
       entry.update_column :updated_at, (Time.now - 1.day).beginning_of_day
     end
 
-    expect(Entry.today).to include(today_entry)
-    expect(Entry.today).not_to include(tomorrow_entry)
-    expect(Entry.today).not_to include(yesterday_entry)
+    entries = Entry.today
+    expect(entries).to include(today_entry)
+    expect(entries).not_to include(tomorrow_entry)
+    expect(entries).not_to include(yesterday_entry)
   end
 
   it "fetches entries from this week" do
@@ -28,9 +29,10 @@ describe Entry do
       entry.update_column :updated_at, (Time.now - 7.day).beginning_of_day
     end
 
-    expect(Entry.this_week).to include(this_week_entry)
-    expect(Entry.this_week).not_to include(next_week_entry)
-    expect(Entry.this_week).not_to include(last_week_entry)
+    entries = Entry.this_week
+    expect(entries).to include(this_week_entry)
+    expect(entries).not_to include(next_week_entry)
+    expect(entries).not_to include(last_week_entry)
   end
 
   it "fetches entries from this month" do
@@ -46,9 +48,10 @@ describe Entry do
       entry.update_column :updated_at, start_of_month
     end
 
-    expect(Entry.this_month).to include(today_entry)
-    expect(Entry.this_month).not_to include(next_month_entry)
-    expect(Entry.this_month).not_to include(last_month_entry)
+    entries = Entry.this_month
+    expect(entries).to include(today_entry)
+    expect(entries).not_to include(next_month_entry)
+    expect(entries).not_to include(last_month_entry)
   end
 
   it "fetches arbitrary start and end dates" do
@@ -67,4 +70,23 @@ describe Entry do
     expect(entries).not_to include(in_two_days_entry)
     expect(entries).not_to include(two_days_ago_entry)
   end
+
+  it "fetches entries by projects" do
+    the_entry = Entry.create(project: "THE project")
+    another_entry = Entry.create(project: "another project")
+
+    entries = Entry.by_project("THE project")
+    expect(entries).to include(the_entry)
+    expect(entries).not_to include(another_entry)
+  end
+
+  it "fetches entries by multiple projects" do
+    the_entry = Entry.create(project: "THE project")
+    another_entry = Entry.create(project: "another project")
+
+    entries = Entry.by_project(["THE project", "another project"])
+    expect(entries).to include(the_entry)
+    expect(entries).to include(another_entry)
+  end
+
 end

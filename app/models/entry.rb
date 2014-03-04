@@ -6,4 +6,6 @@ class Entry < ActiveRecord::Base
   scope :this_week, -> { between Time.now.beginning_of_week, Time.now.end_of_week }
   scope :this_month, -> { between Time.now.beginning_of_month, Time.now.end_of_month  }
   scope :between, ->(from, to) { where("updated_at >= ?", from).where("updated_at <= ?", to) }
+
+  scope :by_project, ->(projects) { where(project: Array(projects)) }
 end
