@@ -8,4 +8,9 @@ class Entry < ActiveRecord::Base
   scope :between, ->(from, to) { where("updated_at >= ?", from).where("updated_at <= ?", to) }
 
   scope :by_project, ->(projects) { where(project: Array(projects)) }
+
+  scope :by_tags, ->(tags) do 
+    tagged_with(Array(tags), any: true) unless tags.empty?
+  end
+
 end
