@@ -169,5 +169,27 @@ describe Entry do
 
     end
 
+    describe "combining scopes" do
+
+      it "combines multiple scopes" do
+        the_entry = Entry.create(tag_list: ["the tag"], project: "the project")
+        entry_out_of_date_scope = Entry.create(tag_list: ["the tag"], project: "the project").tap do |entry|
+          entry.update_column :updated_at, Time.now + 2.days
+        end
+        entry_out_of_tag_scope = Entry.create(tag_list: ["another tag"], project: "the project")
+        entry_out_of_project_scope = Entry.create(tag_list: ["the tag"], project: "another project")
+
+        entries = Entry.filter between: { start_date: Time.now - 1.days, end_date: Time.now + 1.days },
+                              by_tags: ["the tag"],
+                              by_project: ["the project"]
+
+        expect(entries).to include(the_entry)
+        expect(entries).not_to include(entry_out_of_date_scope)
+        expect(entries).not_to include(entry_out_of_tag_scope)
+        expect(entries).not_to include(entry_out_of_project_scope)
+      end
+
+    end
+
   end
 end

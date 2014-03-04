@@ -19,4 +19,10 @@ class Entry < ActiveRecord::Base
     tagged_with(Array(tags), any: true) unless tags.empty?
   end
 
+  scope :filter, ->(options) do
+    between(options[:between][:start_date], options[:between][:end_date])
+      .by_tags(options[:by_tags])
+      .by_project(options[:by_project])
+  end
+
 end
