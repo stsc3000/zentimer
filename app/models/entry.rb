@@ -5,7 +5,13 @@ class Entry < ActiveRecord::Base
   scope :today, -> { between Time.now.beginning_of_day, Time.now.end_of_day }
   scope :this_week, -> { between Time.now.beginning_of_week, Time.now.end_of_week }
   scope :this_month, -> { between Time.now.beginning_of_month, Time.now.end_of_month  }
-  scope :between, ->(from, to) { where("updated_at >= ?", from).where("updated_at <= ?", to) }
+  scope :between, ->(from, to) do
+      #wtf? no tap?
+      scoped = all
+      scoped = scoped.where("updated_at >= ?", from) if from
+      scoped = scoped.where("updated_at <= ?", to ) if to
+      scoped
+  end
 
   scope :by_project, ->(projects) { where(project: Array(projects)) }
 

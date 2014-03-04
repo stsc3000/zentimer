@@ -55,21 +55,79 @@ describe Entry do
       expect(entries).not_to include(last_month_entry)
     end
 
-    it "fetches arbitrary start and end dates" do
-      today_entry = Entry.create
+    describe "dynamic between usage" do
 
-      in_two_days_entry = Entry.create.tap do |entry|
-        entry.update_column :updated_at, Time.now + 2.days
+      it "fetches arbitrary start and end dates" do
+        today_entry = Entry.create
+
+        in_two_days_entry = Entry.create.tap do |entry|
+          entry.update_column :updated_at, Time.now + 2.days
+        end
+
+        two_days_ago_entry = Entry.create.tap do |entry|
+          entry.update_column :updated_at, Time.now - 2.days
+        end
+
+        entries = Entry.between(Time.now - 1.days, Time.now + 1.days)
+        expect(entries).to include(today_entry)
+        expect(entries).not_to include(in_two_days_entry)
+        expect(entries).not_to include(two_days_ago_entry)
       end
 
-      two_days_ago_entry = Entry.create.tap do |entry|
-        entry.update_column :updated_at, Time.now - 2.days
+      it "fetches without end date if no end date is given" do
+        today_entry = Entry.create
+
+        in_two_days_entry = Entry.create.tap do |entry|
+          entry.update_column :updated_at, Time.now + 2.days
+        end
+
+        two_days_ago_entry = Entry.create.tap do |entry|
+          entry.update_column :updated_at, Time.now - 2.days
+        end
+
+        entries = Entry.between(Time.now - 1.days, nil)
+        expect(entries).to include(today_entry)
+        expect(entries).to include(in_two_days_entry)
+        expect(entries).not_to include(two_days_ago_entry)
+
       end
 
-      entries = Entry.between(Time.now - 1.days, Time.now + 1.days)
-      expect(entries).to include(today_entry)
-      expect(entries).not_to include(in_two_days_entry)
-      expect(entries).not_to include(two_days_ago_entry)
+      it "fetches without start date if no start date is given" do
+        today_entry = Entry.create
+
+        in_two_days_entry = Entry.create.tap do |entry|
+          entry.update_column :updated_at, Time.now + 2.days
+        end
+
+        two_days_ago_entry = Entry.create.tap do |entry|
+          entry.update_column :updated_at, Time.now - 2.days
+        end
+
+        entries = Entry.between(nil, Time.now + 1.days)
+        expect(entries).to include(today_entry)
+        expect(entries).not_to include(in_two_days_entry)
+        expect(entries).to include(two_days_ago_entry)
+
+      end
+
+      it "fetches without start and end date if none are given" do
+        today_entry = Entry.create
+
+        in_two_days_entry = Entry.create.tap do |entry|
+          entry.update_column :updated_at, Time.now + 2.days
+        end
+
+        two_days_ago_entry = Entry.create.tap do |entry|
+          entry.update_column :updated_at, Time.now - 2.days
+        end
+
+        entries = Entry.between(nil, nil)
+        expect(entries).to include(today_entry)
+        expect(entries).to include(in_two_days_entry)
+        expect(entries).to include(two_days_ago_entry)
+
+      end
+
     end
 
     it "fetches entries by projects" do
