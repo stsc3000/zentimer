@@ -3,14 +3,12 @@ require 'spec_helper'
 describe EntriesController do
   render_views
 
-  before do
-    @user = User.create
-  end
+  let(:user){ User.create }
 
   context "GET #index" do
     it "gets all the users entries" do
-      entry = @user.entries.create
-      get :index, token: @user.token
+      entry = user.entries.create
+      get :index, token: user.token
       expect(json_response).to eq(
         {:entries=>
           [{:id=>entry.id,
@@ -27,8 +25,8 @@ describe EntriesController do
 
   context "GET #show" do
     it "gets a specific entry" do
-      entry = @user.entries.create
-      get :show, id: entry.id, token: @user.token
+      entry = user.entries.create
+      get :show, id: entry.id, token: user.token
       expect(json_response).to eq(
         {
           entry: {:id=>entry.id,
@@ -55,7 +53,7 @@ describe EntriesController do
         :project=>"a project"
       }
       expect{
-        post :create, entry: params, token: @user.token
+        post :create, entry: params, token: user.token
       }.to change{Entry.count}
     end
 
@@ -68,7 +66,7 @@ describe EntriesController do
         :current=>true,
         :project=>"a project"
       }
-      post :create, entry: params, token: @user.token
+      post :create, entry: params, token: user.token
       entry_id = assigns(:entry).id
       expect(json_response).to eq(
         {:entry=>
@@ -88,26 +86,26 @@ describe EntriesController do
   context "PUT #update" do
 
     it "updates an entry" do
-      entry = @user.entries.create(tag_list: ["my description"])
+      entry = user.entries.create(tag_list: ["my description"])
 
       params = {
         tag_list: ["new description"]
       }
 
       expect {
-        put :update, id: entry.id, entry: params, token: @user.token
+        put :update, id: entry.id, entry: params, token: user.token
       }.to change{entry.reload.tag_list}.to(["new description"])
 
     end
 
     it "renders the entry" do
-      entry = @user.entries.create(tag_list: ["my description"])
+      entry = user.entries.create(tag_list: ["my description"])
 
       params = {
         tag_list: ["new description"]
       }
 
-      put :update, id: entry.id, entry: params, token: @user.token
+      put :update, id: entry.id, entry: params, token: user.token
 
       expect(json_response).to eq(
         {:entry=>
@@ -126,10 +124,10 @@ describe EntriesController do
 
   context "DELETE #destroy" do
     it "destroys the entry" do
-      entry = @user.entries.create(tag_list: ["my description"])
+      entry = user.entries.create(tag_list: ["my description"])
 
       expect {
-        delete :destroy, id: entry.id, token: @user.token
+        delete :destroy, id: entry.id, token: user.token
       }.to change{Entry.count}.from(1).to(0)
 
       expect(json_response).to eq({ status: "success" })
@@ -138,14 +136,74 @@ describe EntriesController do
 
   context "DELETE #index" do
     it "clears all entries that are not running" do
-      @user.entries.create(tag_list: ["its running"], running: true)
-      @user.entries.create(tag_list: ["my description"])
+      user.entries.create(tag_list: ["its running"], running: true)
+      user.entries.create(tag_list: ["my description"])
 
       expect {
-        delete :clear, token: @user.token
+        delete :clear, token: user.token
       }.to change{Entry.count}.from(2).to(1)
 
       expect(Entry.first.tag_list).to eq(["its running"])
     end
+  end
+
+  context "GET #filter" do
+    let(:another_user){ User.create }
+    let!(:an_entry) do
+      Entry.create(tag_list: ["work", "coffee"], project: "Important Project", user: user).tap do |entry|
+        entry.update_column :updated_at,  Time.new(2012, 1, 1)
+      end
+    end
+    let!(:another_entry) do
+      Entry.create(tag_list: ["work", "tea"], project: "Some Other Project", user: user).tap do |entry|
+        entry.update_column :updated_at, Time.new(2012, 1, 2)
+      end
+    end
+    let!(:entry_by_someone_else) do
+      Entry.create(tag_list: ["work", "tea"], project: "Some Other Project", user: another_user).tap do |entry|
+        entry.update_column :updated_at, Time.new(2012, 1, 1)
+      end
+    end
+    let(:filters) do 
+      {
+        between: {
+          start_date: Time.new(2012, 1, 1).beginning_of_day.iso8601,
+          end_date: Time.new(2012, 1, 1).end_of_day.iso8601
+        },
+        by_tags: ["work"],
+        by_projects: ["Important Project"]
+      }
+    end 
+
+    it "filters all entries by given params" do
+
+      get :filter, token: user.token, filters: filters
+
+      entries = assigns :entries
+      expect(entries).to include(an_entry)
+      expect(entries).not_to include(another_entry)
+      expect(entries).not_to include(entry_by_someone_else)
+
+    end
+
+    it "filtes all entries and returns json" do
+      get :filter, token: user.token, filters: filters
+      expected_response = { 
+        :entries=>
+          [
+            {
+              :id=>an_entry.id,
+              :elapsed=>nil,
+              :lastTick=>nil,
+              :tag_list=>["work", "coffee"],
+              :running=>nil,
+              :current=>nil,
+              :project=>"Important Project"
+            }
+          ]
+      }
+
+    end
+
   end
 end

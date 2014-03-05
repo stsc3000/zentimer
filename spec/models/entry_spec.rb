@@ -134,7 +134,7 @@ describe Entry do
       the_entry = Entry.create(project: "THE project")
       another_entry = Entry.create(project: "another project")
 
-      entries = Entry.by_project("THE project")
+      entries = Entry.by_projects("THE project")
       expect(entries).to include(the_entry)
       expect(entries).not_to include(another_entry)
     end
@@ -143,7 +143,7 @@ describe Entry do
       the_entry = Entry.create(project: "THE project")
       another_entry = Entry.create(project: "another project")
 
-      entries = Entry.by_project(["THE project", "another project"])
+      entries = Entry.by_projects(["THE project", "another project"])
       expect(entries).to include(the_entry)
       expect(entries).to include(another_entry)
     end
@@ -181,7 +181,7 @@ describe Entry do
 
         entries = Entry.filter between: { start_date: Time.now - 1.days, end_date: Time.now + 1.days },
                               by_tags: ["the tag"],
-                              by_project: ["the project"]
+                              by_projects: ["the project"]
 
         expect(entries).to include(the_entry)
         expect(entries).not_to include(entry_out_of_date_scope)

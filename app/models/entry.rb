@@ -13,7 +13,7 @@ class Entry < ActiveRecord::Base
       scoped
   end
 
-  scope :by_project, ->(projects) { where(project: Array(projects)) }
+  scope :by_projects, ->(projects) { where(project: Array(projects)) }
 
   scope :by_tags, ->(tags) do 
     tagged_with(Array(tags), any: true) unless tags.empty?
@@ -22,7 +22,7 @@ class Entry < ActiveRecord::Base
   scope :filter, ->(options) do
     between(options[:between][:start_date], options[:between][:end_date])
       .by_tags(options[:by_tags])
-      .by_project(options[:by_project])
+      .by_projects(options[:by_projects])
   end
 
 end

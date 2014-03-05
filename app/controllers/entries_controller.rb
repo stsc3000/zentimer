@@ -1,4 +1,5 @@
 class EntriesController < ApplicationController
+
   def index
     @entries = current_user!.entries
     render json: @entries
@@ -32,9 +33,25 @@ class EntriesController < ApplicationController
     render json: { status: "success" }
   end
 
+  def filter
+    @entries = current_user!.entries.filter(filter_params)
+    render json: @entries
+  end
+
   private
 
   def entry_params
     params.require(:entry).permit!
+  end
+
+  def filter_params
+    filtered = params.require(:filters).permit between: [:start_date, :end_date],
+                                   by_tags: [],
+                                   by_projects: []
+
+    filtered[:between][:start_date] = Time.parse filtered[:between][:start_date] if filtered[:between].try :[], :start_date
+    filtered[:between][:end_date] = Time.parse filtered[:between][:end_date] if filtered[:between].try :[], :end_date
+
+    filtered
   end
 end
