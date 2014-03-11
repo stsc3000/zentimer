@@ -1,0 +1,59 @@
+#analytics-page.page(ng-controller = "analyticsCtrl")
+  .row
+    .large-12.columns
+      #filter-menu
+        .row
+          .large-4.medium-4.columns.filter-menu-item(ng-class="{active: (filterSubmenu=='dates'), inactive: (filterSubmenu!='dates' && filterSubmenu)}" ng-click="toggleFilterSubmenu('dates')")
+            %i.fa.fa-fw.fa-calendar
+            {{ query.selectedDateFilter.name }}
+          .large-4.medium-4.columns.filter-menu-item(ng-class="{active: (filterSubmenu=='tags'), inactive: (filterSubmenu!='tags' && filterSubmenu)}" ng-click="toggleFilterSubmenu('tags')")
+            %i.fa.fa-fw.fa-tags
+            ALL TAGS
+          .large-4.medium-4.columns.filter-menu-item.end(ng-class="{active: (filterSubmenu=='projects'), inactive: (filterSubmenu!='projects' && filterSubmenu)}" ng-click="toggleFilterSubmenu('projects')")
+            %i.fa.fa-fw.fa-square-o
+            ALL PROJECTS
+        .row.filter-menu-submenu(ng-if="filterSubmenu=='dates'")
+          .filter-menu-subitem.large-3.columns(ng-repeat="dateFilter in query.dateFilters" ng-class="{active: (query.selectedDateFilter == dateFilter) }" ng-click="query.setDateFilter(dateFilter)")
+            %a
+              {{ dateFilter.name }}
+          .filter-menu-sub-subitem.large-12.columns(ng-if="query.selectedDateFilter.id=='fromTo'")
+            .large-2.small-6.columns
+              FROM
+            .large-4.small-6.columns
+              %i.fa.fa-wf.fa-calendar-o
+              %datepicker(ng-model="query.selectedDateFilter.from" disable-timepicker="true" default-time="00:00" on-change="query.fetch()")
+            .large-2.small-6.columns
+              TO
+            .large-4.small-6.columns
+              %i.fa.fa-wf.fa-calendar-o
+              %datepicker(ng-model="query.selectedDateFilter.to" disable-timepicker="true" default-time="23:59" on-change="query.fetch()")
+
+        .row.filter-menu-submenu(ng-if="filterSubmenu=='tags'")
+          .large-12.columns tags
+        .row.filter-menu-submenu(ng-if="filterSubmenu=='projects'")
+          .large-12.columns projects
+      #analytics-head
+        %h2.analytics-headline
+          {{ query.selectedDateFilter.headline() }}
+          %small.analytics-subheadline {{ query.selectedDateFilter.subheadline() }}
+      #entries(ng-if="query.entries.length > 0")
+        %h3 {{query.entries.length }} Entries
+        %h4 {{query.total() | elapsed }}
+        .row.entry-row.my-repeat-animation(ng-repeat="entry in query.entries")
+          .entry(style="display: table; width: 100%;")
+            %div
+              .entry-top-level-row
+                .entry-top-level-row-elapsed-entry
+                  {{ entry.elapsed | elapsed }}
+                .entry-top-level-row-project-entry
+                  {{ entry.project }}
+              %div
+                {{ entry.tag_list.join() }}
+
+        -#%ul
+          -#%li(ng-repeat="entry in query.entries")
+            -#%ul
+              -#%li {{ entry.project }}
+              -#%li {{ entry.tag_list.join(", ") }}
+              -#%li {{ entry.lastTick | date }}
+              -#%li {{ entry.elapsed | elapsed }}

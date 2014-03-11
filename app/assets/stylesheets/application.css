@@ -10,6 +10,7 @@
  *
  *= require foundation_and_overrides
  *= require font-awesome
+ *= require ng-quick-date/dist/ng-quick-date
  *= require_tree .
  *= require_self
  */
@@ -290,7 +291,7 @@ form {
   left: 10px;
 }
 
-#entries-clear, #create-user {
+#entries-clear, #create-user, #show-analytics {
   font-size: 1.5em;
   width: 50px;
   display: block;
@@ -466,7 +467,6 @@ form {
 }
 
 #analytics-page {
-  background-color: #d35400;
   color: #fff;
 }
 
@@ -525,4 +525,139 @@ form {
   background-color: #34495e;
   transition: all 0.25s ease-in-out;
   cursor: pointer;
+}
+
+#analytics-page  .filter {
+  font-size: 2em;
+  margin-bottom: 10px;
+  line-height: 1.6em;
+}
+
+#analytics-page .filter-category {
+  color: #bdc3c7;
+}
+
+#analytics-page .filter-value {
+  font-weight: 700;
+  background-color: #34495e;
+}
+
+.big-select-list {
+  background-color: #34495e;
+  z-index: 9000;
+  position: absolute;
+  list-style: none;
+  float:right;
+}
+
+.big-select-item {
+  cursor: pointer;
+}
+
+.big-select-item:hover, .big-select-item.selected {
+  font-weight: 700;
+}
+
+#shadow {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.3);
+  top: 0;
+  left: 0;
+  z-index: 8000;
+}
+
+#filter-menu {
+  line-height: 3em;
+}
+
+.filter-menu-item {
+  font-weight: 700;
+  background-color: rgba(52, 73, 94, 0.4);
+}
+
+.filter-menu-item.active, .filter-menu-submenu {
+  background-color: rgba(52, 73, 94, 0.6);
+}
+
+.filter-menu-subitem {
+  cursor: pointer;
+}
+
+.filter-menu-item:hover, .filter-menu-subitem:hover {
+  cursor: pointer;
+  background-color: rgba(52, 73, 94, 0.7);
+}
+
+.filter-menu-subitem.active {
+  background-color: rgba(52, 73, 94, 0.9);
+  font-weight: 700;
+}
+
+.filter-menu-sub-subitem {
+  background-color: rgba(52, 73, 94, 0.9);
+}
+
+@media only screen {
+  .filter-menu-item.inactive {
+    display: none;
+  }
+  .filter-menu-item.active {
+    display: block;
+  }
+
+
+}
+
+.quickdate-popup {
+  top: 90px;
+  left: 50%;
+  margin-left: -40%;
+  width: 80%;
+  position: fixed;
+  background-color: rgba(52, 73, 94, 0.9);
+  border: none;
+}
+
+table.quickdate-calendar th {
+  text-align: center;
+}
+
+.quickdate-popup label {
+  color: #fff;
+}
+
+.quickdate-popup tr, .quickdate-popup tr td, .quickdate-popup table thead tr th, .quickdate-popup  table thead tr td, .quickdate-popup table tfoot tr th, .quickdate-popup table tfoot tr td {
+  color: #fff;
+  background-color: rgba(52, 73, 94, 0.9);
+}
+
+.quickdate-popup table {
+  background-color: rgba(52, 73, 94, 0.9);
+  border: none;
+}
+
+.quickdate-input-wrapper * {
+  display: none !important;
+  min-height: 20px;
+}
+
+.quickdate-popup .quickdate-close {
+  color: #fff;
+}
+
+@media only screen and (min-width: 768px) {
+
+  .filter-menu-item {
+    display: block !important;
+  }
+}
+
+.analytics-headline {
+  margin-bottom: 0;
+}
+.analytics-subheadline {
+  display: inline-block;
+  font-weight: 300;
 }

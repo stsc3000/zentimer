@@ -16,8 +16,10 @@
 #= require zeroclipboard
 #= require foundation
 #= require lodash
+#= require moment
 #= require angular
 #= require angular-animate
 #= require angular-route
 #= require angularjs-fittext.js
+#= require ng-quick-date.js
 #= require angular/app

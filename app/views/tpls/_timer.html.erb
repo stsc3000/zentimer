@@ -92,6 +92,7 @@
             <a id="entries-clear" ng-click="clear()" class="fa fa-trash-o fa-fw" ng-show="entries.length > 0"> </a>
             <a id="create-user" class="fa fa-user fa-fw" ng-click="createUser()" ng-if="!user"> </a>
             <a ng-href="/{{user.token}}" id="create-user" class="fa fa-user fa-fw" ng-click="createUser()" ng-if="user" target="_self" name="ZenTimer" title="Drag me to your bookmarks!"><span style="display: none;">ZenTimer</span></a>
+            <a ng-href="#/analytics" id="show-analytics" class="fa fa-bar-chart-o fa-fw" ng-if="user"></a>
           </div>
         </span>
         <span id="bottombar-right">
@@ -107,28 +108,6 @@
                 <ul>
                   <li><kbd>Ctrl-Y</kbd> toggles the current entry.</li>
                   <li><kbd>&gt;</kbd> saves the current entry and starts a new one.</li>
-                </ul>
-              </p>
-              <p>
-                <h3>Legal Tags:</h3>
-                <ul>
-                  <li>Konzeption</li>
-                  <li>Integration/Deployment</li>
-                  <li>Testing</li>
-                  <li>Qualitätssicherung</li>
-                  <li>Nachbesserungen</li>
-                  <li>Bugfixing</li>
-                  <li>Refactoring</li>
-                  <li>Projektkoordination</li>
-                  <li>Support</li>
-                  <li>Kunden-Meeting</li>
-                  <li>Team-Meeting</li>
-                  <li>Pair Programming</li>
-                  <li>Cross-Browser</li>
-                  <li>Infrastruktur</li>
-                  <li>SEO</li>
-                  <li>Conversion-Optimierung</li>
-                  <li>Design</li>
                 </ul>
               </p>
               <a class="close-reveal-modal" ng-click="displayAppInfo = false">&#215;</a>

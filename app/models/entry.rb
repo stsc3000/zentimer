@@ -13,16 +13,18 @@ class Entry < ActiveRecord::Base
       scoped
   end
 
-  scope :by_projects, ->(projects) { where(project: Array(projects)) }
+  scope :by_projects, ->(projects) do
+    where(project: Array(projects)) if projects.present?
+  end
 
   scope :by_tags, ->(tags) do 
-    tagged_with(Array(tags), any: true) unless tags.empty?
+    tagged_with(Array(tags), any: true) if tags.present?
   end
 
   scope :filter, ->(options) do
-    between(options[:between][:start_date], options[:between][:end_date])
-      .by_tags(options[:by_tags])
-      .by_projects(options[:by_projects])
+    between(options[:date_filter][:from], options[:date_filter][:to])
+      #.by_tags(options[:by_tags])
+      #.by_projects(options[:by_projects])
   end
 
 end

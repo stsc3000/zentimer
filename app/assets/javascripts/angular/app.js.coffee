@@ -2,7 +2,7 @@
 #= require_tree .
 
 
-angular.module("app", ["zen-timer", "ngFitText", "users", "entries", "settings", "ngAnimate", "ngRoute"])
+angular.module("app", ["zen-timer", "ngFitText", "users", "entries", "settings", "analytics", "ngAnimate", "ngRoute", "ngQuickDate"])
 
 angular.element(document).ready ->
   if $("meta[name=user-token]").length > 0
@@ -15,11 +15,18 @@ angular.module("app")
     $routeProvider.when('/', { templateUrl: 'tpls/timer' })
     .when('/settings', { templateUrl: 'tpls/settings' })
     .when('/analytics', { templateUrl: 'tpls/analytics' })
-
-angular.module("app")
+  .config (ngQuickDateDefaultsProvider) ->
+    # Configure with icons from font-awesome
+    ngQuickDateDefaultsProvider.set
+      closeButtonHtml: "<i class='fa fa-times'></i>"
+      nextLinkHtml: "<i class='fa fa-chevron-right'></i>"
+      prevLinkHtml: "<i class='fa fa-chevron-left'></i>"
+  angular.module("app")
   .run ($rootScope, $timeout) ->
     $rootScope.$on "$viewContentLoaded", ->
       #HACK! but I can't find a relevant callback for this
       $timeout ( ->
         $rootScope.enableAnimations = true unless $rootScope.enableAnimations
       ), 200
+
+
