@@ -23,5 +23,5 @@ namespace :users do
     end
 
     puts user.token
-    end
+  end
 end

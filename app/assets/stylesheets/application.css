@@ -10,6 +10,7 @@
  *
  *= require foundation_and_overrides
  *= require font-awesome
+ *= require nv.d3
  *= require ng-quick-date/dist/ng-quick-date
  *= require_tree .
  *= require_self
@@ -660,4 +661,23 @@ table.quickdate-calendar th {
 .analytics-subheadline {
   display: inline-block;
   font-weight: 300;
+}
+
+/*charting*/
+
+.chart-arc path {
+  stroke: none;
+}
+
+.chart-arcs-title {
+  font-size: 2em;
+  fill: #fff;
+}
+
+#donut-chart {
+  height: 570px;
+}
+
+.legend-item {
+  fill: #fff;
 }

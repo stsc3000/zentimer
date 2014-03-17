@@ -29,26 +29,29 @@
               %datepicker(ng-model="query.selectedDateFilter.to" disable-timepicker="true" default-time="23:59" on-change="query.fetch()")
 
         .row.filter-menu-submenu(ng-if="filterSubmenu=='tags'")
-          .large-12.columns tags
+          .large-12.columns
+
         .row.filter-menu-submenu(ng-if="filterSubmenu=='projects'")
           .large-12.columns projects
       #analytics-head
         %h2.analytics-headline
           {{ query.selectedDateFilter.headline() }}
           %small.analytics-subheadline {{ query.selectedDateFilter.subheadline() }}
+      %ti-donut-chart(chart-data="query.entriesGroupedByProject" chart-id="donut-chart" chart-title="{{query.total() | elapsed}}")
       #entries(ng-if="query.entries.length > 0")
         %h3 {{query.entries.length }} Entries
         %h4 {{query.total() | elapsed }}
+
+
         .row.entry-row.my-repeat-animation(ng-repeat="entry in query.entries")
           .entry(style="display: table; width: 100%;")
             %div
               .entry-top-level-row
                 .entry-top-level-row-elapsed-entry
-                  {{ entry.elapsed | elapsed }}
+                  %ti-elapsed-entry(model="entry" elapsed="entry.elapsed" disabled="entry.running")
                 .entry-top-level-row-project-entry
-                  {{ entry.project }}
-              %div
-                {{ entry.tag_list.join() }}
+                  %ti-project-entry(on="entry.project" update="entry.persist()" suggestion-domain="projectSuggestions")
+              %ti-tag-entry(on="entry.tag_list" suggestion-domain="tagSuggestions" update="entry.persist()")
 
         -#%ul
           -#%li(ng-repeat="entry in query.entries")

@@ -10,4 +10,6 @@ angular.module("analytics").
         $scope.filterSubmenu = type
 
     $scope.query.fetch()
+
+    $scope.$watch "query.entries", ( -> $scope.query.updateEntriesGroupedByProject() ), true
 )

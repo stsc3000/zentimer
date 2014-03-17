@@ -17,6 +17,8 @@
 #= require foundation
 #= require lodash
 #= require moment
+#= require d3
+#= require nv.d3
 #= require angular
 #= require angular-animate
 #= require angular-route

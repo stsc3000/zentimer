@@ -1,5 +1,5 @@
 angular.module("analytics").
-  service("Query", ($http, $q, user) ->
+  service("Query", ($http, $q, Entry, user) ->
     Query = {
       dateFilters: 
         [
@@ -79,12 +79,20 @@ angular.module("analytics").
         data.query.date_filter = @selectedDateFilter.toQuery()
 
         $http.post("/entries/filter", data).success (response) =>
-          @entries = response.entries
+          @entries = _.map response.entries, (entry) -> new Entry(entry)
+          @updateEntriesGroupedByProject()
 
       entries: []
+      entriesGroupedByProject: []
 
       total: ->
         _.reduce @entries, ((sum, entry) -> sum + entry.elapsed), 0
+
+      updateEntriesGroupedByProject: ->
+       grouped = _.groupBy(@entries, (entry) -> entry.project || "No Project")
+       @entriesGroupedByProject = _.map grouped, (entries, project) ->
+         sum = _.inject(entries, ((acc, entry) -> acc + entry.elapsed), 0)
+         { key: project, y: sum }
     }
 
     Query.selectedDateFilter = Query.dateFilters[0]
