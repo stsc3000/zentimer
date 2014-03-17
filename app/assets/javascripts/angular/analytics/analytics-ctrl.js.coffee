@@ -1,13 +1,19 @@
 angular.module("analytics").
-  controller("analyticsCtrl", ($scope, $http, Query, user) ->
+  controller("analyticsCtrl", ($scope, $http, Query, user, elapsedFilter) ->
 
     $scope.query = Query
+    $scope.elapsedFilter = elapsedFilter
 
     $scope.toggleFilterSubmenu = (type) ->
-      if $scope.filterSubmenu == type
+      console.log $scope.query.selectedDateFilter
+      if $scope.filterSubmenu == type && $scope.query.selectedDateFilter.id != 'fromTo'
         $scope.filterSubmenu = undefined
       else
         $scope.filterSubmenu = type
+
+    $scope.deleteEntry = (entry) ->
+      entry.delete().then ->
+        $scope.query.fetch()
 
     $scope.query.fetch()
 

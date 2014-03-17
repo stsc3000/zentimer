@@ -13,8 +13,7 @@ angular.module("app").
         currentChartData = []
 
         $scope.$watch "chartData", (chartData) ->
-          width = 500
-          height = 500
+          height = width = $(el).width()
 
           angular.copy(chartData, currentChartData)
 
@@ -26,14 +25,14 @@ angular.module("app").
                 .x( (d) -> d.key )
                 .color(d3.scale.category10().range())
                 .width(width)
-                .height(height)
+                #.height(height)
                 .donut(true)
 
               d3.select("##{$scope.chartId}")
                 .datum(currentChartData)
                 .transition().duration(5000)
                 .attr('width', width)
-                .attr('height', height)
+                #.attr('height', height)
                 .call(chart)
               chart
 

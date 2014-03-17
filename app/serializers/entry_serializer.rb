@@ -6,4 +6,8 @@ class EntrySerializer < ActiveModel::Serializer
     object.lastTick.iso8601 if object.lastTick
   end
 
+  def tag_list
+    object.tags.map(&:name)
+  end
+
 end

@@ -66,6 +66,9 @@ angular.module("entries").
       persistable: ->
         !this.temp
 
+      delete: ->
+        Entry.deleteEntry(@)
+
       start: ->
         @temp = false
         @lastTick = Entry.nowDate()
@@ -126,8 +129,8 @@ angular.module("entries").
       return new Entry(attributes)
 
     Entry.deleteEntry = (entry) ->
-      Entry.storage().delete(entry)
       _.remove(@entries, (searchEntry) -> searchEntry == entry)
+      Entry.storage().delete(entry)
 
     Entry.addEntry = (entry) ->
       @entries.push(entry) unless _.include(@entries, entry)

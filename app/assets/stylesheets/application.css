@@ -681,3 +681,22 @@ table.quickdate-calendar th {
 .legend-item {
   fill: #fff;
 }
+
+#bar-chart text{
+  fill: #ffffff;
+  text-transform: uppercase;
+  font-family: 'Roboto Condensed', sans-serif; font-weight: 300;
+}
+
+#bar-chart .nvd3 .nv-axis path {
+  stroke: #ffffff;
+}
+
+.nvtooltip {
+  background-color: #2c3e50 !important;
+}
+
+.nvtooltip h3 {
+  background-color: inherit;
+  border: none;
+}

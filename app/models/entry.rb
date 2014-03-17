@@ -17,14 +17,21 @@ class Entry < ActiveRecord::Base
     where(project: Array(projects)) if projects.present?
   end
 
-  scope :by_tags, ->(tags) do 
-    tagged_with(Array(tags), any: true) if tags.present?
+  scope :with_tags, ->(tags) do 
+    scoped = all
+    scoped = scoped.tagged_with(Array(tags[:include])) if tags[:include].present?
+    scoped = scoped.tagged_with(Array(tags[:exclude]), exclude: true) if tags[:exclude].present?
+    scoped
   end
 
   scope :filter, ->(options) do
     between(options[:date_filter][:from], options[:date_filter][:to])
-      #.by_tags(options[:by_tags])
-      #.by_projects(options[:by_projects])
+      .by_projects(options[:projects])
+      .with_tags(options[:tags])
   end
+
+  scope :unique_projects, ->{ select(:project).order("project ").uniq }
+
+  scope :tags, ->{ select( "tags.name" ).joins(:tags).order("tags.name").uniq }
 
 end

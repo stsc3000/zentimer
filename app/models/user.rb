@@ -7,6 +7,14 @@ class User < ActiveRecord::Base
   serialize :tags, Array
   serialize :projects, Array
 
+  def projects
+    entries.unique_projects.map(&:project)
+  end
+
+  def tags
+    entries.tags.map(&:name)
+  end
+
   private
 
   def add_secure_token

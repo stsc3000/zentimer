@@ -67,6 +67,13 @@ angular.module("analytics").
           }
         ]
 
+      tags: {
+        include: []
+        exclude: []
+      }
+
+      projects: []
+
       getDateFilter: ->
         _.find @dateFilters, (filter) => filter == @selectedDateFilter
 
@@ -77,6 +84,8 @@ angular.module("analytics").
       fetch: ->
         data = { token: user.token, query: {} }
         data.query.date_filter = @selectedDateFilter.toQuery()
+        data.query.projects = @projects
+        data.query.tags = @tags
 
         $http.post("/entries/filter", data).success (response) =>
           @entries = _.map response.entries, (entry) -> new Entry(entry)
@@ -92,7 +101,20 @@ angular.module("analytics").
        grouped = _.groupBy(@entries, (entry) -> entry.project || "No Project")
        @entriesGroupedByProject = _.map grouped, (entries, project) ->
          sum = _.inject(entries, ((acc, entry) -> acc + entry.elapsed), 0)
-         { key: project, y: sum }
+         { key: project, value: sum }
+
+      projectDomain: []
+
+      fetchProjectDomain: ->
+        $http.get("#{user.token}/projects").success (response) =>
+          @projectDomain = response.projects
+
+      tagDomain: []
+
+      fetchTagDomain: ->
+        $http.get("#{user.token}/tags").success (response) =>
+          @tagDomain = response.tags
+
     }
 
     Query.selectedDateFilter = Query.dateFilters[0]

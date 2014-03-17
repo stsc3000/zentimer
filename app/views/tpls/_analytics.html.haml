@@ -13,7 +13,7 @@
             %i.fa.fa-fw.fa-square-o
             ALL PROJECTS
         .row.filter-menu-submenu(ng-if="filterSubmenu=='dates'")
-          .filter-menu-subitem.large-3.columns(ng-repeat="dateFilter in query.dateFilters" ng-class="{active: (query.selectedDateFilter == dateFilter) }" ng-click="query.setDateFilter(dateFilter)")
+          .filter-menu-subitem.large-3.columns(ng-repeat="dateFilter in query.dateFilters" ng-class="{active: (query.selectedDateFilter == dateFilter) }" ng-click="query.setDateFilter(dateFilter);toggleFilterSubmenu('dates')")
             %a
               {{ dateFilter.name }}
           .filter-menu-sub-subitem.large-12.columns(ng-if="query.selectedDateFilter.id=='fromTo'")
@@ -28,16 +28,19 @@
               %i.fa.fa-wf.fa-calendar-o
               %datepicker(ng-model="query.selectedDateFilter.to" disable-timepicker="true" default-time="23:59" on-change="query.fetch()")
 
-        .row.filter-menu-submenu(ng-if="filterSubmenu=='tags'")
+        .row.filter-menu-submenu(ng-if="filterSubmenu=='tags'" ng-init="query.fetchTagDomain()")
           .large-12.columns
-
-        .row.filter-menu-submenu(ng-if="filterSubmenu=='projects'")
-          .large-12.columns projects
+            Include Tags
+            %ti-tag-entry(on="query.tags.include" suggestion-domain="query.tagDomain" update="query.fetch()")
+            Exclude Tags
+            %ti-tag-entry(on="query.tags.exclude" suggestion-domain="query.tagDomain" update="query.fetch()")
+        .row.filter-menu-submenu(ng-if="filterSubmenu=='projects'" ng-init="query.fetchProjectDomain()")
+          %ti-tag-entry(on="query.projects" suggestion-domain="query.projectDomain" update="query.fetch()")
       #analytics-head
         %h2.analytics-headline
           {{ query.selectedDateFilter.headline() }}
           %small.analytics-subheadline {{ query.selectedDateFilter.subheadline() }}
-      %ti-donut-chart(chart-data="query.entriesGroupedByProject" chart-id="donut-chart" chart-title="{{query.total() | elapsed}}")
+      %ti-bar-chart(chart-data="query.entriesGroupedByProject" chart-id="bar-chart" chart-title="{{query.total() | elapsed}}" elapsed-filter="elapsedFilter")
       #entries(ng-if="query.entries.length > 0")
         %h3 {{query.entries.length }} Entries
         %h4 {{query.total() | elapsed }}
@@ -52,11 +55,14 @@
                 .entry-top-level-row-project-entry
                   %ti-project-entry(on="entry.project" update="entry.persist()" suggestion-domain="projectSuggestions")
               %ti-tag-entry(on="entry.tag_list" suggestion-domain="tagSuggestions" update="entry.persist()")
+            .entry-row-hidden
+              .large-3.small-3.columns.text-center
+              .large-3.small-3.columns.text-center
+              .large-3.small-3.columns.text-center
+                %a
+                  %i.fa.fa-file.fa-fw(ti-copy copy-source="entry.tag_list")
+              .large-3.small-3.columns.text-center
+                %a(ng-click="deleteEntry(entry)")
+                  %i.fa.fa-trash-o.fa-fw
 
-        -#%ul
-          -#%li(ng-repeat="entry in query.entries")
-            -#%ul
-              -#%li {{ entry.project }}
-              -#%li {{ entry.tag_list.join(", ") }}
-              -#%li {{ entry.lastTick | date }}
-              -#%li {{ entry.elapsed | elapsed }}
+

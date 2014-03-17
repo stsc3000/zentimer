@@ -34,8 +34,16 @@ class EntriesController < ApplicationController
   end
 
   def filter
-    @entries = current_user!.entries.filter(filter_params)
+    @entries = current_user!.entries.filter(filter_params).includes(:tags)
     render json: @entries
+  end
+
+  def projects
+    render json: { projects: current_user!.projects }
+  end
+
+  def tags
+    render json: { tags: current_user!.tags }
   end
 
   private

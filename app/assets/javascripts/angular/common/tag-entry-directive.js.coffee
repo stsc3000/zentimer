@@ -43,6 +43,7 @@ angular.module("app").
           $scope.addTag(suggestion)
           $scope.suggestions.clear()
           $scope.currentTag = ""
+          $scope.update()
 
         $scope.clearSuggestions = ->
           if $scope.suggestionsEnabled()
