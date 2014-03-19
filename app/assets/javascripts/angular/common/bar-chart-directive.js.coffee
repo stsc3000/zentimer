@@ -28,11 +28,12 @@ angular.module("app").
               ).y((d) ->
                 d.value / 3600
               ).staggerLabels(false).tooltips(true).showValues(false).transitionDuration(1000)
-                .height(300)
+                .width(width)
+                .margin({left: 20, right: 0})
                 .tooltipContent (name, key, value) ->
                   return "#{key} - #{ $scope.elapsedFilter( value * 3600 ) }"
 
-              d3.select("##{$scope.chartId}").attr('height', 300).datum(currentChartData).call chart
+              d3.select("##{$scope.chartId}").attr('height', 300).attr('width', width).datum(currentChartData).call chart
               nv.utils.windowResize chart.update
               chart
 

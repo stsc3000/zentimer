@@ -115,6 +115,12 @@ angular.module("analytics").
         $http.get("#{user.token}/tags").success (response) =>
           @tagDomain = response.tags
 
+      deleteEntry: (entry) ->
+        _.remove(@entries, (searchEntry) -> searchEntry == entry)
+        @updateEntriesGroupedByProject()
+        entry.delete()
+
+
     }
 
     Query.selectedDateFilter = Query.dateFilters[0]

@@ -11,10 +11,6 @@ angular.module("analytics").
       else
         $scope.filterSubmenu = type
 
-    $scope.deleteEntry = (entry) ->
-      entry.delete().then ->
-        $scope.query.fetch()
-
     $scope.query.fetch()
 
     $scope.$watch "query.entries", ( -> $scope.query.updateEntriesGroupedByProject() ), true

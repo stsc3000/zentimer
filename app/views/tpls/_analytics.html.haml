@@ -40,10 +40,12 @@
         %h2.analytics-headline
           {{ query.selectedDateFilter.headline() }}
           %small.analytics-subheadline {{ query.selectedDateFilter.subheadline() }}
-      %ti-bar-chart(chart-data="query.entriesGroupedByProject" chart-id="bar-chart" chart-title="{{query.total() | elapsed}}" elapsed-filter="elapsedFilter")
+      %ti-bar-chart(chart-data="query.entriesGroupedByProject" chart-id="bar-chart" chart-title="{{query.total() | elapsed}}" elapsed-filter="elapsedFilter" id="bar-chart-container")
       #entries(ng-if="query.entries.length > 0")
-        %h3 {{query.entries.length }} Entries
-        %h4 {{query.total() | elapsed }}
+        %h2.analytics-headline
+          {{query.total() | elapsed }}
+          %small.analytics-subheadline
+            {{query.entries.length }} Entries
 
 
         .row.entry-row.my-repeat-animation(ng-repeat="entry in query.entries")
@@ -62,7 +64,7 @@
                 %a
                   %i.fa.fa-file.fa-fw(ti-copy copy-source="entry.tag_list")
               .large-3.small-3.columns.text-center
-                %a(ng-click="deleteEntry(entry)")
+                %a(ng-click="query.deleteEntry(entry)")
                   %i.fa.fa-trash-o.fa-fw
 
 
