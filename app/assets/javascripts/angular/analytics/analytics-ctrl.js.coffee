@@ -1,5 +1,5 @@
 angular.module("analytics").
-  controller("analyticsCtrl", ($scope, $http, Query, user, elapsedFilter) ->
+  controller("analyticsCtrl", ($scope, $http, Query, elapsedFilter) ->
 
     $scope.query = Query
     $scope.elapsedFilter = elapsedFilter

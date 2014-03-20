@@ -23,6 +23,11 @@ angular.module("app")
       prevLinkHtml: "<i class='fa fa-chevron-left'></i>"
   angular.module("app")
   .run ($rootScope, $timeout) ->
+    $rootScope.menuVisible = false
+
+    $rootScope.toggleMenu  = ->
+      $rootScope.menuVisible = !$rootScope.menuVisible
+
     $rootScope.$on "$viewContentLoaded", ->
       #HACK! but I can't find a relevant callback for this
       $timeout ( ->

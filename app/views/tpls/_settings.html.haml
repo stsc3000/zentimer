@@ -1,7 +1,6 @@
-#settings-page.page(ng-controller="settingsCtrl")
+#settings-page(ng-controller="settingsCtrl")
   .page(ng-class="{active: showPage}")
     .row
-      %a.close-page(href="#/") &#215;
       .large-12.columns
         %h2 ZenTimer Settings
       %p
@@ -13,6 +12,3 @@
         Add projects here to enable autocomplete for your projects
         %ti-tag-entry(on="projects" update="saveProjects")
 
-  #bottom-menu
-    .large-12.columns
-      %a#timer-link.fa.fa-clock-o.fa-fw(ng-href="#/")

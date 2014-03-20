@@ -1,0 +1,27 @@
+%a#show-menu.fa.fa-bars(ng-click="toggleMenu()" ng-class="{'open': menuVisible}")
+%nav#menu.cbp-spmenu.cbp-spmenu-vertical.cbp-spmenu-left(ng-controller="menuCtrl" ng-class="{'cbp-spmenu-open': menuVisible}")
+  %h3 
+    ZenTimer
+  %a.link.fa.fa-clock-o(ng-href="#/" ng-click="toggleMenu()") Timer
+  %a.link.fa.fa-bar-chart-o(ng-if="user" ng-href="#/analytics" ng-if="user" ng-click="toggleMenu()") Analytics
+  %a.link.fa.fa-gear(ng-href="#/settings" ng-click="toggleMenu()") Settings
+  %span(ng-controller="CreateUserCtrl")
+    %a.user.fa.fa-user(ng-click="createUser()" ng-if="!user" ng-click="toggleMenu()") Create Permanent Account
+    %a.user.fa.fa-user(ng-href="/{{user.token}}" ng-if="user" target="_self" name="ZenTimer" title="Drag me to your bookmarks!" ng-click="toggleMenu()")
+      Your ZenTimer Account
+
+  %span#appInfo(ng-controller="helpCtrl")
+    %a.link.fa.fa-question-circle(ng-click="toggleMenu(); displayAppInfo=true") Help
+    #app-info-modal.reveal-modal(ti-reveal-modal="displayAppInfo")
+      %h2 Welcome to ZenTimer
+      %p
+        %h3 Keyboard Shortcuts
+        %ul
+          %li
+            %kbd Ctrl-Y
+            toggles the current entry
+          %li
+            %kbd &gt;
+            saves the current entry and starts a new one
+      %a.close-reveal-modal(ng-click="displayAppInfo=false")
+        &#215;

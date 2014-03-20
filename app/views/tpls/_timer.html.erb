@@ -69,7 +69,7 @@
             </div>
             <div class="large-3 small-3 columns text-center">
               <a>
-                <i ti-copy copy-source="entry.tag_list" class="fa fa-file fa-fw"></i>
+                <i ti-copy copy-source="entry.tag_list" class="fa fa-copy fa-fw"></i>
                 <br>
               </a>
             </div>
@@ -84,40 +84,21 @@
       </div>
 
       <div id="bottom-menu">
-        <a id="add-entry" class="large-12 columns text-center" style="font-size: 1.5em;" ng-click="addEntry()">
-          <i class="fa fa-plus fa-fw"></i>
-        </a>
-        <span ng-controller="CreateUserCtrl">
-          <div id="left-icons">
-            <a id="entries-clear" ng-click="clear()" class="fa fa-trash-o fa-fw" ng-show="entries.length > 0"> </a>
-            <a id="create-user" class="fa fa-user fa-fw" ng-click="createUser()" ng-if="!user"> </a>
-            <a ng-href="/{{user.token}}" id="create-user" class="fa fa-user fa-fw" ng-click="createUser()" ng-if="user" target="_self" name="ZenTimer" title="Drag me to your bookmarks!"><span style="display: none;">ZenTimer</span></a>
-            <a ng-href="#/analytics" id="show-analytics" class="fa fa-bar-chart-o fa-fw" ng-if="user"></a>
-          </div>
-        </span>
-        <span id="bottombar-right">
-          <a id="settings-link" class="fa fa-gear fa-fw" href="#/settings"></a>
-          <span id="appInfo" ng-controller="helpCtrl">
 
-            <a id="help-link" class="fa fa-question-circle fa-fw" ng-click="displayAppInfo = true"></a>
+        <div id="left-icons">&nbsp;</div>
+        <div id="center-icons">
+          <a id="add-entry" style="font-size: 1.5em;" ng-click="addEntry()">
+            <i class="fa fa-plus fa-fw"></i>
+          </a>
+        </div>
 
-            <div id="app-info-modal" ti-reveal-modal="displayAppInfo" class="reveal-modal">
-              <h2>Welcome To ZenTimer.</h2>
-              <p>
-                <h3>Keyboard Shortcuts:</h3>
-                <ul>
-                  <li><kbd>Ctrl-Y</kbd> toggles the current entry.</li>
-                  <li><kbd>&gt;</kbd> saves the current entry and starts a new one.</li>
-                </ul>
-              </p>
-              <a class="close-reveal-modal" ng-click="displayAppInfo = false">&#215;</a>
-            </div>
-          </span>
-
+        <div id='right-icons'>
+          <a id="entries-clear" ng-click="clear()" class="fa fa-trash-o fa-fw" ng-show="entries.length > 0"> </a>
           <span id="entries-total-elapsed" >
             <ti-elapsed elapsed="totalElapsed()" > </ti-elapsed>
           </span>
-        </span>
+        </div>
+
       </div>
 
     </div>

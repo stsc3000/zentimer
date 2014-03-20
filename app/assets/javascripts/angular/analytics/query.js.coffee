@@ -98,10 +98,10 @@ angular.module("analytics").
         _.reduce @entries, ((sum, entry) -> sum + entry.elapsed), 0
 
       updateEntriesGroupedByProject: ->
-       grouped = _.groupBy(@entries, (entry) -> entry.project || "No Project")
-       @entriesGroupedByProject = _.map grouped, (entries, project) ->
-         sum = _.inject(entries, ((acc, entry) -> acc + entry.elapsed), 0)
-         { key: project, value: sum }
+        grouped = _.groupBy(@entries, (entry) -> entry.project || "No Project")
+        #@entriesGroupedByProject = _.map grouped, (entries, project) ->
+          #sum = _.inject(entries, ((acc, entry) -> acc + entry.elapsed), 0)
+          #{ key: project, value: sum }
 
       projectDomain: []
 
