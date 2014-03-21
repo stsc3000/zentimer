@@ -169,6 +169,7 @@ a, a:hover, a:active {
 .entry-continue, .entry-pause {
   display: table-cell;
   vertical-align: middle;
+  /*padding-left: 5px;*/
 }
 
 .entry-tag-list span {
@@ -448,10 +449,20 @@ form {
 
 
 .page {
-	top: 80px;
+  margin-top: 80px;
   height: 100%;
   width: 100%;
   position: absolute;
+}
+
+
+@media only screen and (min-width: 768px) {
+  .page {
+    margin-top: 0px;
+  }
+  #timer {
+    margin-top: 80px;
+  }
 }
 
 #analytics-page {
@@ -713,46 +724,53 @@ table.quickdate-calendar th {
 }
 
 #show-menu {
-	padding: 25px;
+  background-color: rgba(52, 73, 94, 0.6);
+  padding: 25px;
   font-size: 1.9em;
   position: fixed;
   border-bottom: none;
   text-align: center;
   z-index: 1200;
-	left: 0px;
-	-webkit-transition: all 0.3s ease;
-	-moz-transition: all 0.3s ease;
-	transition: all 0.3s ease;
+  left: 0px;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+#show-menu.fa-bars:before {
+  float:left;
+}
+
+@media only screen and (min-width: 768px) {
+  #show-menu {
+    width: auto;
+  }
 }
 
 #show-menu.open {
-	left: 240px;
+  left: 240px;
+  background: #2c3e50;
 }
-
-#show-menu:hover {
-	background: #2c3e50;
-}
-
 
 #menu h3 {
   padding-left: 55px;
-	background: #2c3e50;
+  background: #2c3e50;
 }
 
 .cbp-spmenu {
-	background: #2c3e50;
+  background: #2c3e50;
 }
 
 .cbp-spmenu h3 {
-	background: #2c3e50;
-	color: #fff;
+  background: #2c3e50;
+  color: #fff;
 }
 
 .cbp-spmenu a:hover {
-	background: #34495e;
+  background: #34495e;
 }
 
 .cbp-spmenu-vertical a {
-	border-bottom: 1px solid #34495e;
-
+  border-bottom: 1px solid #34495e;
 }

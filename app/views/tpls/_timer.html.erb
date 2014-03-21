@@ -1,7 +1,7 @@
 <div class="page" id="timer-page">
   <div id="timer">
     <div class="row">
-      <div class="large-12">
+      <div class="large-12 columns">
         <div ng-controller="ZenTimerCtrl">
 
           <div class="row text-center">
@@ -40,7 +40,7 @@
   </div>
 
 
-  <div ng-controller="EntriesListCtrl" class="row" id="entries">
+  <div ng-controller="EntriesListCtrl" class="large-12 columns" id="entries">
       <div class="row entry-row my-repeat-animation" ng-repeat="entry in entries | orderBy:'lastTick':true" ng-controller="EntryCtrl">
         <div class="entry" style="display: table; width: 100%;">
           <i class="entry-continue fa fa-play fa-fw" ng-hide="entry.running"  ng-click="continue()"></i>
