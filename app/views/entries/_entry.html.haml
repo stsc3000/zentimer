@@ -1,0 +1,20 @@
+.entry(style="display: table; width: 100%;")
+  - if renderControls
+    %i.entry-continue.fa.fa-play.fa-fw(ng-hide="entry.running" ng-click="continue()")
+    %i.entry-pause.fa.fa-pause.fa-fw(ng-show="entry.running" ng-click="pause()")
+
+  %div
+    .entry-top-level-row
+      .entry-top-level-row-elapsed-entry
+        %ti-elapsed-entry(model="entry" elapsed="entry.elapsed" disabled="entry.running")
+      .entry-top-level-row-project-entry
+        %ti-project-entry(on="entry.project" update="entry.persist()" suggestion-domain="projectSuggestions")
+    %ti-tag-entry(on="entry.tag_list" suggestion-domain="tagSuggestions" update="entry.persist()")
+.entry-row-hidden
+  .large-3.small-3.columns.text-center
+    %a
+      %i.fa.fa-copy.fa-fw(ti-copy copy-source="entry.tag_list")
+  .large-3.small-3.columns.text-center
+    %a(ng-click="query.deleteEntry(entry)")
+      %i.fa.fa-trash-o.fa-fw
+

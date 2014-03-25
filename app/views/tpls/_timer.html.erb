@@ -42,44 +42,7 @@
 
   <div ng-controller="EntriesListCtrl" class="large-12 columns" id="entries">
       <div class="row entry-row my-repeat-animation" ng-repeat="entry in entries | orderBy:'lastTick':true" ng-controller="EntryCtrl">
-        <div class="entry" style="display: table; width: 100%;">
-          <i class="entry-continue fa fa-play fa-fw" ng-hide="entry.running"  ng-click="continue()"></i>
-          <i class="entry-pause fa fa-pause fa-fw" ng-show="entry.running" ng-click="pause()"></i>
-
-          <div class="">
-            <div class="entry-top-level-row">
-              <div class="entry-top-level-row-elapsed-entry">
-                <ti-elapsed-entry model="entry" elapsed="entry.elapsed" disabled="entry.running" ></ti-elapsed-entry>
-              </div>
-              <div class="entry-top-level-row-project-entry">
-                <ti-project-entry on="entry.project" update="entry.persist()" suggestion-domain="projectSuggestions"></ti-project-entry>
-
-              </div>
-            </div>
-            <ti-tag-entry on="entry.tag_list" suggestion-domain="tagSuggestions" update="entry.persist()"></ti-tag-entry>
-          </div>
-
-
-        </div>
-
-          <div class="entry-row-hidden">
-            <div class="large-3 small-3 columns text-center">
-            </div>
-            <div class="large-3 small-3 columns text-center">
-            </div>
-            <div class="large-3 small-3 columns text-center">
-              <a>
-                <i ti-copy copy-source="entry.tag_list" class="fa fa-copy fa-fw"></i>
-                <br>
-              </a>
-            </div>
-            <div class="large-3 small-3 columns text-center">
-              <a ng-click="delete()">
-                <i class="fa fa-trash-o fa-fw"></i>
-                <br>
-              </a>
-            </div>
-          </div>
+        <%= render partial: "entries/entry", locals: { renderControls: true } %>
 
       </div>
 

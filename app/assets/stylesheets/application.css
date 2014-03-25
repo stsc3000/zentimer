@@ -574,13 +574,13 @@ form {
 }
 
 #filter-menu .row {
-	max-width: none;
+  max-width: none;
 }
 
 @media only screen and (min-width: 768px) {
-	#filter-menu .row {
-		max-width: 37.5em;
-	}
+  #filter-menu .row {
+    max-width: 37.5em;
+  }
 }
 
 .filter-menu-item {

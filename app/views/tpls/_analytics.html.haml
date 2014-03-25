@@ -52,20 +52,6 @@
 
 
         .row.entry-row.my-repeat-animation(ng-repeat="entry in query.paginatedEntries")
-          .entry(style="display: table; width: 100%;")
-            %div
-              .entry-top-level-row
-                .entry-top-level-row-elapsed-entry
-                  %ti-elapsed-entry(model="entry" elapsed="entry.elapsed" disabled="entry.running")
-                .entry-top-level-row-project-entry
-                  %ti-project-entry(on="entry.project" update="entry.persist()" suggestion-domain="projectSuggestions")
-              %ti-tag-entry(on="entry.tag_list" suggestion-domain="tagSuggestions" update="entry.persist()")
-            .entry-row-hidden
-              .large-3.small-3.columns.text-center
-                %a
-                  %i.fa.fa-file.fa-fw(ti-copy copy-source="entry.tag_list")
-              .large-3.small-3.columns.text-center
-                %a(ng-click="query.deleteEntry(entry)")
-                  %i.fa.fa-trash-o.fa-fw
+          = render partial: 'entries/entry', locals: { renderControls: false }
 
         %ti-scroll-spy(update="query.nextPage()")
