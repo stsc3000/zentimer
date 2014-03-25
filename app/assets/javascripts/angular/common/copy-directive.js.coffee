@@ -11,8 +11,6 @@ angular.module("app").
           moviePath: "/ZeroClipboard.swf"
 
         client.on "load", (client, args) ->
-          client.on "complete", (client, args) ->
-            console.log("copied")
           client.on 'mouseover', (client, args) ->
             client.setText $scope.copySource.join(", ")
             $(el).closest(".entry-row-hidden").addClass("hover")

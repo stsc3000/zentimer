@@ -5,7 +5,6 @@ angular.module("analytics").
     $scope.elapsedFilter = elapsedFilter
 
     $scope.toggleFilterSubmenu = (type) ->
-      console.log $scope.query.selectedDateFilter
       if $scope.filterSubmenu == type && $scope.query.selectedDateFilter.id != 'fromTo'
         $scope.filterSubmenu = undefined
       else

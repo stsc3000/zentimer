@@ -132,7 +132,6 @@ angular.module("analytics").
       nextPage: ->
         _.each @entries.slice(@pageIndex, @perPage + @pageIndex), (entry) =>
           @paginatedEntries.push(entry)
-        console.log(@paginatedEntries.length)
         @pageIndex = @pageIndex + @perPage
 
     }
