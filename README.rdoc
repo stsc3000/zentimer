@@ -3,6 +3,8 @@
 BUGS:
 * Changing Tags in analytics does not change results when filtering by tags
 
+* CSS to SASS Refactor
+* Remove inline styles
 * js snippet to insert into freckle
 * json export
 * specs for analytics
