@@ -89,19 +89,26 @@ angular.module("analytics").
 
         $http.post("/entries/filter", data).success (response) =>
           @entries = _.map response.entries, (entry) -> new Entry(entry)
+          @paginatedEntries.clear()
+          @pageIndex = 0
+          @nextPage()
           @updateEntriesGroupedByProject()
 
       entries: []
       entriesGroupedByProject: []
+
+      paginatedEntries: []
+      pageIndex: 0
+      perPage: 5
 
       total: ->
         _.reduce @entries, ((sum, entry) -> sum + entry.elapsed), 0
 
       updateEntriesGroupedByProject: ->
         grouped = _.groupBy(@entries, (entry) -> entry.project || "No Project")
-        #@entriesGroupedByProject = _.map grouped, (entries, project) ->
-          #sum = _.inject(entries, ((acc, entry) -> acc + entry.elapsed), 0)
-          #{ key: project, value: sum }
+        @entriesGroupedByProject = _.map grouped, (entries, project) ->
+          sum = _.inject(entries, ((acc, entry) -> acc + entry.elapsed), 0)
+          { key: project, value: sum }
 
       projectDomain: []
 
@@ -119,7 +126,13 @@ angular.module("analytics").
         _.remove(@entries, (searchEntry) -> searchEntry == entry)
         @updateEntriesGroupedByProject()
         entry.delete()
+        @pageIndex = @pageIndex-1
 
+      nextPage: ->
+        _.each @entries.slice(@pageIndex, @perPage + @pageIndex), (entry) =>
+          @paginatedEntries.push(entry)
+        console.log(@paginatedEntries.length)
+        @pageIndex = @pageIndex + @perPage
 
     }
 

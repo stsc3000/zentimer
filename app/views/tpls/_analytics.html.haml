@@ -48,7 +48,7 @@
             {{query.entries.length }} Entries
 
 
-        .row.entry-row.my-repeat-animation(ng-repeat="entry in query.entries")
+        .row.entry-row.my-repeat-animation(ng-repeat="entry in query.paginatedEntries")
           .entry(style="display: table; width: 100%;")
             %div
               .entry-top-level-row
@@ -59,12 +59,10 @@
               %ti-tag-entry(on="entry.tag_list" suggestion-domain="tagSuggestions" update="entry.persist()")
             .entry-row-hidden
               .large-3.small-3.columns.text-center
-              .large-3.small-3.columns.text-center
-              .large-3.small-3.columns.text-center
                 %a
                   %i.fa.fa-file.fa-fw(ti-copy copy-source="entry.tag_list")
               .large-3.small-3.columns.text-center
                 %a(ng-click="query.deleteEntry(entry)")
                   %i.fa.fa-trash-o.fa-fw
 
-
+        %ti-scroll-spy(update="query.nextPage()")
