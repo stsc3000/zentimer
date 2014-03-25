@@ -1,45 +1,48 @@
 #analytics-page.page(ng-controller = "analyticsCtrl")
+  #filter-menu
+    .row
+      .large-4.medium-4.columns.filter-menu-item(ng-class="{active: (filterSubmenu=='dates'), inactive: (filterSubmenu!='dates' && filterSubmenu)}" ng-click="toggleFilterSubmenu('dates')")
+        %i.fa.fa-fw.fa-calendar
+        {{ query.selectedDateFilter.name }}
+      .large-4.medium-4.columns.filter-menu-item(ng-class="{active: (filterSubmenu=='tags'), inactive: (filterSubmenu!='tags' && filterSubmenu)}" ng-click="toggleFilterSubmenu('tags')")
+        %i.fa.fa-fw.fa-tags
+        ALL TAGS
+      .large-4.medium-4.columns.filter-menu-item.end(ng-class="{active: (filterSubmenu=='projects'), inactive: (filterSubmenu!='projects' && filterSubmenu)}" ng-click="toggleFilterSubmenu('projects')")
+        %i.fa.fa-fw.fa-square-o
+        ALL PROJECTS
+    .row.filter-menu-submenu(ng-if="filterSubmenu=='dates'")
+      .filter-menu-subitem.large-3.columns(ng-repeat="dateFilter in query.dateFilters" ng-class="{active: (query.selectedDateFilter == dateFilter) }" ng-click="query.setDateFilter(dateFilter);toggleFilterSubmenu('dates')")
+        %a
+          {{ dateFilter.name }}
+      .filter-menu-sub-subitem.large-12.columns(ng-if="query.selectedDateFilter.id=='fromTo'")
+        .large-2.small-6.columns
+          FROM
+        .large-4.small-6.columns
+          %i.fa.fa-wf.fa-calendar-o
+          %datepicker(ng-model="query.selectedDateFilter.from" disable-timepicker="true" default-time="00:00" on-change="query.fetch()")
+        .large-2.small-6.columns
+          TO
+        .large-4.small-6.columns
+          %i.fa.fa-wf.fa-calendar-o
+          %datepicker(ng-model="query.selectedDateFilter.to" disable-timepicker="true" default-time="23:59" on-change="query.fetch()")
+
+    .row.filter-menu-submenu(ng-if="filterSubmenu=='tags'" ng-init="query.fetchTagDomain()")
+      .large-12.columns
+        Include Tags
+        %ti-tag-entry(on="query.tags.include" suggestion-domain="query.tagDomain" update="query.fetch()")
+        Exclude Tags
+        %ti-tag-entry(on="query.tags.exclude" suggestion-domain="query.tagDomain" update="query.fetch()")
+    .row.filter-menu-submenu(ng-if="filterSubmenu=='projects'" ng-init="query.fetchProjectDomain()")
+      %ti-tag-entry(on="query.projects" suggestion-domain="query.projectDomain" update="query.fetch()")
+
   .row
     .large-12.columns
-      #filter-menu
-        .row
-          .large-4.medium-4.columns.filter-menu-item(ng-class="{active: (filterSubmenu=='dates'), inactive: (filterSubmenu!='dates' && filterSubmenu)}" ng-click="toggleFilterSubmenu('dates')")
-            %i.fa.fa-fw.fa-calendar
-            {{ query.selectedDateFilter.name }}
-          .large-4.medium-4.columns.filter-menu-item(ng-class="{active: (filterSubmenu=='tags'), inactive: (filterSubmenu!='tags' && filterSubmenu)}" ng-click="toggleFilterSubmenu('tags')")
-            %i.fa.fa-fw.fa-tags
-            ALL TAGS
-          .large-4.medium-4.columns.filter-menu-item.end(ng-class="{active: (filterSubmenu=='projects'), inactive: (filterSubmenu!='projects' && filterSubmenu)}" ng-click="toggleFilterSubmenu('projects')")
-            %i.fa.fa-fw.fa-square-o
-            ALL PROJECTS
-        .row.filter-menu-submenu(ng-if="filterSubmenu=='dates'")
-          .filter-menu-subitem.large-3.columns(ng-repeat="dateFilter in query.dateFilters" ng-class="{active: (query.selectedDateFilter == dateFilter) }" ng-click="query.setDateFilter(dateFilter);toggleFilterSubmenu('dates')")
-            %a
-              {{ dateFilter.name }}
-          .filter-menu-sub-subitem.large-12.columns(ng-if="query.selectedDateFilter.id=='fromTo'")
-            .large-2.small-6.columns
-              FROM
-            .large-4.small-6.columns
-              %i.fa.fa-wf.fa-calendar-o
-              %datepicker(ng-model="query.selectedDateFilter.from" disable-timepicker="true" default-time="00:00" on-change="query.fetch()")
-            .large-2.small-6.columns
-              TO
-            .large-4.small-6.columns
-              %i.fa.fa-wf.fa-calendar-o
-              %datepicker(ng-model="query.selectedDateFilter.to" disable-timepicker="true" default-time="23:59" on-change="query.fetch()")
-
-        .row.filter-menu-submenu(ng-if="filterSubmenu=='tags'" ng-init="query.fetchTagDomain()")
-          .large-12.columns
-            Include Tags
-            %ti-tag-entry(on="query.tags.include" suggestion-domain="query.tagDomain" update="query.fetch()")
-            Exclude Tags
-            %ti-tag-entry(on="query.tags.exclude" suggestion-domain="query.tagDomain" update="query.fetch()")
-        .row.filter-menu-submenu(ng-if="filterSubmenu=='projects'" ng-init="query.fetchProjectDomain()")
-          %ti-tag-entry(on="query.projects" suggestion-domain="query.projectDomain" update="query.fetch()")
       #analytics-head
         %h2.analytics-headline
           {{ query.selectedDateFilter.headline() }}
           %small.analytics-subheadline {{ query.selectedDateFilter.subheadline() }}
+          %small
+            %a.fa.fa-fw.fa-refresh(ng-click="query.fetch()")
       %ti-bar-chart(chart-data="query.entriesGroupedByProject" chart-id="bar-chart" chart-title="{{query.total() | elapsed}}" elapsed-filter="elapsedFilter" id="bar-chart-container")
       #entries(ng-if="query.entries.length > 0")
         %h2.analytics-headline

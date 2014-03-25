@@ -449,7 +449,7 @@ form {
 
 
 .page {
-  margin-top: 80px;
+  margin-top: 49px;
   height: 100%;
   width: 100%;
   position: absolute;
@@ -571,6 +571,16 @@ form {
 
 #filter-menu {
   line-height: 3em;
+}
+
+#filter-menu .row {
+	max-width: none;
+}
+
+@media only screen and (min-width: 768px) {
+	#filter-menu .row {
+		max-width: 37.5em;
+	}
 }
 
 .filter-menu-item {
@@ -725,8 +735,8 @@ table.quickdate-calendar th {
 
 #show-menu {
   background-color: rgba(52, 73, 94, 0.6);
-  padding: 25px;
-  font-size: 1.9em;
+  padding: 17px 19px;
+  font-size: 1em;
   position: fixed;
   border-bottom: none;
   text-align: center;
