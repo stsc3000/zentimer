@@ -4,6 +4,7 @@ angular.module("zen-timer").
       entries: Entry.entries
 
       init: ->
+        Entry.loaded = false
         Entry.currentEntry (currentEntry) =>
           @currentEntry = currentEntry
 
