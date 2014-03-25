@@ -1,8 +1,15 @@
 angular.module("analytics").
-  controller("analyticsCtrl", ($scope, $http, Query, elapsedFilter) ->
+  controller("analyticsCtrl", ($scope, $http, Query, Settings, elapsedFilter) ->
 
     $scope.query = Query
     $scope.elapsedFilter = elapsedFilter
+
+    Settings.tags().then (tags) ->
+      $scope.tagSuggestions = tags
+
+    Settings.projects().then (projects) ->
+      $scope.projectSuggestions = projects
+
 
     $scope.toggleFilterSubmenu = (type) ->
       if $scope.filterSubmenu == type && $scope.query.selectedDateFilter.id != 'fromTo'
