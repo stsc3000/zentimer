@@ -754,9 +754,10 @@ table.quickdate-calendar th {
 }
 
 #menu h3 {
-  padding-left: 55px;
   background: #2c3e50;
 }
+
+
 
 .cbp-spmenu {
   background: #2c3e50;
@@ -767,7 +768,7 @@ table.quickdate-calendar th {
   color: #fff;
 }
 
-.cbp-spmenu a:hover {
+.cbp-spmenu #menu-links a:hover {
   background: #34495e;
 }
 

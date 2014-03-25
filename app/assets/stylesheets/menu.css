@@ -14,18 +14,18 @@
 	background: #0d77b6;
 }
 
-.cbp-spmenu a {
+.cbp-spmenu #menu-links a {
 	display: block;
 	color: #fff;
 	font-size: 1.1em;
 	font-weight: 300;
 }
 
-.cbp-spmenu a:hover {
+.cbp-spmenu #menu-links a:hover {
 	background: #258ecd;
 }
 
-.cbp-spmenu a:active {
+.cbp-spmenu #menu-links a:active {
 	background: #afdefa;
 	color: #47a3da;
 }

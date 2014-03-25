@@ -29,7 +29,7 @@ angular.module("app").
                 d.value / 3600
               ).staggerLabels(false).tooltips(true).showValues(false).transitionDuration(1000)
                 .width(width)
-                .margin({left: 20, right: 0})
+                .margin({left: 30, right: 0})
                 .tooltipContent (name, key, value) ->
                   return "#{key} - #{ $scope.elapsedFilter( value * 3600 ) }"
 

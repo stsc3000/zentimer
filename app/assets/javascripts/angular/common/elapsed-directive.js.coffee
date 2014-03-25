@@ -1,16 +1,17 @@
+pad = (n, width) ->
+  z = "0"
+  n = n + ""
+  (if n.length >= width then n else new Array(width - n.length + 1).join(z) + n)
+
 angular.module("app").
   directive("tiElapsed", ->
     {
       restrict: "E",
-      replace: true,
+      #replace: true,
       template: '<span><span ng-show="hours > 0">{{ hours }} :</span> {{ minutes }} : {{ seconds }}</span>'
       scope:
         elapsed: "=elapsed"
       link: ($scope) ->
-        pad = (n, width) ->
-          z = "0"
-          n = n + ""
-          (if n.length >= width then n else new Array(width - n.length + 1).join(z) + n)
 
         $scope.$watch "elapsed", (elapsed) ->
           if elapsed
