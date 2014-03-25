@@ -1,5 +1,8 @@
 == TODO
 
+BUGS:
+* Changing Tags in analytics does not change results when filtering by tags
+
 * js snippet to insert into freckle
 * json export
 * specs for analytics
