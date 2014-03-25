@@ -124,6 +124,7 @@ angular.module("analytics").
 
       deleteEntry: (entry) ->
         _.remove(@entries, (searchEntry) -> searchEntry == entry)
+        _.remove(@paginatedEntries, (searchEntry) -> searchEntry == entry)
         @updateEntriesGroupedByProject()
         entry.delete()
         @pageIndex = @pageIndex-1
