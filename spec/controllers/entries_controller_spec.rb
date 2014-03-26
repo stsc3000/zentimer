@@ -140,7 +140,7 @@ describe EntriesController do
       user.entries.create(tag_list: ["my description"])
 
       expect {
-        delete :clear, token: user.token
+        delete :clear, token: user.token, ids: user.entries.map(&:id)
       }.to change{Entry.count}.from(2).to(1)
 
       expect(Entry.first.tag_list).to eq(["its running"])

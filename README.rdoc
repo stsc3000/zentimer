@@ -1,8 +1,10 @@
 == TODO
 
 BUGS:
+* Settings tags do not get saved
 * Changing Tags in analytics does not change results when filtering by tags
 
+* timer erb to sass
 * CSS to SASS Refactor
 * Remove inline styles
 * js snippet to insert into freckle

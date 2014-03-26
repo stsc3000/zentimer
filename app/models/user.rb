@@ -7,11 +7,11 @@ class User < ActiveRecord::Base
   serialize :tags, Array
   serialize :projects, Array
 
-  def projects
+  def used_projects
     entries.unique_projects.map(&:project)
   end
 
-  def tags
+  def used_tags
     entries.tags.map(&:name)
   end
 

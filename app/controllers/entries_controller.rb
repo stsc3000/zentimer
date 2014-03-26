@@ -39,11 +39,11 @@ class EntriesController < ApplicationController
   end
 
   def projects
-    render json: { projects: current_user!.projects }
+    render json: { projects: current_user!.used_projects }
   end
 
   def tags
-    render json: { tags: current_user!.tags }
+    render json: { tags: current_user!.used_tags }
   end
 
   private

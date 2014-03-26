@@ -148,21 +148,31 @@ describe Entry do
       expect(entries).to include(another_entry)
     end
 
-    it "fetches entries by any matching tags" do
+    it "includes entries by matching all tags" do
       the_entry = Entry.create(tag_list: ["the tag"])
       another_entry = Entry.create(tag_list: ["another tag"])
 
-      entries = Entry.by_tags(["the tag", "some other tag"])
+      entries = Entry.with_tags({ include: ["the tag"] })
 
       expect(entries).to include(the_entry)
       expect(entries).not_to include(another_entry)
+    end
+
+    it "excludes entries by matching all tags" do
+      the_entry = Entry.create(tag_list: ["the tag"])
+      another_entry = Entry.create(tag_list: ["another tag"])
+
+      entries = Entry.with_tags({ exclude: ["the tag"] })
+
+      expect(entries).not_to include(the_entry)
+      expect(entries).to include(another_entry)
     end
 
     it "fetches all entries if no tags are provided" do
       the_entry = Entry.create(tag_list: ["the tag"])
       another_entry = Entry.create(tag_list: ["another tag"])
 
-      entries = Entry.by_tags([])
+      entries = Entry.with_tags({ include: [], exclude: [] })
 
       expect(entries).to include(the_entry)
       expect(entries).to include(another_entry)
@@ -179,9 +189,9 @@ describe Entry do
         entry_out_of_tag_scope = Entry.create(tag_list: ["another tag"], project: "the project")
         entry_out_of_project_scope = Entry.create(tag_list: ["the tag"], project: "another project")
 
-        entries = Entry.filter between: { start_date: Time.now - 1.days, end_date: Time.now + 1.days },
-                              by_tags: ["the tag"],
-                              by_projects: ["the project"]
+        entries = Entry.filter date_filter: { from: Time.now - 1.days, to: Time.now + 1.days },
+                              tags: { include: ["the tag"] },
+                              projects: ["the project"]
 
         expect(entries).to include(the_entry)
         expect(entries).not_to include(entry_out_of_date_scope)
