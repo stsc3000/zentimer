@@ -767,6 +767,19 @@ table.quickdate-calendar th {
   background: #2c3e50;
 }
 
+#menu h3 a {
+  border-bottom: none;
+}
+
+.menu-link-icon {
+  width: 20%;
+  float: left;
+}
+
+.menu-link-text {
+  width: 80%;
+  float: left;
+}
 
 
 .cbp-spmenu {

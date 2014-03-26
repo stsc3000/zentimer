@@ -4,13 +4,32 @@
     %a
       ZenTimer
   #menu-links
-    %a.link.fa.fa-clock-o(ng-href="#/" ng-click="toggleMenu()") Timer
-    %a.link.fa.fa-bar-chart-o(ng-if="user" ng-href="#/analytics" ng-if="user" ng-click="toggleMenu()") Analytics
-    %a.link.fa.fa-gear(ng-href="#/settings" ng-click="toggleMenu()") Settings
+    %a.link.row(ng-href="#/" ng-click="toggleMenu()")
+      .menu-link-icon.fa.fa-clock-o
+      .menu-link-text
+        Timer
+
+    %a.link.row(ng-if="user" ng-href="#/analytics" ng-if="user" ng-click="toggleMenu()")
+      .menu-link-icon.fa.fa-bar-chart-o
+      .menu-link-text
+        Analytics
+
+    %a.link.row(ng-href="#/settings" ng-click="toggleMenu()")
+      .menu-link-icon.fa.fa-gear
+      .menu-link-text
+        Settings
+
     %span(ng-controller="CreateUserCtrl")
-      %a.user.fa.fa-user(ng-click="createUser()" ng-if="!user" ng-click="toggleMenu()") Create Permanent Account
-      %a.user.fa.fa-user(ng-href="/{{user.token}}" ng-if="user" target="_self" name="ZenTimer" title="Drag me to your bookmarks!" ng-click="toggleMenu()")
-        Your ZenTimer Account
+
+      %a.row(ng-click="createUser()" ng-if="!user" ng-click="toggleMenu()")
+        .menu-link-icon.fa.fa-user
+        .menu-link-text
+          Create Permanent Account
+
+      %a.row(ng-href="/{{user.token}}" ng-if="user" target="_self" name="ZenTimer" title="Drag me to your bookmarks!" ng-click="toggleMenu()")
+        .menu-link-icon.fa.fa-user
+        .menu-link-text
+          Your ZenTimer Account
 
     %span#appInfo(ng-controller="helpCtrl")
       %a.link.fa.fa-question-circle(ng-click="toggleMenu(); displayAppInfo=true") Help
