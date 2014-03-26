@@ -27,9 +27,11 @@ angular.module("entries").
           deferred.resolve response
         deferred.promise
 
-      clear: ->
+      clear: (entries) ->
         deferred = $q.defer()
-        $http.delete("/entries?token=#{user.token}").success (response) =>
+        data = 
+          "ids[]": _.map entries, (entry) -> entry.id
+        $http.delete("/entries?token=#{user.token}", { params: data }).success (response) =>
           deferred.resolve response
         deferred.promise
 

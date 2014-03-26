@@ -155,7 +155,7 @@ angular.module("entries").
     Entry.clear = ->
       that = @
       currentlyRunning = Entry.currentlyRunning()
-      Entry.storage().clear().then =>
+      Entry.storage().clear(@entries).then =>
         that.entries.clear()
         if currentlyRunning
           that.entries[0] = currentlyRunning if currentlyRunning

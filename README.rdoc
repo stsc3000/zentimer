@@ -1,8 +1,5 @@
 == TODO
 
-CRITICAL BUGS:
-* Clearing Entries with AJAXAdapter deletes all entries, not only the ones shown
-
 BUGS:
 * Changing Tags in analytics does not change results when filtering by tags
 
