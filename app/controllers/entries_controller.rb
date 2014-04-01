@@ -2,6 +2,7 @@ class EntriesController < ApplicationController
 
   def index
     @entries = current_user!.entries.today
+    @entries.concat current_user!.entries.current
     render json: @entries
   end
 

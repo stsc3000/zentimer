@@ -6,8 +6,9 @@ describe EntriesController do
   let(:user){ User.create }
 
   context "GET #index" do
-    it "gets all the users entries" do
-      entry = user.entries.create
+    let!(:entry) { user.entries.create }
+    let!(:old_entry) { user.entries.create.tap { |e| e.update_column :updated_at, Time.now - 4.years } }
+    it "gets all the users entries of today" do
       get :index, token: user.token
       expect(json_response).to eq(
         {:entries=>
@@ -20,6 +21,30 @@ describe EntriesController do
             :project=>nil}
           ]
         })
+    end
+    it 'gets the current entry, too' do
+      old_entry.update_column :current, true
+      get :index, token: user.token
+      expect(json_response).to eq(
+        {:entries=>
+          [{:id=>entry.id,
+            :elapsed=>nil,
+            :lastTick=>nil,
+            :tag_list=>[],
+            :running=>nil,
+            :current=>nil,
+            :project=>nil},
+
+          {:id=>old_entry.id,
+            :elapsed=>nil,
+            :lastTick=>nil,
+            :tag_list=>[],
+            :running=>nil,
+            :current=>true,
+            :project=>nil}
+          ]
+        })
+
     end
   end
 
@@ -151,33 +176,35 @@ describe EntriesController do
     let(:another_user){ User.create }
     let!(:an_entry) do
       Entry.create(tag_list: ["work", "coffee"], project: "Important Project", user: user).tap do |entry|
-        entry.update_column :updated_at,  Time.new(2012, 1, 1)
+        entry.update_column :updated_at,  Time.zone.parse("2012-1-1")
       end
     end
     let!(:another_entry) do
       Entry.create(tag_list: ["work", "tea"], project: "Some Other Project", user: user).tap do |entry|
-        entry.update_column :updated_at, Time.new(2012, 1, 2)
+        entry.update_column :updated_at,  Time.zone.parse("2012-1-2")
       end
     end
     let!(:entry_by_someone_else) do
       Entry.create(tag_list: ["work", "tea"], project: "Some Other Project", user: another_user).tap do |entry|
-        entry.update_column :updated_at, Time.new(2012, 1, 1)
+        entry.update_column :updated_at,  Time.zone.parse("2012-1-1")
       end
     end
-    let(:filters) do 
+    let(:query) do 
       {
-        between: {
-          start_date: Time.new(2012, 1, 1).beginning_of_day.iso8601,
-          end_date: Time.new(2012, 1, 1).end_of_day.iso8601
+        date_filter: {
+          from: Time.zone.parse('2012-1-1').beginning_of_day.iso8601,
+          to: Time.zone.parse('2012-1-1').end_of_day.iso8601
         },
-        by_tags: ["work"],
-        by_projects: ["Important Project"]
+        tags: {
+          include: ["work"]
+        },
+        projects: ["Important Project"]
       }
     end 
 
     it "filters all entries by given params" do
 
-      get :filter, token: user.token, filters: filters
+      get :filter, token: user.token, query: query
 
       entries = assigns :entries
       expect(entries).to include(an_entry)
@@ -187,7 +214,7 @@ describe EntriesController do
     end
 
     it "filtes all entries and returns json" do
-      get :filter, token: user.token, filters: filters
+      get :filter, token: user.token, query: query
       expected_response = { 
         :entries=>
           [
