@@ -13,12 +13,14 @@ class EntriesController < ApplicationController
 
   def create
     @entry = current_user!.entries.create(entry_params)
+    force_only_one_current_entry(@entry)
     render json: @entry
   end
 
   def update
     @entry = current_user!.entries.find(params[:id])
     @entry.update entry_params
+    force_only_one_current_entry(@entry)
     render json: @entry
   end
 
@@ -48,6 +50,10 @@ class EntriesController < ApplicationController
   end
 
   private
+
+  def force_only_one_current_entry(entry)
+    Entry.force_only_one_current_entry(current_user, entry)
+  end
 
   def entry_params
     params.require(:entry).permit!

@@ -35,4 +35,10 @@ class Entry < ActiveRecord::Base
 
   scope :tags, ->{ select( "tags.name" ).joins(:tags).order("tags.name").uniq }
 
+  def self.force_only_one_current_entry(user, entry)
+    if entry.current
+      user.entries.where.not(id: entry.id).update_all "current = false, running = false"
+    end
+  end
+
 end
