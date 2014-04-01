@@ -77,12 +77,12 @@ describe "AjaxAdapter", ->
   describe "clearing all entries", ->
     beforeEach inject ($injector) ->
       $httpBackend = $injector.get('$httpBackend')
-      $httpBackend.when("DELETE", "/entries?token=1234").respond({ success: "true" })
+      $httpBackend.when("DELETE", "/entries?token=1234&ids%5B%5D=1&ids%5B%5D=2&ids%5B%5D=3").respond({ success: "true" })
 
     it "clears all entries", inject (AjaxAdapter, $rootScope) ->
-      $httpBackend.expectDELETE("/entries?token=1234")
+      $httpBackend.expectDELETE("/entries?token=1234&ids%5B%5D=1&ids%5B%5D=2&ids%5B%5D=3")
 
-      AjaxAdapter.clear()
+      AjaxAdapter.clear([{ id: 1 },{ id: 2 },{ id: 3 }])
 
       $httpBackend.flush()
       $rootScope.$apply()
