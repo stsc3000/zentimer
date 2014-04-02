@@ -3,6 +3,7 @@ class Entry < ActiveRecord::Base
   acts_as_ordered_taggable_on :tags
 
   scope :today, -> { between Time.now.beginning_of_day, Time.now.end_of_day }
+  scope :today_or_current
   scope :this_week, -> { between Time.now.beginning_of_week, Time.now.end_of_week }
   scope :this_month, -> { between Time.now.beginning_of_month, Time.now.end_of_month  }
   scope :between, ->(from, to) do
@@ -34,6 +35,10 @@ class Entry < ActiveRecord::Base
   scope :unique_projects, ->{ select(:project).order("project ").uniq }
 
   scope :tags, ->{ select( "tags.name" ).joins(:tags).order("tags.name").uniq }
+
+  def self.today_or_current
+    (today.concat current).uniq
+  end
 
   def self.force_only_one_current_entry(user, entry)
     if entry.current
