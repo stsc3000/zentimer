@@ -240,9 +240,14 @@ form {
 .entry-top-level-row-elapsed-entry {
   padding-left: 5px;
 }
-.entry-top-level-row-project-entry, .entry-top-level-row-elapsed-entry {
+.entry-top-level-row-project-entry, .entry-top-level-row-elapsed-entry, .entry-top-level-row-logged-at {
   display: table-cell;
   vertical-align: top;
+  width: 33%;
+}
+
+.entry-top-level-row-logged-at {
+  font-size: 0.875em;
 }
 
 .entry-top-level-row-project-entry input, .entry-top-level-row-elapsed-entry input {
