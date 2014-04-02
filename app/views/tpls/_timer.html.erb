@@ -41,7 +41,7 @@
 
 
   <div ng-controller="EntriesListCtrl" class="large-12 columns" id="entries">
-      <div class="row entry-row my-repeat-animation" ng-repeat="entry in entries | orderBy:'lastTick':true" ng-controller="EntryCtrl">
+      <div class="row entry-row my-repeat-animation" ng-repeat="entry in entries | orderBy:'lastTick':true| orderBy: 'current':true " ng-controller="EntryCtrl">
         <%= render partial: "entries/entry", locals: { renderControls: true, renderLoggedAt: false } %>
 
       </div>
