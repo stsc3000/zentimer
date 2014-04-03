@@ -51,7 +51,7 @@
             {{query.entries.length }} Entries
 
 
-        .row.entry-row.my-repeat-animation(ng-repeat="entry in query.paginatedEntries")
+        .row.entry-row(ng-repeat="entry in query.paginatedEntries" ti-fill-screen="query.nextPage()")
           = render partial: 'entries/entry', locals: { renderControls: false, renderLoggedAt: true }
 
         %ti-scroll-spy(update="query.nextPage()")

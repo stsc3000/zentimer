@@ -5,12 +5,12 @@
 
   %div
     .entry-top-level-row
-      .entry-top-level-row-elapsed-entry
-        %ti-elapsed-entry(model="entry" elapsed="entry.elapsed" disabled="entry.running")
       - if renderLoggedAt
         .entry-top-level-row-logged-at
           %i.fa.fa-calendar.fa-fw
           {{ entry.logged_at }}
+      .entry-top-level-row-elapsed-entry
+        %ti-elapsed-entry(model="entry" elapsed="entry.elapsed" disabled="entry.running")
       .entry-top-level-row-project-entry
         %ti-project-entry(on="entry.project" update="entry.persist()" suggestion-domain="projectSuggestions")
     %ti-tag-entry(on="entry.tag_list" suggestion-domain="tagSuggestions" update="entry.persist()")

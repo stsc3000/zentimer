@@ -1,19 +1,22 @@
 angular.module("app").
-  directive("tiScrollSpy", ($window, $timeout, ElementBottomOnScreen) ->
+  directive("tiFillScreen", ($window, $timeout, ElementBottomOnScreen) ->
     {
-      restrict: 'E'
-      scope:
-        update: '&'
+      restrict: 'A'
       link: ($scope, el, attrs) ->
 
         needToLoadNextPage = ->
           ElementBottomOnScreen.check(el, 300)
+
+        $scope.update = ->
+          $scope.$eval(attrs.tiFillScreen)
 
         onScroll = =>
           if needToLoadNextPage()
             $scope.$apply ->
               $scope.update()
 
-        $($window).scroll onScroll
+        if $scope.$last == true
+          $timeout ->
+            onScroll()
     }
   )
