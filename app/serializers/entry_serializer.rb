@@ -11,7 +11,7 @@ class EntrySerializer < ActiveModel::Serializer
   end
 
   def logged_at
-    object.updated_at.to_date
+    object.lastTick.to_date.iso8601 if object.lastTick
   end
 
 end
