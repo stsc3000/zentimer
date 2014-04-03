@@ -13,7 +13,7 @@ class Entry < ActiveRecord::Base
       scoped = scoped.where("updated_at <= ?", to ) if to
       scoped
   end
-  scope :current, -> { where( current: true ) }
+  scope :current, -> { where( current: true, running: true ) }
 
   scope :by_projects, ->(projects) do
     where(project: Array(projects)) if projects.present?
