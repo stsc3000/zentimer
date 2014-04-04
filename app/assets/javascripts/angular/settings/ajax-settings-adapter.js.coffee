@@ -13,7 +13,8 @@ angular.module("settings").
           deferred.resolve @settings
         else
           $http.get("/#{user.token}.json").success (response) =>
-            @settings = { tags: response.tags, projects: response.projects }
+            data = response.user
+            @settings = { tags: data.tags, projects: data.projects, notificationSettings: data.notificationSettings }
             deferred.resolve @settings
         deferred.promise
 
@@ -23,7 +24,7 @@ angular.module("settings").
         data.user[key] = value
         $http.put("/#{user.token}.json", data).then (response) ->
           @settings ||= {}
-          @settings[key] = response.data[key]
+          @settings[key] = response.data.user[key]
           deferred.resolve @settings[key]
         deferred.promise
 

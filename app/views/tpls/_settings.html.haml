@@ -16,3 +16,24 @@
           Add projects here to enable autocomplete for your projects
           %ti-tag-entry(on="projects" update="saveProjects")
 
+    .row
+      .large-12.columns#notifications
+        %p
+          %h3 Notifications
+          -#.large-12.columns
+            -#%input(type="checkbox" ng-model="enableNotifications" name="enableNotifications")
+            -#%label(for="enableNotifications")
+              -#Enable Notifications?
+
+          %div
+            %input(type="checkbox" ng-model="notificationSettings.enableDesktopNotification" name="enableDesktopNotification" ng-change="saveNotificationSettings()")
+            %label(for="enableDesktopNotification")
+              Enable Desktop Notifications?
+
+          %div
+            %label(for="notificationInterval")
+              Notification Interval (minutes)
+            %input(type="number" ng-model="notificationSettings.notificationInterval" name="notificationInterval" ng-change="saveNotificationSettings()")
+
+
+

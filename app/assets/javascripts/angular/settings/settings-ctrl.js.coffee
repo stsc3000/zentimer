@@ -15,4 +15,12 @@ angular.module("settings").
       Settings.saveProjects($scope.projects).then (projects) ->
         $scope.projects = projects
 
+    Settings.notificationSettings().then (notificationSettings) ->
+      $scope.notificationSettings = notificationSettings
+
+    $scope.saveNotificationSettings = ->
+      Settings.saveNotificationSettings($scope.notificationSettings).then (notificationSettings) ->
+        $scope.notificationSettings = notificationSettings
+
+
   )

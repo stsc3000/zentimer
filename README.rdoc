@@ -1,9 +1,9 @@
 == TODO
 
 BUGS:
-* Settings tags do not get saved
 * Changing Tags in analytics does not change results when filtering by tags
 
+* Reminders
 * timer erb to sass
 * CSS to SASS Refactor
 * Remove inline styles

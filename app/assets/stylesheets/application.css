@@ -328,12 +328,16 @@ form {
   list-style-position: inside;
 }
 
-.tags-entry {
+#notifications input[type='number'] {
+  height: 59px;
+}
+
+.tags-entry, #notifications input[type='number'] {
   background-color: #34495e;
   cursor: text;
 }
 
-.tags-entry .tag-entry {
+.tags-entry .tag-entry, #notifications input[type='number'] {
   float: left;
   background-color: #34495e;
   border: none;
@@ -797,4 +801,9 @@ table.quickdate-calendar th {
 
 .cbp-spmenu-vertical a {
   border-bottom: 1px solid #34495e;
+}
+
+#settings-page label {
+	display: inline;
+	color: #fff;
 }

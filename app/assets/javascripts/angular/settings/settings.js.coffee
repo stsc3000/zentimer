@@ -13,6 +13,12 @@ angular.module("settings").
       saveProjects: (projects) ->
         @storage().save("projects", projects)
 
+      notificationSettings: ->
+        @storage().fetch("notificationSettings", {})
+
+      saveNotificationSettings: (notificationSettings) ->
+        @storage().save("notificationSettings", notificationSettings, {})
+
       storage: ->
         if user
           AjaxSettingsAdapter
