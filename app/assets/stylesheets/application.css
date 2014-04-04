@@ -328,10 +328,6 @@ form {
   list-style-position: inside;
 }
 
-#notifications input[type='number'] {
-  height: 59px;
-}
-
 .tags-entry, #notifications input[type='number'] {
   background-color: #34495e;
   cursor: text;
@@ -348,6 +344,11 @@ form {
   outline: none;
   line-height: 45px;
   font-size: 1em;
+}
+
+#notifications input[type='number'] {
+  height: 59px;
+  margin: 0px;
 }
 
 .tags li {

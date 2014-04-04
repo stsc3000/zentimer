@@ -3,7 +3,6 @@ angular.module("app").
     {
       interval: null
       start: (entry) ->
-        Notification.requestPermission()
         @interval = $interval ( =>
           @notify(entry)
         ), 1000

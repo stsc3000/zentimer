@@ -26,7 +26,7 @@
               -#Enable Notifications?
 
           %div
-            %input(type="checkbox" ng-model="notificationSettings.enableDesktopNotification" name="enableDesktopNotification" ng-change="saveNotificationSettings()")
+            %input(type="checkbox" ng-model="notificationSettings.enableDesktopNotification" name="enableDesktopNotification" ng-change="saveAndRequestDesktopPermission()")
             %label(for="enableDesktopNotification")
               Enable Desktop Notifications?
 
