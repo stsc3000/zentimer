@@ -120,7 +120,6 @@ GEM
       slop (~> 3.4)
     pry-rails (0.3.2)
       pry (>= 0.9.10)
-    psych (2.0.5)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -220,7 +219,6 @@ DEPENDENCIES
   lodash-rails
   pg
   pry-rails
-  psych
   rails (= 4.0.0)
   rspec-rails
   sass-rails (~> 4.0.0)

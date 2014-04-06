@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :entries, :tags, :projects, :notificationSettings
+  attributes :tags, :projects, :notificationSettings
 
   def notificationSettings
     object.notification_settings
