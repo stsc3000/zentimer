@@ -20,16 +20,14 @@
       .large-12.columns#notifications
         %p
           %h3 Notifications
-          -#.large-12.columns
-            -#%input(type="checkbox" ng-model="enableNotifications" name="enableNotifications")
-            -#%label(for="enableNotifications")
-              -#Enable Notifications?
-
           %div
             %input(type="checkbox" ng-model="notificationSettings.enableDesktopNotification" name="enableDesktopNotification" ng-change="saveAndRequestDesktopPermission()")
             %label(for="enableDesktopNotification")
               Enable Desktop Notifications?
-
+          %div
+            %input(type="checkbox" ng-model="notificationSettings.enableAudioNotification" name="enableAudioNotification" ng-change="saveNotificationSettings()")
+            %label(for="enableDesktopNotification")
+              Enable Audio Notifications?
           %div
             %label(for="notificationInterval")
               Notification Interval (minutes)

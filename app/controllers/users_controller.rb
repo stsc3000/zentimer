@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     set_array_for_nil(:projects)
     params[:user][:notification_settings] = params[:user][:notificationSettings] if params[:user][:notificationSettings]
     params[:user].delete :notificationSettings if params[:user][:notificationSettings]
-    params.require(:user).permit(tags: [], projects: [], notification_settings: [ :enableDesktopNotification, :notificationInterval ])
+    params.require(:user).permit(tags: [], projects: [], notification_settings: [ :enableDesktopNotification, :notificationInterval, :enableAudioNotification ])
   end
 
   def set_array_for_nil(key)

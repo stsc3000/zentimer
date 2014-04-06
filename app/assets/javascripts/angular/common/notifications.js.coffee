@@ -17,8 +17,8 @@ angular.module("app").
         $interval.cancel(@interval) if @interval
 
       notify: (entry) ->
-        Audio.play('ping')
-        @currentNotification.close() if @currentNotification
+        @closeNotification()
+        Audio.play('ping') if @notificationSettings.enableAudioNotification
         if @notificationSettings.enableDesktopNotification
           title = "ZenTimer"
           title += " #{entry.project}" if entry.project
@@ -27,5 +27,9 @@ angular.module("app").
           body += "Tags: #{entry.tag_list.join(", ")}\t" if entry.tag_list.length > 0
           @currentNotification = new Notification title,
             body: body
+
+      closeNotification: ->
+        @currentNotification.close() if @currentNotification
+
     }
   )
