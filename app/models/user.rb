@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 
   serialize :tags, Array
   serialize :projects, Array
+  serialize :notification_settings, Hash
 
   def used_projects
     entries.unique_projects.map(&:project)

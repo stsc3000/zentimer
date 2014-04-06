@@ -1,16 +1,16 @@
 angular.module("settings").
   service("LocalStorageSettingsAdapter", ($q) ->
     {
-      save: (key, value) ->
+      save: (key, value, initial=[]) ->
         deferred = $q.defer()
-        @ensureKey(key)
+        @ensureKey(key, initial)
         @setSetting(key, value)
         deferred.resolve(value)
         deferred.promise
 
-      fetch: (key) ->
+      fetch: (key, initial=[]) ->
         deferred = $q.defer()
-        @ensureKey(key)
+        @ensureKey(key, initial)
         @[key] ||= @fetchValue(key)
         deferred.resolve @[key]
         deferred.promise
@@ -23,12 +23,12 @@ angular.module("settings").
         settings[key] = value
         window.localStorage.setItem("settings", JSON.stringify(settings))
 
-      ensureKey: (key) ->
+      ensureKey: (key, initial) ->
         unless window.localStorage.getItem("settings")
           window.localStorage.setItem("settings", JSON.stringify({}))
 
         unless JSON.parse(window.localStorage.getItem("settings"))[key]
-          @setSetting(key, [])
+          @setSetting(key, initial)
 
     }
   )

@@ -15,4 +15,16 @@ angular.module("settings").
       Settings.saveProjects($scope.projects).then (projects) ->
         $scope.projects = projects
 
+    Settings.notificationSettings().then (notificationSettings) ->
+      $scope.notificationSettings = notificationSettings
+
+    $scope.saveAndRequestDesktopPermission = ->
+      Notification.requestPermission() if $scope.notificationSettings.enableDesktopNotification
+      $scope.saveNotificationSettings()
+
+    $scope.saveNotificationSettings = ->
+      Settings.saveNotificationSettings($scope.notificationSettings).then (notificationSettings) ->
+        $scope.notificationSettings = notificationSettings
+
+
   )

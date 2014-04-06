@@ -1,5 +1,5 @@
 angular.module("entries").
-  factory("Entry", ($timeout, LocalStorageAdapter, AjaxAdapter, user, Title) ->
+  factory("Entry", ($timeout, LocalStorageAdapter, AjaxAdapter, user, Title, Notifications) ->
 
     defaultAttributes = ->
       elapsed: 0
@@ -17,6 +17,7 @@ angular.module("entries").
       if @lastTick && @running
         @beforeTick()
         @updateLastTickDifference()
+        Notifications.start(@)
         @tickDone(@now)
 
       @
@@ -76,11 +77,13 @@ angular.module("entries").
         @running = true
         Entry.addEntry @
         Entry.save(@)
+        Notifications.start(@)
         @runLoop()
 
       pause: ->
         @running = false
         Title.set()
+        Notifications.stop(@)
         Entry.save(@)
 
       done: ->

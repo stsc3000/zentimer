@@ -22,9 +22,10 @@ describe UsersController do
     it "returns the users json" do
       user = User.create
       get :show, token: user.token, format: :json
-      expect(JSON.parse(response.body)).to eq({
+      expect(JSON.parse(response.body)).to eq( "user" =>{
         "tags" => [],
-        "projects" => []
+        "projects" => [],
+        "notificationSettings" => {}
       })
     end
 
@@ -46,9 +47,10 @@ describe UsersController do
       expect(user.reload.tags).to eq(["tag1", "tag2"])
       expect(user.projects).to eq(["project1", "project2"])
 
-      expect(JSON.parse(response.body)).to eq({
+      expect(JSON.parse(response.body)).to eq( "user" => {
         "tags" => ['tag1', 'tag2'],
-        "projects" => ['project1', 'project2']
+        "projects" => ['project1', 'project2'],
+        "notificationSettings" => {}
       })
 
     end
@@ -64,9 +66,10 @@ describe UsersController do
 
       expect(user.reload.tags).to eq([])
 
-      expect(JSON.parse(response.body)).to eq({
+      expect(JSON.parse(response.body)).to eq( "user" =>{
         "tags" => [],
-        "projects" => []
+        "projects" => [],
+        "notificationSettings" =>{} 
       })
 
     end
