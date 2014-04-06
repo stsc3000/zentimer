@@ -18,12 +18,13 @@ describe EntriesController do
             :tag_list=>[],
             :running=>nil,
             :current=>nil,
-            :project=>nil}
+            :project=>nil,
+            :logged_at=>nil}
           ]
         })
     end
     it 'gets the current entry, too' do
-      old_entry.update_column :current, true
+      old_entry.update_attributes current: true, running: true
       get :index, token: user.token
       expect(json_response).to eq(
         {:entries=>
@@ -33,15 +34,19 @@ describe EntriesController do
             :tag_list=>[],
             :running=>nil,
             :current=>nil,
-            :project=>nil},
+            :project=>nil,
+            :logged_at=>nil
+          },
 
           {:id=>old_entry.id,
             :elapsed=>nil,
             :lastTick=>nil,
             :tag_list=>[],
-            :running=>nil,
+            :running=>true,
             :current=>true,
-            :project=>nil}
+            :project=>nil,
+            :logged_at=>nil
+          }
           ]
         })
 
@@ -60,7 +65,8 @@ describe EntriesController do
                   :tag_list=>[],
                   :running=>nil,
                   :current=>nil,
-                  :project=>nil}
+                  :project=>nil,
+                  :logged_at=>nil}
         }
       )
     end
@@ -101,7 +107,8 @@ describe EntriesController do
           :tag_list=>["a description"],
           :running=>true,
           :current=>true,
-          :project=>"a project"}
+          :project=>"a project",
+          :logged_at=>"2012-12-12"}
         }
       )
     end
@@ -140,7 +147,8 @@ describe EntriesController do
           :tag_list=>["new description"],
           :running=>nil,
           :current=>nil,
-          :project=>nil}
+          :project=>nil,
+          :logged_at=>nil}
         }
       )
     end

@@ -37,6 +37,8 @@ gem 'haml-rails'
 gem 'active_model_serializers'
 gem 'acts-as-taggable-on'
 
+gem 'psych'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false

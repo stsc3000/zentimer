@@ -5,6 +5,10 @@
 
   %div
     .entry-top-level-row
+      - if renderLoggedAt
+        .entry-top-level-row-logged-at
+          %i.fa.fa-calendar.fa-fw
+          {{ entry.logged_at }}
       .entry-top-level-row-elapsed-entry
         %ti-elapsed-entry(model="entry" elapsed="entry.elapsed" disabled="entry.running")
       .entry-top-level-row-project-entry
@@ -15,6 +19,10 @@
     %a
       %i.fa.fa-copy.fa-fw(ti-copy copy-source="entry.tag_list")
   .large-3.small-3.columns.text-center
-    %a(ng-click="query.deleteEntry(entry)")
-      %i.fa.fa-trash-o.fa-fw
+    - if deleteFromQuery
+      %a(ng-click="query.deleteEntry(entry)")
+        %i.fa.fa-trash-o.fa-fw
+    - else
+      %a(ng-click="entry.delete()")
+        %i.fa.fa-trash-o.fa-fw
 
