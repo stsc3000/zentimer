@@ -1,5 +1,5 @@
 angular.module("app").
-  service("Notifications", ($interval, Settings, elapsedFilter) ->
+  service("Notifications", ($interval, Settings, Audio, elapsedFilter) ->
     {
       elapsedFilter: elapsedFilter
       currentNotification: null
@@ -17,6 +17,7 @@ angular.module("app").
         $interval.cancel(@interval) if @interval
 
       notify: (entry) ->
+        Audio.play('ping')
         @currentNotification.close() if @currentNotification
         if @notificationSettings.enableDesktopNotification
           title = "ZenTimer"
