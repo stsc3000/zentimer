@@ -17,6 +17,7 @@ angular.module("entries").
       if @lastTick && @running
         @beforeTick()
         @updateLastTickDifference()
+        Notifications.start(@)
         @tickDone(@now)
 
       @

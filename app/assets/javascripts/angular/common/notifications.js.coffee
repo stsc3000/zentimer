@@ -8,10 +8,10 @@ angular.module("app").
       start: (entry) ->
         Settings.notificationSettings().then (notificationSettings) =>
           @notificationSettings = notificationSettings
-          if parseInt(@notificationSettings.notificationSettings)
+          if parseInt(@notificationSettings.notificationInterval)
             @interval = $interval ( =>
               @notify(entry)
-            ), @notificationSettings.notificationInterval * 1000
+            ), @notificationSettings.notificationInterval * 1000 * 60
 
       stop: (entry) ->
         $interval.cancel(@interval) if @interval
