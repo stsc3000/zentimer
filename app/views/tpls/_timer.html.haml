@@ -1,0 +1,35 @@
+#timer-page.page
+  #timer
+    .row
+      .large-12.columns
+        %div{"ng-controller" => "ZenTimerCtrl"}
+          .row.text-center
+            .large-12.columns.timer-counter{"data-fittext" => "0.5", "ng-class" => "{paused: !timer.currentEntry.running, running: timer.currentEntry.running}", "ng-click" => "toggle()"}
+              %a.timer-toggle
+                %ti-elapsed{elapsed: "timer.currentEntry.elapsed"}
+          .row{"ng-show" => "timer.savable()", style: "font-weight: 700; line-height: 48px;"}
+            #timer-actions-save-button.large-6.small-6.columns.text-center{"ng-click" => "done(); $event.stopPropagation()", style: "font-size: 200%;"}
+              %a
+                %i#timer-actions-save.fa.fa-check
+                %span DONE
+            #timer-actions-delete-button.large-6.small-6.columns.text-center{"ng-click" => "delete(); $event.stopPropagation();", style: "font-size: 200%;"}
+              %a
+                %i#timer-actions-delete.fa.fa-trash-o
+                %span DELETE
+          .row
+            .large-12.large-centered.columns.tag-list-input
+              %a
+                %i#timer-actions-close-tag-list.fa.fa-times-circle.fa-fw{"ng-click" => "taglistFocused=false", "ng-show" => "taglistFocused"}
+              %ti-tag-entry{on: "timer.currentEntry.tag_list", "suggestion-domain" => "suggestions", update: "timer.currentEntry.persist()"}
+  #entries.large-12.columns{"ng-controller" => "EntriesListCtrl"}
+    .row.entry-row.my-repeat-animation{"ng-controller" => "EntryCtrl", "ng-repeat" => "entry in entries | orderBy:'lastTick':true| orderBy: 'current':true "}
+      = render partial: "entries/entry", locals: { renderControls: true, renderLoggedAt: false, deleteFromQuery: false }
+    #bottom-menu
+      #left-icons  
+      #center-icons
+        %a#add-entry{"ng-click" => "addEntry()", style: "font-size: 1.5em;"}
+          %i.fa.fa-plus.fa-fw
+      #right-icons
+        %a#entries-clear.fa.fa-trash-o.fa-fw{"ng-click" => "clear()", "ng-show" => "entries.length > 0"}
+        %span#entries-total-elapsed
+          %ti-elapsed{elapsed: "totalElapsed()"}
