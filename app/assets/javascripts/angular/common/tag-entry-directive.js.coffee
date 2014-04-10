@@ -4,10 +4,11 @@ angular.module("app").
       restrict: "E",
       replace: true,
       template: '<div class="tags-entry">
+                  <i class="fa fa-fw fa-tags tag-icon"></i>
                   <ul data-role="tags" class="tags">
                     <ti-tag ng-repeat="tag in targetValue" tag="tag"></ti-tag>
                   </ul>
-                  <input data-role="tag-entry" class="tag-entry" ng-model="currentTag" ></input>
+                  <input data-role="tag-entry" class="tag-entry" ng-model="currentTag" placeholder="+ Tag"></input>
                   <div style="clear:both"></div>
                   <div class="suggestions">
                     <ul >

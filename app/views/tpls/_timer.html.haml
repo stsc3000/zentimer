@@ -7,6 +7,7 @@
             .large-12.columns.timer-counter{"data-fittext" => "0.5", "ng-class" => "{paused: !timer.currentEntry.running, running: timer.currentEntry.running}", "ng-click" => "toggle()"}
               %a.timer-toggle
                 %ti-elapsed{elapsed: "timer.currentEntry.elapsed"}
+
           .row{"ng-show" => "timer.savable()", style: "font-weight: 700; line-height: 48px;"}
             #timer-actions-save-button.large-6.small-6.columns.text-center{"ng-click" => "done(); $event.stopPropagation()", style: "font-size: 200%;"}
               %a
@@ -16,13 +17,20 @@
               %a
                 %i#timer-actions-delete.fa.fa-trash-o
                 %span DELETE
-          .row
-            .large-12.large-centered.columns.tag-list-input
-              %a
-                %i#timer-actions-close-tag-list.fa.fa-times-circle.fa-fw{"ng-click" => "taglistFocused=false", "ng-show" => "taglistFocused"}
+
+          #timer-page-quick-entry.row(ng-class="{'show-additional-info': showAdditionalInfo}" ti-quick-entry ng-click="$event.stopPropagation()")
+            .large-12.large-centered.columns.tag-list-input(ti-timer-entry ng-class="{'timer-entry-focused': timerEntryFocused}")
               %ti-tag-entry{on: "timer.currentEntry.tag_list", "suggestion-domain" => "suggestions", update: "timer.currentEntry.persist()"}
+              .entry-additional-info
+                .entry-additional-info-project
+                  %ti-project-entry(on="timer.currentEntry.project" update="entry.persist()" suggestion-domain="projectSuggestions")
+                  -#%input.entry-edit-project(type="text" ng-model="timer.currentEntry.project" placeholder="Project")
+                .entry-additional-info-description
+                  %i.fa.fa-quote-left.fa-fw
+                  %textarea.entry-edit-description(ng-model='timer.currentEntry.description' ng-blur="timer.currentEntry.persist()" placeholder="Description")
+
   #entries.large-12.columns{"ng-controller" => "EntriesListCtrl"}
-    .row.entry-row.my-repeat-animation{"ng-controller" => "EntryCtrl", "ng-repeat" => "entry in entries | orderBy:'lastTick':true| orderBy: 'current':true "}
+    .row.entry-row.my-repeat-animation{"ng-controller" => "EntryCtrl", "ng-repeat" => "entry in entries | orderBy:'lastTick':true | orderBy: 'current':true "}
       = render partial: "entries/entry", locals: { renderControls: true, renderLoggedAt: false, deleteFromQuery: false }
     #bottom-menu
       #left-icons  

@@ -33,16 +33,8 @@ a
 #timer
   h1
     color: #ecf0f1
-  textarea
-    border: none
-    overflow: auto
-    outline: none
-    box-shadow: none
-    -webkit-box-shadow: none
-    -moz-box-shadow: none
-    overflow: hidden
 
-.entry-edit-project .project-edit, .entry-tag-list .tag-list-edit, .entry-elapsed-form .elapsed-entry
+.entry-edit-project .project-edit, .entry-tag-list .tag-list-edit, .entry-elapsed-form .elapsed-entry, .entry-edit-description
   border: none
   overflow: auto
   outline: none
@@ -59,13 +51,60 @@ a
     -moz-box-shadow: none
     overflow: hidden
 
-#timer textarea
-  background-color: #34495e
+.entry-edit-description, #timer-page-quick-entry .entry-edit-project
+  border: none
+  overflow: auto
+  outline: none
+  box-shadow: none
+  -webkit-box-shadow: none
+  -moz-box-shadow: none
+  overflow: hidden
   color: #ecf0f1
-  font-size: 3em
+  font-size: 1em
+  padding: 0
+  margin: 0
+  height: auto
   transition: all 0.25s ease-in-out
-  height: 90px
-  margin-bottom: 0
+  background-color: transparent
+  &:focus
+    background-color: transparent
+
+.entry-additional-info
+  padding-left: 10px
+  padding-right: 10px
+
+#timer .entry-edit-description
+  background-color: #34495e
+
+#timer-page-quick-entry 
+  .entry-additional-info
+    transition: all 0.25s ease-in-out
+    height: 0
+    overflow-y: hidden
+    padding-top: 0
+    background-color: #34495e
+  &.show-additional-info .entry-additional-info
+    min-height: 120px
+  input, textarea, input:focus, textarea:focus
+    font-size: 1em
+    padding: 0
+    background-color: transparent
+  .tag-icon
+    margin-top: 10px
+
+.entry-additional-info
+  i
+    float: left
+    line-height: 32px
+    width: 5%
+  input, textarea
+    margin-left: 10px
+    float: left
+    width: 90%
+    line-height: 32px
+
+.entry-additional-info-project, .entry-additional-info-description
+  clear: both
 
 .entry-tag-list .tag-list-edit
   font-size: 2em
@@ -78,7 +117,7 @@ a
   background-color: inherit
   color: #ecf0f1
 
-.entry-elapsed-form .elapsed-entry, .entry-edit-project .project-edit, .entry-tag-list .tag-list-edit
+.entry-elapsed-form .elapsed-entry, .entry-tag-list .tag-list-edit
   display: inline-block !important
   color: #ecf0f1
   background-color: transparent !important
@@ -91,10 +130,6 @@ a
 .entry-elapsed-form .fa, .entry-edit-project .fa
   float: left
   padding-top: 2px
-
-#timer textarea:focus, .tag-list-edit:focus
-  height: 400px
-  overflow: scroll-y
 
 .timer-counter:hover
   background-color: #34495e
@@ -113,8 +148,11 @@ a
 .entry
   margin-bottom: 10px
 
-.entry-row:hover .entry-row-hidden
-  height: 25px
+.entry-row:hover 
+  .entry-row-hidden
+    height: 25px
+  .entry-additional-info-description
+    height: 64px
 
 .entry-row-hidden
   font-size: 1.5em
@@ -131,6 +169,10 @@ a
   margin-top: 20px
   &:hover
     background-color: #34495e
+  .entry-additional-info-description
+    overflow-y: hidden
+    transition: all 0.25s ease-in-out
+    height: 0px
 
 #entry-delete-tile
   a, &:active
@@ -150,7 +192,6 @@ a
 .entry-continue, .entry-pause
   display: table-cell
   vertical-align: middle
-  /*padding-left: 5px;
 
 .entry-tag-list span
   font-size: 3em
@@ -187,16 +228,6 @@ a
     background: #7f8c8d
   100%
     background: none
-
-
-.running
-  /*-webkit-animation: highlight 15s ease-in 1;
-  /*animation: highlight 15s ease-in 1;
-  /*background: #34495e;
-
-.paused
-  /*-webkit-animation: unhighlight .5s ease-in 1;
-  /*animation: unhighlight .5s ease-in 1;
 
 .running a
   color: #ecf0f1
@@ -311,17 +342,22 @@ h2, h3, h4, h5, h6
   background-color: #34495e
   cursor: text
 
-.tags-entry .tag-entry
-  float: left
-  background-color: #34495e
-  border: none
-  color: #fff
-  box-shadow: none
-  margin-top: 10px
-  margin-left: 10px
-  outline: none
-  line-height: 45px
-  font-size: 1em
+.tags-entry
+  .tag-entry
+    float: left
+    background-color: #34495e
+    border: none
+    color: #fff
+    box-shadow: none
+    margin-top: 10px
+    margin-left: 10px
+    outline: none
+    line-height: 45px
+    font-size: 1em
+  .tag-icon
+    float: left
+    line-height: 45px
+    margin-left: 10px
 
 #notifications input[type='number']
   float: left
@@ -346,7 +382,7 @@ h2, h3, h4, h5, h6
   color: #fff
   background-color: #2c3e50
 
-.entry
+.entry-row
   .tags-entry
     background-color: inherit
     position: relative
@@ -359,6 +395,9 @@ h2, h3, h4, h5, h6
     margin: 0
     margin-left: 10px
     background-color: #2c3e50
+
+
+
 
 .suggestions
   background-color: #34495e

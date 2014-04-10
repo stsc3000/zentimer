@@ -19,6 +19,7 @@ describe EntriesController do
             :running=>nil,
             :current=>nil,
             :project=>nil,
+            :description=>nil,
             :logged_at=>nil}
           ]
         })
@@ -35,6 +36,7 @@ describe EntriesController do
             :running=>nil,
             :current=>nil,
             :project=>nil,
+            :description=>nil,
             :logged_at=>nil
           },
 
@@ -45,6 +47,7 @@ describe EntriesController do
             :running=>true,
             :current=>true,
             :project=>nil,
+            :description=>nil,
             :logged_at=>nil
           }
           ]
@@ -66,6 +69,7 @@ describe EntriesController do
                   :running=>nil,
                   :current=>nil,
                   :project=>nil,
+                  :description=>nil,
                   :logged_at=>nil}
         }
       )
@@ -81,7 +85,8 @@ describe EntriesController do
         :tag_list=>["a tag"],
         :running=>true,
         :current=>true,
-        :project=>"a project"
+        :project=>"a project",
+        :description=>"things I did"
       }
       expect{
         post :create, entry: params, token: user.token
@@ -95,7 +100,8 @@ describe EntriesController do
         :tag_list=>["a description"],
         :running=>true,
         :current=>true,
-        :project=>"a project"
+        :project=>"a project",
+        :description=>"things I did"
       }
       post :create, entry: params, token: user.token
       entry_id = assigns(:entry).id
@@ -108,6 +114,7 @@ describe EntriesController do
           :running=>true,
           :current=>true,
           :project=>"a project",
+          :description=>"things I did",
           :logged_at=>"2012-12-12"}
         }
       )
@@ -121,12 +128,12 @@ describe EntriesController do
       entry = user.entries.create(tag_list: ["my description"])
 
       params = {
-        tag_list: ["new description"]
+        tag_list: ["new tag"]
       }
 
       expect {
         put :update, id: entry.id, entry: params, token: user.token
-      }.to change{entry.reload.tag_list}.to(["new description"])
+      }.to change{entry.reload.tag_list}.to(["new tag"])
 
     end
 
@@ -134,7 +141,7 @@ describe EntriesController do
       entry = user.entries.create(tag_list: ["my description"])
 
       params = {
-        tag_list: ["new description"]
+        tag_list: ["new tag"]
       }
 
       put :update, id: entry.id, entry: params, token: user.token
@@ -144,10 +151,11 @@ describe EntriesController do
           {:id=>entry.id,
           :elapsed=> nil,
           :lastTick=> nil,
-          :tag_list=>["new description"],
+          :tag_list=>["new tag"],
           :running=>nil,
           :current=>nil,
           :project=>nil,
+          :description=>nil,
           :logged_at=>nil}
         }
       )
@@ -233,6 +241,7 @@ describe EntriesController do
               :tag_list=>["work", "coffee"],
               :running=>nil,
               :current=>nil,
+              :description=>nil,
               :project=>"Important Project"
             }
           ]

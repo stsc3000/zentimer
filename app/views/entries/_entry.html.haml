@@ -14,6 +14,10 @@
       .entry-top-level-row-project-entry
         %ti-project-entry(on="entry.project" update="entry.persist()" suggestion-domain="projectSuggestions")
     %ti-tag-entry(on="entry.tag_list" suggestion-domain="tagSuggestions" update="entry.persist()")
+    .entry-additional-info
+      .entry-additional-info-description
+        %i.fa.fa-quote-left.fa-fw
+        %textarea.entry-edit-description(ng-model="entry.description" ng-blur="entry.persist()" placeholder="Description")
 .entry-row-hidden
   .large-3.small-3.columns.text-center
     %a

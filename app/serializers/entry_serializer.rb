@@ -1,6 +1,6 @@
 class EntrySerializer < ActiveModel::Serializer
   attributes :id, :elapsed, :lastTick, :tag_list, :running,
-    :current, :project, :logged_at
+    :current, :project, :logged_at, :description
 
   def lastTick
     object.lastTick.iso8601 if object.lastTick
