@@ -29,11 +29,11 @@
     .row.filter-menu-submenu(ng-if="filterSubmenu=='tags'" ng-init="query.fetchTagDomain()")
       .large-12.columns
         Include Tags
-        %ti-tag-entry(on="query.tags.include" suggestion-domain="query.tagDomain" update="query.fetch()")
+        %ti-tag-entry(on="query.tags.include" suggestion-domain="query.tagDomain" update="query.fetch()" placeholder="+Tag")
         Exclude Tags
-        %ti-tag-entry(on="query.tags.exclude" suggestion-domain="query.tagDomain" update="query.fetch()")
+        %ti-tag-entry(on="query.tags.exclude" suggestion-domain="query.tagDomain" update="query.fetch()" placeholder="+Tag")
     .row.filter-menu-submenu(ng-if="filterSubmenu=='projects'" ng-init="query.fetchProjectDomain()")
-      %ti-tag-entry(on="query.projects" suggestion-domain="query.projectDomain" update="query.fetch()")
+      %ti-tag-entry(on="query.projects" suggestion-domain="query.projectDomain" update="query.fetch()" placeholder="+Project")
 
   .row
     .large-12.columns

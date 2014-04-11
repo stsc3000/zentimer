@@ -50,6 +50,7 @@ a
     -webkit-box-shadow: none
     -moz-box-shadow: none
     overflow: hidden
+    background: transparent
 
 .entry-edit-description, #timer-page-quick-entry .entry-edit-project
   border: none
@@ -70,6 +71,7 @@ a
     background-color: transparent
 
 .entry-additional-info
+  position: relative
   padding-left: 10px
   padding-right: 10px
 
@@ -91,9 +93,11 @@ a
     background-color: transparent
   .tag-icon
     margin-top: 10px
+    margin-left: 10px
+    width: 5%
 
 .entry-additional-info
-  i
+  .entry-edit-project i, .entry-additional-info-icon
     float: left
     line-height: 32px
     width: 5%
@@ -357,7 +361,6 @@ h2, h3, h4, h5, h6
   .tag-icon
     float: left
     line-height: 45px
-    margin-left: 10px
 
 #notifications input[type='number']
   float: left
@@ -386,11 +389,11 @@ h2, h3, h4, h5, h6
   .tags-entry
     background-color: inherit
     position: relative
-    top: -10px
     .tag-entry
       background-color: inherit
       margin-left: 10px
       margin-top: 0px
+      width: auto
   .tags li
     margin: 0
     margin-left: 10px
