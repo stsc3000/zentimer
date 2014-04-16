@@ -3,7 +3,7 @@ angular.module("app").
     {
       restrict: "A"
       link: ($scope, el) ->
-        $(el).find('input').focus (e) ->
+        $(el).find('input, textarea').focus (e) ->
           $scope.$apply ->
             $scope.showAdditionalInfo = true
 

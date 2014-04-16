@@ -1,42 +1,51 @@
 #timer-page.page
-  #timer
-    .row
-      .large-12.columns
-        %div{"ng-controller" => "ZenTimerCtrl"}
-          .row.text-center
-            .large-12.columns.timer-counter{"data-fittext" => "0.5", "ng-class" => "{paused: !timer.currentEntry.running, running: timer.currentEntry.running}", "ng-click" => "toggle()"}
-              %a.timer-toggle
-                %ti-elapsed{elapsed: "timer.currentEntry.elapsed"}
+  #timer(ng-controller = "ZenTimerCtrl")
+    #timer-time-counter(data-fittext = "0.5" ng-class = "{paused: !timer.currentEntry.running, running: timer.currentEntry.running}" ng-click = "toggle()")
+      %a#timer-time-counter-toggle
+        %ti-elapsed{elapsed: "timer.currentEntry.elapsed"}
+    #timer-entry-actions(ng-show = "timer.savable()")
+      %a#timer-entry-actions-save(ng-click = "done(); $event.stopPropagation()")
+        #timer-entry-actions-save-icon
+        DONE
 
-          .row{"ng-show" => "timer.savable()", style: "font-weight: 700; line-height: 48px;"}
-            #timer-actions-save-button.large-6.small-6.columns.text-center{"ng-click" => "done(); $event.stopPropagation()", style: "font-size: 200%;"}
-              %a
-                %i#timer-actions-save.fa.fa-check
-                %span DONE
-            #timer-actions-delete-button.large-6.small-6.columns.text-center{"ng-click" => "delete(); $event.stopPropagation();", style: "font-size: 200%;"}
-              %a
-                %i#timer-actions-delete.fa.fa-trash-o
-                %span DELETE
+      %a#timer-entry-actions-delete(ng-click = "delete(); $event.stopPropagation();")
+        #timer-entry-actions-delete-icon
+        DELETE
 
-          #timer-page-quick-entry.row(ng-class="{'show-additional-info': showAdditionalInfo}" ti-quick-entry ng-click="$event.stopPropagation()")
-            .large-12.large-centered.columns.tag-list-input(ti-timer-entry ng-class="{'timer-entry-focused': timerEntryFocused}")
-              %ti-tag-entry{on: "timer.currentEntry.tag_list", "suggestion-domain" => "suggestions", update: "timer.currentEntry.persist()", placeholder: "+Tag"}
-              .entry-additional-info
-                .entry-additional-info-project
-                  %ti-project-entry(on="timer.currentEntry.project" update="entry.persist()" suggestion-domain="projects")
-                .entry-additional-info-description
-                  %i.entry-additional-info-icon.fa.fa-quote-left.fa-fw
-                  %textarea.entry-edit-description(ng-model='timer.currentEntry.description' ng-blur="timer.currentEntry.persist()" placeholder="Description")
+    #timer-entry-properties(ti-quick-entry ng-class="{'show-additional-info': showAdditionalInfo}")
+      #timer-entry-properties-tags.timer-entry-properties-row
+        .tags-icon
+        %ti-tag-entry(on="timer.currentEntry.tag_list" suggestion-domain="suggestions" update="timer.currentEntry.persist()" placeholder="+Tag")
 
-  #entries.large-12.columns{"ng-controller" => "EntriesListCtrl"}
-    .row.entry-row.my-repeat-animation{"ng-controller" => "EntryCtrl", "ng-repeat" => "entry in entries | orderBy:'lastTick':true | orderBy: 'current':true "}
-      = render partial: "entries/entry", locals: { renderControls: true, renderLoggedAt: false, deleteFromQuery: false }
-    #bottom-menu
-      #left-icons  
-      #center-icons
-        %a#add-entry{"ng-click" => "addEntry()", style: "font-size: 1.5em;"}
-          %i.fa.fa-plus.fa-fw
-      #right-icons
-        %a#entries-clear.fa.fa-trash-o.fa-fw{"ng-click" => "clear()", "ng-show" => "entries.length > 0"}
-        %span#entries-total-elapsed
-          %ti-elapsed{elapsed: "totalElapsed()"}
+      #timer-entry-properties-additional-info
+        #timer-entry-properties-project.timer-entry-properties-row
+          .projects-icon
+          %ti-project-entry(on="timer.currentEntry.project" update="entry.persist()" suggestion-domain="projects")
+
+        #timer-entry-properties-description.timer-entry-properties-row
+          .description-icon
+          %textarea.description-entry(ng-model='timer.currentEntry.description' ng-blur="timer.currentEntry.persist()" placeholder="Description" ng-click="$event.stopPropagation()")
+
+
+      -##timer-page-quick-entry.row(ng-class="{'show-additional-info': showAdditionalInfo}" ti-quick-entry ng-click="$event.stopPropagation()")
+        -#.large-12.large-centered.columns.tag-list-input(ti-timer-entry ng-class="{'timer-entry-focused': timerEntryFocused}")
+          -#%ti-tag-entry{on: "timer.currentEntry.tag_list", "suggestion-domain" => "suggestions", update: "timer.currentEntry.persist()", placeholder: "+Tag"}
+          -#.entry-additional-info
+            -#.entry-additional-info-project
+              -#%ti-project-entry(on="timer.currentEntry.project" update="entry.persist()" suggestion-domain="projects")
+            -#.entry-additional-info-description
+              -#%i.entry-additional-info-icon.fa.fa-quote-left.fa-fw
+              -#%textarea.entry-edit-description(ng-model='timer.currentEntry.description' ng-blur="timer.currentEntry.persist()" placeholder="Description")
+
+  -##entries.large-12.columns{"ng-controller" => "EntriesListCtrl"}
+    -#.row.entry-row.my-repeat-animation{"ng-controller" => "EntryCtrl", "ng-repeat" => "entry in entries | orderBy:'lastTick':true | orderBy: 'current':true "}
+      -#= render partial: "entries/entry", locals: { renderControls: true, renderLoggedAt: false, deleteFromQuery: false }
+    -##bottom-menu
+      -##left-icons  
+      -##center-icons
+        -#%a#add-entry{"ng-click" => "addEntry()", style: "font-size: 1.5em;"}
+          -#%i.fa.fa-plus.fa-fw
+      -##right-icons
+        -#%a#entries-clear.fa.fa-trash-o.fa-fw{"ng-click" => "clear()", "ng-show" => "entries.length > 0"}
+        -#%span#entries-total-elapsed
+          -#%ti-elapsed{elapsed: "totalElapsed()"}

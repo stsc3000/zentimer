@@ -1,0 +1,61 @@
+#timer
+  @extend .row
+
+#timer-time-counter
+  @extend .columns
+  @extend .large-12
+  &.running a
+    color: white
+
+#timer-entry-actions
+  @extend .columns
+  @extend .large-12
+  font-size: 1.5em
+
+#timer-entry-actions-save
+  @extend .columns
+  @extend .large-6
+  @extend .small-6
+  @extend .text-center
+  font-weight: 700
+  line-height: 48px
+
+#timer-entry-actions-save-icon
+  @extend .fa
+  @extend .fa-fw
+  @extend .fa-check
+
+#timer-entry-actions-delete
+  @extend .columns
+  @extend .large-6
+  @extend .small-6
+  @extend .text-center
+  font-weight: 700
+  line-height: 48px
+
+#timer-entry-actions-delete-icon
+  @extend .fa
+  @extend .fa-fw
+  @extend .fa-trash-o
+
+#timer-entry-properties
+  @extend .columns
+  @extend .large-12
+  background-color: $light-blue
+  #timer-entry-properties-additional-info
+    height: 0
+    overflow-y: hidden
+  &.show-additional-info #timer-entry-properties-additional-info
+    height: auto
+    overflow-y: visible
+
+.timer-entry-properties-row
+  @extend .row
+  .tags-icon, .projects-icon, .description-icon
+    width: 10%
+    float: left
+    line-height: 65px
+  .tags-entry, .projects-entry, .description-entry
+    width: 80%
+    float: left
+
