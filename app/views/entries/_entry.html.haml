@@ -1,24 +1,31 @@
-.entry(style="display: table; width: 100%;")
-  - if renderControls
-    %i.entry-continue.fa.fa-play.fa-fw(ng-hide="entry.running" ng-click="continue()")
-    %i.entry-pause.fa.fa-pause.fa-fw(ng-show="entry.running" ng-click="pause()")
+.entries-list-item-form
 
-  %div
-    .entry-top-level-row
+  .entries-list-item-form-flow-controls
+    .continue-icon
+
+  .entries-list-item-form-visible-info
+    .entries-list-item-form-context-info
       - if renderLoggedAt
-        .entry-top-level-row-logged-at
-          %i.fa.fa-calendar.fa-fw
+        .entries-list-item-form-context-logged-at
+          %i.logged-at-icon
           {{ entry.logged_at }}
-      .entry-top-level-row-elapsed-entry
+
+      .entries-list-item-form-context-elapsed
+        %i.elapsed-icon
         %ti-elapsed-entry(model="entry" elapsed="entry.elapsed" disabled="entry.running")
-      .entry-top-level-row-project-entry
+
+      .entries-list-item-form-context-project
+        %i.projects-icon
         %ti-project-entry(on="entry.project" update="entry.persist()" suggestion-domain="projectSuggestions")
-    .entry-additional-info
-      %ti-tag-entry(on="entry.tag_list" suggestion-domain="tagSuggestions" update="entry.persist()" placeholder="+Tag")
-      .entry-additional-info-description
-        %i.entry-additional-info-icon.fa.fa-quote-left.fa-fw
-        %textarea.entry-edit-description(ng-model="entry.description" ng-blur="entry.persist()" placeholder="Description")
-.entry-row-hidden
+
+    .entries-list-item-form-main-row
+      .entries-list-item-form-main-info
+        .entries-list-item-form-main-info-tags
+          %ti-tag-entry(on="entry.tag_list" suggestion-domain="tagSuggestions" update="entry.persist()" placeholder="+Tag")
+        .entries-list-item-form-main-info-description
+          %textarea.description-entry(ng-model="entry.description" ng-blur="entry.persist()" placeholder="Description")
+
+.entries-list-item-form-hidden-actions
   .large-3.small-3.columns.text-center
     %a
       %i.fa.fa-copy.fa-fw(ti-copy copy-source="entry.tag_list")
@@ -29,4 +36,25 @@
     - else
       %a(ng-click="entry.delete()")
         %i.fa.fa-trash-o.fa-fw
+
+
+ 
+  -#.entries-list-item-form-hidden-info
+    -#hidden
+  -#%div
+    -#.entry-top-level-row
+      -#- if renderLoggedAt
+        -#.entry-top-level-row-logged-at
+          -#%i.fa.fa-calendar.fa-fw
+          -#{{ entry.logged_at }}
+      -#.entry-top-level-row-elapsed-entry
+        -#%ti-elapsed-entry(model="entry" elapsed="entry.elapsed" disabled="entry.running")
+      -#.entry-top-level-row-project-entry
+        -#%ti-project-entry(on="entry.project" update="entry.persist()" suggestion-domain="projectSuggestions")
+    -#.entry-additional-info
+      -#%ti-tag-entry(on="entry.tag_list" suggestion-domain="tagSuggestions" update="entry.persist()" placeholder="+Tag")
+      -#.entry-additional-info-description
+        -#%i.entry-additional-info-icon.fa.fa-quote-left.fa-fw
+        -#%textarea.entry-edit-description(ng-model="entry.description" ng-blur="entry.persist()" placeholder="Description")
+-#.entry-row-hidden
 

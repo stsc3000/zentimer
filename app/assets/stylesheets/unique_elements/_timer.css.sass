@@ -2,36 +2,29 @@
   @extend .row
 
 #timer-time-counter
-  @extend .columns
-  @extend .large-12
+  @extend .text-center
   &.running a
     color: white
 
 #timer-entry-actions
-  @extend .columns
-  @extend .large-12
+  margin-top: 20px
+  width: 100%
+  margin: 0
   font-size: 1.5em
 
-#timer-entry-actions-save
+#timer-entry-actions-save, #timer-entry-actions-delete
   @extend .columns
   @extend .large-6
   @extend .small-6
   @extend .text-center
-  font-weight: 700
-  line-height: 48px
+  color: $font-color
+  border: 1px solid $border-color
+  line-height: 45px
 
 #timer-entry-actions-save-icon
   @extend .fa
   @extend .fa-fw
   @extend .fa-check
-
-#timer-entry-actions-delete
-  @extend .columns
-  @extend .large-6
-  @extend .small-6
-  @extend .text-center
-  font-weight: 700
-  line-height: 48px
 
 #timer-entry-actions-delete-icon
   @extend .fa
@@ -41,7 +34,6 @@
 #timer-entry-properties
   @extend .columns
   @extend .large-12
-  background-color: $light-blue
   #timer-entry-properties-additional-info
     height: 0
     overflow-y: hidden
@@ -50,12 +42,7 @@
     overflow-y: visible
 
 .timer-entry-properties-row
+  padding: 0 10px 0 10px
+  border: 1px solid $border-color
   @extend .row
-  .tags-icon, .projects-icon, .description-icon
-    width: 10%
-    float: left
-    line-height: 65px
-  .tags-entry, .projects-entry, .description-entry
-    width: 80%
-    float: left
-
+  margin-top: 20px !important

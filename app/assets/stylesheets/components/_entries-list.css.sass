@@ -1,0 +1,66 @@
+.entries-list-item
+  margin-top: 20px
+  @extend .row
+
+  .entries-list-item-form-hidden-actions
+    @extend .columns
+    @extend .large-12
+    display: none
+
+  &:hover
+    .entries-list-item-form-hidden-actions
+      display: block
+
+
+.entries-list-item-form-main-info-description, .entries-list-item-form-main-info-tags
+  @extend .columns
+  @extend .large-12
+  .tags-entry-tag-input
+    float: left
+
+.entries-list-item-form
+  .logged-at-icon, .elapsed-icon, .projects-icon, .tags-icon, .description-icon
+    line-height: 45px
+    height: 45px
+    float: left
+
+  .entries-list-item-form-hidden-info
+    display: none
+
+  .entries-list-item-form-context-logged-at, .entries-list-item-form-context-elapsed, .entries-list-item-form-context-project
+    width: 33%
+    float: left
+
+  input
+    font-size: 1em
+    width: 66%
+
+  &:hover 
+    .entries-list-item-form-hidden-actions
+      display: block
+
+.entries-list-item-form
+  display: table
+  width: 100%
+
+.entries-list-item-form-visible-info
+  display: table-cell
+  width: 85%
+
+.entries-list-item-form-flow-controls
+  display: table-cell
+  vertical-align: middle
+  text-align: center
+  //background-color: $hidden-color
+  width: 15%
+  font-size: 2em
+
+  .entries-list-item-form-main-info
+    width: 85%
+
+.entries-list-item-form-main-row
+  .description-entry
+    float: left
+    width: 100%
+
+
