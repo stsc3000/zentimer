@@ -1,13 +1,16 @@
 .entries-list-item
   margin-top: 20px
   @extend .row
+  border: 1px solid $background-color
 
   .entries-list-item-form-hidden-actions
     @extend .columns
     @extend .large-12
     display: none
+    background-color: $highlight-color
 
   &:hover
+    border: 1px solid $highlight-border-color
     .entries-list-item-form-hidden-actions
       display: block
 
@@ -24,8 +27,6 @@
     height: 45px
     float: left
 
-  .entries-list-item-form-hidden-info
-    display: none
 
   .entries-list-item-form-context-logged-at, .entries-list-item-form-context-elapsed, .entries-list-item-form-context-project
     width: 33%

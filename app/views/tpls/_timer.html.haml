@@ -23,9 +23,9 @@
         #timer-entry-properties-description.timer-entry-properties-row
           %textarea.description-entry(ng-model='timer.currentEntry.description' ng-blur="timer.currentEntry.persist()" placeholder="Description" ng-click="$event.stopPropagation()")
 
-  -#.entries-list(ng-controller="EntriesListCtrl")
-    -#.entries-list-item(ng-controller="EntryCtrl" ng-repeat="entry in entries | orderBy:'lastTick':true | orderBy: 'current':true")
-      -#= render partial: "entries/entry", locals: { renderControls: true, renderLoggedAt: false, deleteFromQuery: false }
+  .entries-list(ng-controller="EntriesListCtrl")
+    .entries-list-item(ng-controller="EntryCtrl" ng-repeat="entry in entries | orderBy:'lastTick':true | orderBy: 'current':true")
+      = render partial: "entries/entry", locals: { renderControls: true, renderLoggedAt: false, deleteFromQuery: false }
     -##bottom-menu
       -##left-icons  
       -##center-icons
