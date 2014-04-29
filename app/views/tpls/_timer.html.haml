@@ -12,7 +12,7 @@
         #timer-entry-actions-delete-icon
         DELETE
 
-    #timer-entry-properties(ti-quick-entry ng-class="{'show-additional-info': true}")
+    #timer-entry-properties(ti-quick-entry ng-class="{'show-additional-info': showAdditionalInfo}")
       #timer-entry-properties-tags.timer-entry-properties-row
         %ti-tag-entry(on="timer.currentEntry.tag_list" suggestion-domain="suggestions" update="timer.currentEntry.persist()" placeholder="+Tag")
 
