@@ -13,8 +13,8 @@ angular.module("app").
         client.on "load", (client, args) ->
           client.on 'mouseover', (client, args) ->
             client.setText $scope.copySource.join(", ")
-            $(el).closest(".entry-row-hidden").addClass("hover")
+            $(el).closest(".entries-list-item").addClass("hover")
           client.on 'mouseout', (client, args) ->
-            $(el).closest(".entry-row-hidden").removeClass("hover")
+            $(el).closest(".entries-list-item").removeClass("hover")
       }
   )
