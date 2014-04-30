@@ -16,12 +16,9 @@ angular.module( 'ngFitText', [] )
 	.directive( 'fittext', [ function() {
 		return {
 			restrict: 'A',
-			scope: true,
-			transclude: true,
-			replace: true,
-			template: function( element, attrs ) {
-				var tag = element[0].nodeName;
-				return "<"+tag+" data-ng-transclude data-ng-style='{fontSize:fontSize}'></"+tag+">";
+			scope: {
+				"fittext": "@",
+				"watchtext": "@"	
 			},
 			link: function( scope, element, attrs ) {
 				scope.compressor = attrs.fittext || 1;
@@ -38,9 +35,13 @@ angular.module( 'ngFitText', [] )
 						parseFloat( scope.minFontSize )
 					) + 'px';
 
-					if( !scope.$$phase ) scope.$digest();
-
+					$(element).css("font-size", scope.fontSize)
 				})();
+
+				//scope.$watch("watchtext", function() { 
+					//scope.elementWidth = element[0].offsetWidth;
+					//scope.resizer();
+				//});
 
 				angular.element( window ).bind( 'resize', function() {
 					scope.elementWidth = element[0].offsetWidth;

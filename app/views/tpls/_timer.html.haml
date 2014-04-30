@@ -1,7 +1,7 @@
 #timer-page.page
   #timer(ng-controller = "ZenTimerCtrl")
-    #timer-time-counter(data-fittext = "0.35" ng-class = "{paused: !timer.currentEntry.running, running: timer.currentEntry.running}" ng-click = "toggle()")
-      %a#timer-time-counter-toggle
+    #timer-time-counter(ng-class = "{paused: !timer.currentEntry.running, running: timer.currentEntry.running}" ng-click = "toggle()")
+      %a#timer-time-counter-toggle(style="width: 100%; display: block;" fittext="0.5" watchtext="{{timer.currentEntry.elapsed}}")
         %ti-elapsed{elapsed: "timer.currentEntry.elapsed"}
     #timer-entry-actions(ng-show = "timer.savable()")
       %a#timer-entry-actions-save(ng-click = "done(); $event.stopPropagation()")
@@ -13,15 +13,15 @@
         DELETE
 
     #timer-entry-properties(ti-quick-entry ng-class="{'show-additional-info': showAdditionalInfo}")
-      #timer-entry-properties-tags.timer-entry-properties-row
-        %ti-tag-entry(on="timer.currentEntry.tag_list" suggestion-domain="suggestions" update="timer.currentEntry.persist()" placeholder="+Tag")
+      #timer-entry-properties-description.timer-entry-properties-row
+        %textarea.description-entry(ng-model='timer.currentEntry.description' ng-blur="timer.currentEntry.persist()" placeholder="Description" ng-click="$event.stopPropagation()")
 
       #timer-entry-properties-additional-info
+        #timer-entry-properties-tags.timer-entry-properties-row
+          %ti-tag-entry(on="timer.currentEntry.tag_list" suggestion-domain="suggestions" update="timer.currentEntry.persist()" placeholder="+Tag")
+
         #timer-entry-properties-project.timer-entry-properties-row
           %ti-project-entry(on="timer.currentEntry.project" update="entry.persist()" suggestion-domain="projects")
-
-        #timer-entry-properties-description.timer-entry-properties-row
-          %textarea.description-entry(ng-model='timer.currentEntry.description' ng-blur="timer.currentEntry.persist()" placeholder="Description" ng-click="$event.stopPropagation()")
 
   .entries-list(ng-controller="EntriesListCtrl")
     .entries-list-item(ng-controller="EntryCtrl" ng-repeat="entry in entries | orderBy:'lastTick':true | orderBy: 'current':true")
