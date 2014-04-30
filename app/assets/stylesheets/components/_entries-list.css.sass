@@ -1,12 +1,14 @@
 .entries-list-item
+  transition: all 0.25s ease-in-out
   margin-top: 20px
+  padding-top: 10px
   @extend .row
-  border: 1px solid $background-color
+  position: relative
 
   &:hover
-    border: 1px solid $highlight-border-color
+    background-color: $item-color
     .entries-list-item-form-hidden-actions
-      visibility: visible
+      display: block
 
 .entries-list-item-form
   display: table
@@ -16,7 +18,7 @@
 
 .entries-list-item-form-main-inputs
   display: table-cell
-  width: 80%
+  width: 75%
 
 .entries-list-item-form-project
   font-weight: 700
@@ -31,21 +33,14 @@
   text-align: center
   font-size: 2em
 
-.entries-list-item-form-flow-controls
-  font-size: 2em
-
 .entries-list-item-form-quick-input
   width: 25%
 
 .entries-list-item-form-hidden-actions
-  display: table-row
-  visibility: hidden
-  width: 100%
+  transition: all 0.1s ease-in-out
+  display: none
   height: 20px
-
-.entries-list-item-form-hidden-actions-padding
-  display: table-cell
-  width: 10%
-
-.entries-list-item-form-hidden-actions-cell
-  display: table-cell
+  position: absolute
+  top: 0
+  right: 0
+  margin: 10px

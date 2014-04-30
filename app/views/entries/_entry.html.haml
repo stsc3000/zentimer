@@ -1,12 +1,10 @@
 .entries-list-item-form
-
   .entries-list-item-form-quick-input
     .entries-list-item-form-flow-controls
       - if renderControls
         %a.continue-icon(ng-hide="entry.running" ng-click="continue()")
         %a.pause-icon(ng-show="entry.running" ng-click="pause()")
     %ti-elapsed-entry(model="entry" elapsed="entry.elapsed" disabled="entry.running")
-
 
   .entries-list-item-form-main-inputs
     .entries-list-item-form-project.narrow
@@ -16,18 +14,16 @@
     .entries-list-item-form-tags.narrow
       %ti-tag-entry(on="entry.tag_list" suggestion-domain="tagSuggestions" update="entry.persist()" placeholder="+Tag")
 
-    .entries-list-item-form-hidden-actions
-      %div(style="display: table-cell; width: 10%")
-      .entries-list-item-form-hidden-actions-cell
-        %a
-          %i.fa.fa-copy.fa-fw(ti-copy copy-source="entry.tag_list")
-        - if deleteFromQuery
-          %a(ng-click="query.deleteEntry(entry)")
-            %i.fa.fa-trash-o.fa-fw
-        - else
-          %a(ng-click="entry.delete()")
-            %i.fa.fa-trash-o.fa-fw
 
+.entries-list-item-form-hidden-actions
+  %a
+    %i.fa.fa-copy.fa-fw(ti-copy copy-source="entry.tag_list")
+  - if deleteFromQuery
+    %a(ng-click="query.deleteEntry(entry)")
+      %i.fa.fa-trash-o.fa-fw
+  - else
+    %a(ng-click="entry.delete()")
+      %i.fa.fa-trash-o.fa-fw
 
 
 
