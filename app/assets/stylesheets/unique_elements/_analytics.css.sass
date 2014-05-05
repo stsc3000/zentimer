@@ -46,6 +46,14 @@
         display: block
         background-color: inherit
 
+  @media only screen and (min-width: 768px)
+    .filter-menu-primary-level-item, .filter-menu-secondary-level-item, .filter-menu-tertiary-level-item
+      &.inactive
+        display: block
+      &.active
+        display: block
+        background-color: $lighter-background-color
+
   .filter-menu-primary-level-item
     @extend .large-4
     @extend .medium-4

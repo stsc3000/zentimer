@@ -2,25 +2,25 @@
   #filter-menu
 
     .filter-menu-primary-level
-      .filter-menu-primary-level-item(ng-class="{active: (filterSubmenu=='dates'), inactive: (filterSubmenu!='dates' && filterSubmenu)}" ng-click="toggleFilterSubmenu('dates')")
+      .filter-menu-primary-level-item(ng-class="{active: (secondaryMenu=='dates'), inactive: (secondaryMenu!='dates' && secondaryMenu)}" ng-click="toggleSecondaryMenu('dates')")
         %i.time-filter-icon
         %a
           {{ query.selectedDateFilter.name }}
-      .filter-menu-primary-level-item(ng-class="{active: (filterSubmenu=='tags'), inactive: (filterSubmenu!='tags' && filterSubmenu)}" ng-click="toggleFilterSubmenu('tags')")
+      .filter-menu-primary-level-item(ng-class="{active: (secondaryMenu=='tags'), inactive: (secondaryMenu!='tags' && secondaryMenu)}" ng-click="toggleSecondaryMenu('tags')")
         %i.tags-filter-icon
         %a
           ALL TAGS
-      .filter-menu-primary-level-item(ng-class="{active: (filterSubmenu=='projects'), inactive: (filterSubmenu!='projects' && filterSubmenu)}" ng-click="toggleFilterSubmenu('projects')")
+      .filter-menu-primary-level-item(ng-class="{active: (secondaryMenu=='projects'), inactive: (secondaryMenu!='projects' && secondaryMenu)}" ng-click="toggleSecondaryMenu('projects')")
         %i.projects-filter-icon
         %a
           ALL PROJECTS
 
-    .filter-menu-secondary-level(ng-if="filterSubmenu=='dates'")
-      .filter-menu-secondary-level-item(ng-repeat="dateFilter in query.dateFilters" ng-class="{active: (query.selectedDateFilter == dateFilter) }" ng-click="query.setDateFilter(dateFilter);toggleFilterSubmenu('dates')")
+    .filter-menu-secondary-level(ng-if="secondaryMenu=='dates'")
+      .filter-menu-secondary-level-item(ng-repeat="dateFilter in query.dateFilters" ng-class="{active: (query.selectedDateFilter == dateFilter) }" ng-click="selectSecondaryMenu(dateFilter)")
         %a
           {{ dateFilter.name }}
 
-    .filter-menu-tertiary-level(ng-if="query.selectedDateFilter.id=='fromTo'")
+    .filter-menu-tertiary-level(ng-if="tertiaryMenu=='fromTo' && secondaryMenu == 'dates'")
       .filter-menu-tertiary-level-item
         FROM
       .filter-menu-tertiary-level-item
@@ -32,14 +32,14 @@
         %i.time-filter-icon
         %datepicker(ng-model="query.selectedDateFilter.to" disable-timepicker="true" default-time="23:59" on-change="query.fetch()")
 
-    .filter-menu-secondary-level(ng-if="filterSubmenu=='tags'" ng-init="query.fetchTagDomain()")
+    .filter-menu-secondary-level(ng-if="secondaryMenu=='tags'" ng-init="query.fetchTagDomain()")
       .filter-menu-secondary-level-full-item
         Include Tags
         %ti-tag-entry(on="query.tags.include" suggestion-domain="query.tagDomain" update="query.fetch()" placeholder="+Tag")
         Exclude Tags
         %ti-tag-entry(on="query.tags.exclude" suggestion-domain="query.tagDomain" update="query.fetch()" placeholder="+Tag")
 
-    .filter-menu-secondary-level(ng-if="filterSubmenu=='projects'" ng-init="query.fetchProjectDomain()")
+    .filter-menu-secondary-level(ng-if="secondaryMenu=='projects'" ng-init="query.fetchProjectDomain()")
       .filter-menu-secondary-level-full-item
         Include Projects
         %ti-tag-entry(on="query.projects" suggestion-domain="query.projectDomain" update="query.fetch()" placeholder="+Project")
