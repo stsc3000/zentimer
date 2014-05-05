@@ -20,11 +20,11 @@
       .large-12.columns#notifications
         %p
           %h3 Notifications
-          %div
+          .checkbox-group
             %input(type="checkbox" ng-model="notificationSettings.enableDesktopNotification" name="enableDesktopNotification" ng-change="saveAndRequestDesktopPermission()")
             %label(for="enableDesktopNotification")
               Enable Desktop Notifications?
-          %div
+          .checkbox-group
             %input(type="checkbox" ng-model="notificationSettings.enableAudioNotification" name="enableAudioNotification" ng-change="saveNotificationSettings()")
             %label(for="enableDesktopNotification")
               Enable Audio Notifications?
