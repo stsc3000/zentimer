@@ -1,6 +1,7 @@
 == TODO
 
 BUGS:
+* deleting a running entry does not stop it
 * Changing Tags in analytics does not change results when filtering by tags
 
 * Reminders
