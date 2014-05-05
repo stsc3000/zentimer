@@ -5,34 +5,37 @@
       ZenTimer
   #menu-links
     %a.link.row(ng-href="#/" ng-click="toggleMenu()")
-      .menu-link-icon.fa.fa-clock-o
+      .menu-link-icon.timer-icon
       .menu-link-text
         Timer
 
     %a.link.row(ng-if="user" ng-href="#/analytics" ng-if="user" ng-click="toggleMenu()")
-      .menu-link-icon.fa.fa-bar-chart-o
+      .menu-link-icon.analytics-icon
       .menu-link-text
         Analytics
 
     %a.link.row(ng-href="#/settings" ng-click="toggleMenu()")
-      .menu-link-icon.fa.fa-gear
+      .menu-link-icon.settings-icon
       .menu-link-text
         Settings
 
     %span(ng-controller="CreateUserCtrl")
 
       %a.row(ng-click="createUser()" ng-if="!user")
-        .menu-link-icon.fa.fa-user
+        .menu-link-icon.account-icon
         .menu-link-text
           Create Permanent Account
 
       %a.row(ng-href="/{{user.token}}" ng-if="user" target="_self" name="ZenTimer" title="Drag me to your bookmarks!" ng-click="toggleMenu()")
-        .menu-link-icon.fa.fa-user
+        .menu-link-icon.account-icon
         .menu-link-text
           Your ZenTimer Account
 
     %span#appInfo(ng-controller="helpCtrl")
-      %a.link.fa.fa-question-circle(ng-click="toggleMenu(); displayAppInfo=true") Help
+      %a.link.row(ng-click="toggleMenu(); displayAppInfo = true")
+        .menu-link-icon.help-icon
+        .menu-link-text
+          Help
       #app-info-modal.reveal-modal(ti-reveal-modal="displayAppInfo")
         %h2 Welcome to ZenTimer
         %p

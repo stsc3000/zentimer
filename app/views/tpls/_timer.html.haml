@@ -5,12 +5,15 @@
         %ti-elapsed{elapsed: "timer.currentEntry.elapsed"}
     #timer-entry-actions(ng-show = "timer.savable()")
       %a#timer-entry-actions-save(ng-click = "done(); $event.stopPropagation()")
-        #timer-entry-actions-save-icon
+        %i.save-icon
         DONE
 
       %a#timer-entry-actions-delete(ng-click = "delete(); $event.stopPropagation();")
-        #timer-entry-actions-delete-icon
+        %i.delete-icon
         DELETE
+
+      %div(style="clear:both; height: 0;")
+        &nbsp;
 
     #timer-entry-properties(ti-quick-entry ng-class="{'show-additional-info': showAdditionalInfo}")
       #timer-entry-properties-description.timer-entry-properties-row
@@ -24,14 +27,15 @@
           %ti-project-entry(on="timer.currentEntry.project" update="entry.persist()" suggestion-domain="projects")
 
   .entries-list(ng-controller="EntriesListCtrl")
-    .entries-list-item(ng-controller="EntryCtrl" ng-repeat="entry in entries | orderBy:'lastTick':true | orderBy: 'current':true")
+    .entries-list-item.entries-repeat-animation(ng-controller="EntryCtrl" ng-repeat="entry in entries | orderBy:'lastTick':true | orderBy: 'current':true")
       = render partial: "entries/entry", locals: { renderControls: true, renderLoggedAt: false, deleteFromQuery: false }
-    -##bottom-menu
-      -##left-icons  
-      -##center-icons
-        -#%a#add-entry{"ng-click" => "addEntry()", style: "font-size: 1.5em;"}
-          -#%i.fa.fa-plus.fa-fw
-      -##right-icons
-        -#%a#entries-clear.fa.fa-trash-o.fa-fw{"ng-click" => "clear()", "ng-show" => "entries.length > 0"}
-        -#%span#entries-total-elapsed
-          -#%ti-elapsed{elapsed: "totalElapsed()"}
+
+    #bottom-menu
+      #left-icons  
+      #center-icons
+        %a#add-entry{"ng-click" => "addEntry()", style: "font-size: 1.5em;"}
+          %i.fa.fa-plus.fa-fw
+      #right-icons
+        %a#entries-clear.fa.fa-trash-o.fa-fw{"ng-click" => "clear()", "ng-show" => "entries.length > 0"}
+        %span#entries-total-elapsed
+          %ti-elapsed{elapsed: "totalElapsed()"}

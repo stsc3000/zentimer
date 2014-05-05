@@ -1,0 +1,27 @@
+#show-menu
+  @extend .btn
+  padding: 10px
+  position: fixed
+  left: 0
+  &.open
+    left: 240px
+
+#menu
+  background-color: $background-color
+
+  h3
+    background-color: $background-color
+    a
+      border: none
+
+#menu-links
+  .menu-link-icon, .menu-link-text
+    float: left
+    padding-right: 10px
+
+.cbp-spmenu-vertical a
+  border-color: $highlight-border-color
+
+.cbp-spmenu-vertical #menu-links a
+  &:hover
+    background-color: $lighter-background-color

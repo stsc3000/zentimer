@@ -17,32 +17,38 @@
   @extend .large-6
   @extend .small-6
   @extend .text-center
+  @extend .btn
   color: $font-color
   border: 1px solid $border-color
   line-height: 45px
 
-#timer-entry-actions-save-icon
-  @extend .fa
-  @extend .fa-fw
-  @extend .fa-check
-
-#timer-entry-actions-delete-icon
-  @extend .fa
-  @extend .fa-fw
-  @extend .fa-trash-o
-
 #timer-entry-properties
-  @extend .columns
-  @extend .large-12
   #timer-entry-properties-additional-info
+    transition: all 0.25s ease-in-out
     height: 0
     overflow-y: hidden
   &.show-additional-info #timer-entry-properties-additional-info
-    height: auto
-    overflow-y: visible
+    height: 140px
 
 .timer-entry-properties-row
+  @extend .btn
+  cursor: text
   padding: 0 10px 0 10px
   border: 1px solid $border-color
-  @extend .row
   margin-top: 20px !important
+
+#bottom-menu
+  position: fixed
+  bottom: 0
+  width: 100%
+  padding: 5px
+  background-color: $transparent-background-color
+  #left-icons, #center-icons, #right-icons
+    width: 33%
+    float: left
+  #center-icons
+    text-align: center
+  #right-icons
+    text-align: right
+  #left-icons
+    text-align: left
