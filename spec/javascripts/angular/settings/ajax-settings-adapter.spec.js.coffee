@@ -16,7 +16,7 @@ describe "AjaxSettingsAdapter", ->
   describe "updating settings", ->
     beforeEach inject ($injector) ->
       $httpBackend = $injector.get('$httpBackend')
-      $httpBackend.when("PUT", "/1234.json").respond({ entries: [], tags: ['tag1', 'tag2'], projects: ['projects1', 'projects2'] })
+      $httpBackend.when("PUT", "/1234.json").respond({ user: { entries: [], tags: ['tag1', 'tag2'], projects: ['projects1', 'projects2'] }})
  
     it "updates settings via ajax", inject (AjaxSettingsAdapter, $rootScope) ->
       $httpBackend.expectPUT('/1234.json', { user: { tags: ['tag1', 'tag2'] } })
@@ -32,7 +32,7 @@ describe "AjaxSettingsAdapter", ->
   describe "read settings via ajax", ->
     beforeEach inject ($injector) ->
       $httpBackend = $injector.get('$httpBackend')
-      $httpBackend.when("GET", "/1234.json").respond({ entries: [], tags: ['tag1', 'tag2'], projects: ['projects1', 'projects2'] })
+      $httpBackend.when("GET", "/1234.json").respond({user: { entries: [], tags: ['tag1', 'tag2'], projects: ['projects1', 'projects2'] }})
 
     it "loads all tags", inject (AjaxSettingsAdapter, $rootScope) ->
       $httpBackend.expectGET("/1234.json")
