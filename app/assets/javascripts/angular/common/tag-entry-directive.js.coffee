@@ -88,6 +88,16 @@ angular.module("app").
             $scope.clearSuggestions()
             $scope.update()
 
+        el.keydown (event) ->
+          #Pressing tab with selected suggestions adds the selected tag
+          if event.keyCode == 9 && ($scope.suggestionIndex > -1)
+            tag = $scope.suggestions.sort()[$scope.suggestionIndex]
+            $scope.addTag(tag)
+            $scope.currentTag = ""
+            $scope.clearSuggestions()
+            $scope.update()
+            event.preventDefault()
+
         el.keyup (event) ->
 
           if event.keyCode == 40
