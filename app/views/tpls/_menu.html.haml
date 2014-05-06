@@ -24,12 +24,12 @@
       %a.row(ng-click="createUser()" ng-if="!user")
         .menu-link-icon.account-icon
         .menu-link-text
-          Create Permanent Account
+          Create Account
 
       %a.row(ng-href="/{{user.token}}" ng-if="user" target="_self" name="ZenTimer" title="Drag me to your bookmarks!" ng-click="toggleMenu()")
         .menu-link-icon.account-icon
         .menu-link-text
-          Your ZenTimer Account
+          Your Account
 
     %span#appInfo(ng-controller="helpCtrl")
       %a.link.row(ng-click="toggleMenu(); displayAppInfo = true")
