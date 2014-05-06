@@ -18,7 +18,7 @@
   %body{"keypress-events" => ""}
     #branding.row
     = render partial: 'tpls/menu'
-    %div{"ng-class" => "{'view-animation': enableAnimations}", "ng-cloak" => "", "ng-view" => ""}
+    %div{"ng-class" => "{'view-animation': true}", "ng-cloak" => "", "ng-view" => ""}
     %script{id: "tpls/timer", type: "text/ng-template"}
       = render partial: "tpls/timer"
     %script{id: "tpls/settings", type: "text/ng-template"}
