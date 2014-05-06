@@ -2,7 +2,6 @@
 
 BUGS:
 * deleting a running entry does not stop it
-* Weird behaviour when toggling play pause on entries
 * Changing Tags in analytics does not change results when filtering by tags
 
 * Reminders
