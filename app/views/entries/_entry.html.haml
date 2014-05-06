@@ -19,8 +19,8 @@
   %a
     %i.copy-icon(ti-copy copy-source="entry.tag_list")
   - if deleteFromQuery
-    %a(ng-click="query.deleteEntry(entry)")
+    %a(ng-click="query.deleteEntry(entry)" ng-hide="entry.current")
       %i.delete-icon
   - else
-    %a(ng-click="entry.delete()")
+    %a(ng-click="entry.delete()" ng-hide="entry.current")
       %i.delete-icon
