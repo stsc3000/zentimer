@@ -28,10 +28,10 @@
             %input(type="checkbox" ng-model="notificationSettings.enableAudioNotification" name="enableAudioNotification" ng-change="saveNotificationSettings()")
             %label(for="enableDesktopNotification")
               Enable Audio Notifications?
-          %div
+          .input-group
             %label(for="notificationInterval")
               Notification Interval (minutes)
-            %input(type="number" ng-model="notificationSettings.notificationInterval" name="notificationInterval" ng-change="saveNotificationSettings()")
+            %input(type="number" ng-model="notificationSettings.notificationInterval" name="notificationInterval" ng-change="saveNotificationSettings()" placeholder="0")
 
 
 
