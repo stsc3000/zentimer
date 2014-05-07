@@ -1,0 +1,84 @@
+.chart-arc path
+  stroke: none
+
+.chart-arcs-title
+  font-size: 2em
+  fill: #fff
+
+#donut-chart
+  height: 570px
+
+.legend-item
+  fill: #fff
+
+#bar-chart text
+  fill: #ffffff
+  text-transform: uppercase
+  font-family: 'Roboto Condensed', sans-serif
+  font-weight: 300
+
+#bar-chart-container!
+
+#bar-chart .nvd3 .nv-axis path
+  stroke: #ffffff
+
+.nvtooltip
+  background-color: #2c3e50 !important
+  h3
+    background-color: inherit
+    border: none
+
+#filter-menu
+  .filter-menu-primary-level
+    @extend .row
+
+  .filter-menu-primary-level-item, .filter-menu-secondary-level-item, .filter-menu-tertiary-level-item
+    padding-top: 10px
+    padding-bottom: 10px
+    &.active
+      background-color: $lighter-background-color
+
+  @media only screen
+    .filter-menu-primary-level-item, .filter-menu-secondary-level-item, .filter-menu-tertiary-level-item
+      &.inactive
+        display: none
+      &.active
+        display: block
+        background-color: inherit
+
+  @media only screen and (min-width: 768px)
+    .filter-menu-primary-level-item, .filter-menu-secondary-level-item, .filter-menu-tertiary-level-item
+      &.inactive
+        display: block
+      &.active
+        display: block
+        background-color: $lighter-background-color
+
+  .filter-menu-primary-level-item
+    @extend .large-4
+    @extend .medium-4
+    @extend .columns
+
+  .filter-menu-secondary-level
+    @extend .row
+
+    .filter-menu-secondary-level-item
+      @extend .large-3
+      @extend .columns
+
+    .filter-menu-secondary-level-full-item
+      @extend .large-12
+      @extend .columns
+
+  .filter-menu-tertiary-level
+    @extend .row
+
+  .filter-menu-tertiary-level-item
+    @extend .large-3
+    @extend .small-6
+    @extend .columns
+
+  a
+    font-weight: 700
+
+

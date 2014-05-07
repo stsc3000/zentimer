@@ -3,18 +3,16 @@ angular.module("app").
     {
       restrict: "E",
       replace: true,
-      template: '<span class="entry-edit-project">
-                <i class="fa fa-square-o fa-fw"></i>
-                <input type="text" ng-model="targetValue" class="project-edit" placeholder="Project" data-role="project-entry">
-                <div class="suggestions">
-                  <ul >
-                    <li class="suggestion" ng-class="{active:$index==suggestionIndex}" ng-mousedown="selectProject(suggestion)" ng-repeat="suggestion in suggestions | orderBy:\'toString()\'">
+      template: '<div class="projects-entry">
+                <input ng-model="targetValue" class="projects-entry-project-input" placeholder="Project" data-role="project-entry">
+                <div class="projects-entry-suggestion-list">
+                  <ul>
+                    <li class="projects-entry-suggestion-item" ng-class="{active:$index==suggestionIndex}" ng-mousedown="selectProject(suggestion)" ng-repeat="suggestion in suggestions | orderBy:\'toString()\'">
                       <a>{{ suggestion }}</a>
                     </li>
-                    <div style="clear:both"></div>
                   </ul>
                 </div>
-              </span>'
+              </div>'
 
       scope:
         targetValue: "=on"
@@ -51,14 +49,15 @@ angular.module("app").
 
 
         input = el.find("[data-role=project-entry]")
-        suggestions = el.find(".suggestions")
+        suggestions = el.find(".projects-entry-suggestion-list")
 
         input.blur ->
           $scope.clearSuggestions()
           $scope.update()
           $scope.$apply()
 
-        el.click ->
+        el.click (e) ->
+          e.stopPropagation()
           input.focus()
 
         input.focus ->

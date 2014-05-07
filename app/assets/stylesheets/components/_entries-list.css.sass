@@ -1,0 +1,71 @@
+.entries-list-item
+  transition: all 0.25s ease-in-out
+  margin-top: 20px
+  padding-top: 10px
+  @extend .row
+  position: relative
+
+  &:hover, &.hover
+    background-color: $lighter-background-color
+    .entries-list-item-form-hidden-actions
+      opacity: 1
+
+.entries-list-item-form
+  display: table
+  width: 100%
+  input
+    width: 100%
+
+.entries-list-item-form-main-inputs
+  display: table-cell
+  width: 75%
+
+.entries-list-item-form-project
+  font-weight: 700
+  font-size: 0.8em
+
+.entries-list-item-form-tags
+  font-size: 0.8em
+
+.entries-list-item-form-quick-input
+  display: table-cell
+  vertical-align: middle
+  text-align: center
+  font-size: 2em
+
+.entries-list-item-form-quick-input
+  width: 25%
+
+.entries-list-item-form-hidden-actions
+  transition: all 0.25s ease-in-out
+  opacity: 0
+  height: 20px
+  position: absolute
+  top: 0
+  right: 0
+  margin: 10px
+
+.entries-repeat-animation
+  &.ng-enter, &.ng-leave, &.ng-move
+    -webkit-transition: 0.1s linear all
+    transition: 0.1s linear all
+    position: relative
+  &.ng-enter
+    left: -20px
+    opacity: 0
+    &.ng-enter-active
+      left: 0
+      opacity: 1
+  &.ng-leave
+    left: 0
+    opacity: 1
+    &.ng-leave-active
+      left: -10px
+      opacity: 0
+  &.ng-move
+    left: -10px
+    opacity: 0.5
+    &.ng-move-active
+      opacity: 1
+      left: 0
+

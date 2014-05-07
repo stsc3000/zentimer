@@ -10,12 +10,19 @@ angular.module("analytics").
     Settings.projects().then (projects) ->
       $scope.projectSuggestions = projects
 
-
-    $scope.toggleFilterSubmenu = (type) ->
-      if $scope.filterSubmenu == type && $scope.query.selectedDateFilter.id != 'fromTo'
-        $scope.filterSubmenu = undefined
+    $scope.toggleSecondaryMenu = (type) ->
+      if $scope.secondaryMenu == type
+        $scope.secondaryMenu = undefined
+        $scope.tertiaryMenu = undefined
       else
-        $scope.filterSubmenu = type
+        $scope.secondaryMenu = type
+
+    $scope.selectSecondaryMenu = (filter) ->
+      $scope.query.setDateFilter(filter)
+      if filter.tertiary
+        $scope.tertiaryMenu = filter.id
+      else
+        $scope.toggleSecondaryMenu('dates')
 
     $scope.query.fetch()
 

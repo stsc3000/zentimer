@@ -1,0 +1,41 @@
+#timer-page.page
+  #timer(ng-controller = "ZenTimerCtrl")
+    #timer-time-counter(ng-class = "{paused: !timer.currentEntry.running, running: timer.currentEntry.running}" ng-click = "toggle()")
+      %a#timer-time-counter-toggle(style="width: 100%; display: block;" fittext="0.5" watchtext="{{timer.currentEntry.elapsed}}")
+        %ti-elapsed{elapsed: "timer.currentEntry.elapsed"}
+    #timer-entry-actions(ng-show = "timer.savable()")
+      %a#timer-entry-actions-save(ng-click = "done(); $event.stopPropagation()")
+        %i.save-icon
+        DONE
+
+      %a#timer-entry-actions-delete(ng-click = "delete(); $event.stopPropagation();")
+        %i.delete-icon
+        DELETE
+
+      %div(style="clear:both; height: 0;")
+        &nbsp;
+
+    #timer-entry-properties(ti-quick-entry ng-class="{'show-additional-info': showAdditionalInfo}")
+      #timer-entry-properties-description.timer-entry-properties-row
+        %textarea.description-entry(ng-model='timer.currentEntry.description' ng-blur="timer.currentEntry.persist()" placeholder="Description" ng-click="$event.stopPropagation()")
+
+      #timer-entry-properties-additional-info
+        #timer-entry-properties-tags.timer-entry-properties-row
+          %ti-tag-entry(on="timer.currentEntry.tag_list" suggestion-domain="suggestions" update="timer.currentEntry.persist()" placeholder="+Tag")
+
+        #timer-entry-properties-project.timer-entry-properties-row
+          %ti-project-entry(on="timer.currentEntry.project" update="entry.persist()" suggestion-domain="projects")
+
+  .entries-list(ng-controller="EntriesListCtrl")
+    .entries-list-item.entries-repeat-animation(ng-controller="EntryCtrl" ng-repeat="entry in entries | orderBy:'lastTick':true | orderBy: 'current':true")
+      = render partial: "entries/entry", locals: { renderControls: true, renderLoggedAt: false, deleteFromQuery: false }
+
+    #bottom-menu
+      #left-icons  
+      #center-icons
+        %a#add-entry{"ng-click" => "addEntry()"}
+          %i.fa.fa-plus.fa-fw
+      #right-icons
+        %a#entries-clear.fa.fa-trash-o.fa-fw{"ng-click" => "clear()", "ng-show" => "entries.length > 0"}
+        %span#entries-total-elapsed
+          %ti-elapsed{elapsed: "totalElapsed()"}

@@ -54,6 +54,7 @@ angular.module("analytics").
             name: 'FROM - TO'
             from: (new Date)
             to: (new Date)
+            tertiary: true
             headline: ->
               "#{@name}"
             subheadline: ->

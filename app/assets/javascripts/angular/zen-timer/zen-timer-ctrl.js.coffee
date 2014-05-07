@@ -7,6 +7,9 @@ angular.module("zen-timer").
     Settings.tags().then (tags) ->
       $scope.suggestions = tags
 
+    Settings.projects().then (projects) ->
+      $scope.projects = projects
+
     $scope.done = () ->
       @timer.done()
 

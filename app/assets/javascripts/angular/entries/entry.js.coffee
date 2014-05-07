@@ -7,6 +7,7 @@ angular.module("entries").
       tag_list: []
       running: false
       project: ""
+      description: ""
       temp: false
 
     Entry = (attributes = {}) ->
@@ -33,6 +34,7 @@ angular.module("entries").
         current: @current
         running: @running
         project: @project
+        description: @description
         id: @id
 
       assign: (attributes) ->

@@ -4,17 +4,15 @@ angular.module("app").
       restrict: "E",
       replace: true,
       template: '<div class="tags-entry">
-                  <ul data-role="tags" class="tags">
+                  <ul data-role="tags" class="tags-entry-tag-list">
                     <ti-tag ng-repeat="tag in targetValue" tag="tag"></ti-tag>
+                    <li><input data-role="tag-entry" class="tags-entry-tag-input" ng-model="currentTag" placeholder="{{ placeholder }}"></input></li>
                   </ul>
-                  <input data-role="tag-entry" class="tag-entry" ng-model="currentTag" ></input>
-                  <div style="clear:both"></div>
-                  <div class="suggestions">
-                    <ul >
-                      <li class="suggestion" ng-class="{active:$index==suggestionIndex}" ng-mousedown="selectTag(suggestion)" ng-repeat="suggestion in suggestions | orderBy:\'toString()\'">
+                  <div class="tags-entry-suggestion-list">
+                    <ul>
+                      <li class="tags-entry-suggestion-item" ng-class="{active:$index==suggestionIndex}" ng-mousedown="selectTag(suggestion)" ng-repeat="suggestion in suggestions | orderBy:\'toString()\'">
                         <a>{{ suggestion }}</a>
                       </li>
-                      <div style="clear:both"></div>
                     </ul>
                   </div>
                 </div>'
@@ -22,6 +20,7 @@ angular.module("app").
         targetValue: "=on"
         update: "&"
         suggestionDomain: "="
+        placeholder: "@"
 
       controller: ($scope) ->
         $scope.suggestionIndex = -1
@@ -68,18 +67,19 @@ angular.module("app").
 
 
         input = el.find("[data-role=tag-entry]")
-        suggestions = el.find(".suggestions")
+        suggestions = el.find(".tags-entry-suggestion-list")
 
         input.blur ->
           $scope.clearSuggestions()
           $scope.$apply()
 
-        el.click ->
+        el.click (e) ->
           input.focus()
+          e.stopPropagation()
 
         input.focus ->
           $scope.showSuggestions()
-          suggestions.css("left", input.position().left)
+          suggestions.css("left", input.position().left - 10)
 
         el.keydown (event) ->
           #press backspace
@@ -87,6 +87,16 @@ angular.module("app").
             $scope.targetValue.pop()
             $scope.clearSuggestions()
             $scope.update()
+
+        el.keydown (event) ->
+          #Pressing tab with selected suggestions adds the selected tag
+          if event.keyCode == 9 && ($scope.suggestionIndex > -1)
+            tag = $scope.suggestions.sort()[$scope.suggestionIndex]
+            $scope.addTag(tag)
+            $scope.currentTag = ""
+            $scope.clearSuggestions()
+            $scope.update()
+            event.preventDefault()
 
         el.keyup (event) ->
 
@@ -112,7 +122,7 @@ angular.module("app").
           #update suggestions
           else
             $scope.showSuggestions()
-            suggestions.css("left", input.position().left)
+            suggestions.css("left", input.position().left - 10)
 
           $scope.$apply()
 

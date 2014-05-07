@@ -3,7 +3,7 @@ angular.module("app").
     {
       restrict: "E"
       replace: true
-      template: '<li>{{ tag }} <a ng-click="removeTag()"> <i class="fa fa-times-circle fa-fw"class="fa fa-times-circle fa-fw"></a></i> </li>'
+      template: '<li class="tags-entry-tag-item">{{ tag }} <a class="tag-entry-tag-item-remove" ng-click="removeTag()"> <i class="tag-entry-tag-item-remove-icon"></a></i> </li>'
       scope:
         tag: "="
       require: "^ti-tag-entry"
