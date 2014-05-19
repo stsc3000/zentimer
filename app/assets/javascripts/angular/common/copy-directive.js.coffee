@@ -4,6 +4,7 @@ angular.module("app").
       restrict: "A"
       scope:
         copySource: "="
+        copyComment: "="
       link: ($scope, el, attrs) ->
         client = null
 
@@ -12,7 +13,9 @@ angular.module("app").
 
         client.on "load", (client, args) ->
           client.on 'mouseover', (client, args) ->
-            client.setText $scope.copySource.join(", ")
+            text = $scope.copySource.join(", ")
+            text += "!!!" + $scope.copyComment if $scope.copyComment
+            client.setText text
             $(el).closest(".entries-list-item").addClass("hover")
           client.on 'mouseout', (client, args) ->
             $(el).closest(".entries-list-item").removeClass("hover")
