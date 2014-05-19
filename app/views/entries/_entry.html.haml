@@ -10,7 +10,7 @@
     .entries-list-item-form-project.narrow
       %ti-project-entry(on="entry.project" update="entry.persist()" suggestion-domain="projectSuggestions")
     .entries-list-item-form-description.narrow
-      %textarea.description-entry(ng-model="entry.description" ng-blur="entry.persist()" placeholder="Description")
+      %textarea.description-entry(ng-model="entry.description" ng-blur="entry.persist()" placeholder="Description"  msd-elastic)
     .entries-list-item-form-tags.narrow
       %ti-tag-entry(on="entry.tag_list" suggestion-domain="tagSuggestions" update="entry.persist()" placeholder="+Tag")
 

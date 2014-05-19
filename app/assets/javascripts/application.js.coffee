@@ -24,4 +24,5 @@
 #= require angular-route
 #= require angularjs-fittext.js
 #= require ng-quick-date.js
+#= require elastic.js
 #= require angular/app
