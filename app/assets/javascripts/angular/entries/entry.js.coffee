@@ -9,6 +9,7 @@ angular.module("entries").
       project: ""
       description: ""
       temp: false
+      current: false
 
     Entry = (attributes = {}) ->
       angular.extend(@, defaultAttributes())
