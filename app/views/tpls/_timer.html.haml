@@ -1,6 +1,6 @@
 #timer-page.page
   #timer(ng-controller = "ZenTimerCtrl")
-    #timer-time-counter(ng-class = "{paused: !timer.currentEntry.running, running: timer.currentEntry.running}" ng-click = "toggle()")
+    #timer-time-counter(ti-flash ng-class = "{paused: !timer.currentEntry.running, running: timer.currentEntry.running}" ng-click = "toggle()")
       %a#timer-time-counter-toggle(style="width: 100%; display: block;" fittext="0.5" watchtext="{{timer.currentEntry.elapsed}}")
         %ti-elapsed{elapsed: "timer.currentEntry.elapsed"}
     #timer-entry-actions(ng-show = "timer.savable()")

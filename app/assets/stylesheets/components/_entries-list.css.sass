@@ -47,16 +47,18 @@
 
 .entries-repeat-animation
   &.ng-enter, &.ng-leave, &.ng-move
-    -webkit-transition: 0.1s linear all
-    transition: 0.1s linear all
     position: relative
   &.ng-enter
+    -webkit-transition: 0.1s linear all
+    transition: 0.1s linear all
     left: -20px
     opacity: 0
     &.ng-enter-active
       left: 0
       opacity: 1
   &.ng-leave
+    -webkit-transition: 0.0s linear all
+    transition: 0.0s linear all
     left: 0
     opacity: 1
     &.ng-leave-active

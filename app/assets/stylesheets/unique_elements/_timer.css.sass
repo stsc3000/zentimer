@@ -5,6 +5,8 @@
   @extend .text-center
   &.running a
     color: white
+  &.flash
+    -webkit-animation: highlight 1s
 
 #timer-entry-actions
   margin-top: 20px
@@ -54,3 +56,9 @@
     text-align: right
   #left-icons
     text-align: left
+
+@-webkit-keyframes highlight
+  0%
+    background: $lighter-background-color
+  100%
+    background: none

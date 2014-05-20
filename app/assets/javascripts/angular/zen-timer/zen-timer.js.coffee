@@ -1,5 +1,5 @@
 angular.module("zen-timer").
-  factory("ZenTimer", (Entry) ->
+  factory("ZenTimer", (Entry, $rootScope) ->
     ZenTimer =
       entries: Entry.entries
 
@@ -21,12 +21,15 @@ angular.module("zen-timer").
         @currentEntry.savable() if @currentEntry
 
       start: ->
+        $rootScope.$broadcast "flash"
         @currentEntry.start() if @currentEntry
 
       pause: ->
+        $rootScope.$broadcast "flash"
         @currentEntry.pause() if @currentEntry
 
       toggle: ->
+        $rootScope.$broadcast "flash"
         @currentEntry.toggle() if @currentEntry
 
       done: ->
