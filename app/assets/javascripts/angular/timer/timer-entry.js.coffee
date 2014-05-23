@@ -4,6 +4,7 @@ angular.module("timer").
     TimerEntry = ->
       @id = null
       @running = false
+      @
 
     instanceMethods = {
       isNew: -> @id == null

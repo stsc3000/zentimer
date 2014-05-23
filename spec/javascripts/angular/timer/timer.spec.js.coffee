@@ -25,3 +25,7 @@ describe "ZenTimer", ->
 
     expect(Timer.entry == newEntry).toBeTruthy()
     expect(Timer.isRunning()).toBeTruthy()
+
+  it "stores its entries in its entry list", inject (Timer) ->
+    entry = Timer.entry
+    expect(Timer.entries.includes(entry)).toBeTruthy()
