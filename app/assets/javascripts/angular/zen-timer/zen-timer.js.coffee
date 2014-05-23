@@ -38,8 +38,7 @@ angular.module("zen-timer").
 
       continue: (entry) ->
         if entry != @currentEntry
-          @currentEntry.current = false
-          @pause()
+          @currentEntry.done()
           @currentEntry = entry
         @start()
 
