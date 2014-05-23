@@ -1,8 +1,7 @@
 #= require_self
 #= require_tree .
 
-
-angular.module("app", ["zen-timer", "ngFitText", "users", "entries", "settings", "analytics", "ngAnimate", "ngRoute", "ngQuickDate", 'monospaced.elastic'])
+angular.module("app", ["zen-timer", "ngFitText", "users", "entries", "settings", "analytics", "timer", "ngAnimate", "ngRoute", "ngQuickDate", 'monospaced.elastic'])
 
 angular.element(document).ready ->
   if $("meta[name=user-token]").length > 0
