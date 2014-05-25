@@ -43,6 +43,9 @@ angular.module("timer").
       remove: (entry) ->
         @entries.remove(entry)
 
+      totalElapsed: ->
+        @entries.total()
+
     }
 
     Timer.init()

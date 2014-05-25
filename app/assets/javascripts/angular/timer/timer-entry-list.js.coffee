@@ -1,7 +1,7 @@
 angular.module("timer")
   .factory("TimerEntryList", ->
-    TimerEntryList = ->
-      @entries = []
+    TimerEntryList = (entries)->
+      @entries = entries || []
       @
 
     instanceMethods = {
@@ -11,6 +11,9 @@ angular.module("timer")
         @entries.push(entry) unless @includes(entry)
       remove: (entry) ->
         _.remove @entries, (storedEntry) -> storedEntry == entry
+      total: ->
+        _.inject @entries, ((sum, entry) -> sum + entry.elapsed), 0
+
     }
 
     angular.extend(TimerEntryList.prototype, instanceMethods)

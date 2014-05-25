@@ -14,4 +14,11 @@ describe "TimerEntryList", ->
     timerEntryList.remove(entry)
     expect(timerEntryList.includes(entry)).toBeFalsy()
 
+  it "calculates the total elapsed", inject (TimerEntryList, TimerEntry) ->
+    anEntry = new TimerEntry(elapsed: 10)
+    anotherEntry = new TimerEntry(elapsed: 20)
+    timerEntryList = new TimerEntryList([anEntry, anotherEntry])
+
+    expect(timerEntryList.total()).toEqual(30)
+
 
