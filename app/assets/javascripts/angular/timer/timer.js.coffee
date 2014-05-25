@@ -10,7 +10,7 @@ angular.module("timer").
         @setNewEntry()
 
       stop: ->
-        @entry.pause()
+        @entry.stop()
         @setNewEntry()
 
       continue: (entry) ->

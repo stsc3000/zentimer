@@ -20,10 +20,16 @@ angular.module("timer").
 
       start: -> 
         @lastTick = @timeSource()
+        @current = true
         @running = true
         @runLoop()
 
-      pause: -> @running = false
+      pause: -> 
+        @running = false
+
+      stop: ->
+        @pause()
+        @current = false
 
       runLoop: ->
         $timeout ( =>
