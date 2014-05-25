@@ -1,6 +1,5 @@
 #timer-page.page
   #timer(ng-controller = "TimerCtrl")
-    {{ timer.isRunning() }}
     #timer-time-counter(ti-flash ng-class = "{paused: timer.isPaused(), running: timer.isRunning()}" ng-click = "toggle()")
       %a#timer-time-counter-toggle(style="width: 100%; display: block;" fittext="0.5")
         %ti-elapsed{elapsed: "timer.entry.elapsed"}
@@ -22,7 +21,7 @@
 
       #timer-entry-properties-additional-info
         #timer-entry-properties-tags.timer-entry-properties-row
-          %ti-tag-entry(on="timer.entry.tag_list" suggestion-domain="suggestions" update="timer.entry.persist()" placeholder="+Tag")
+          %ti-tag-entry(on="timer.entry.tagList" suggestion-domain="suggestions" update="timer.entry.persist()" placeholder="+Tag")
 
         #timer-entry-properties-project.timer-entry-properties-row
           %ti-project-entry(on="timer.entry.project" update="entry.persist()" suggestion-domain="projects")

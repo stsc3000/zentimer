@@ -12,7 +12,7 @@
     .entries-list-item-form-description.narrow
       %textarea.description-entry(ng-model="entry.description" ng-blur="entry.persist()" placeholder="Description"  msd-elastic)
     .entries-list-item-form-tags.narrow
-      %ti-tag-entry(on="entry.tag_list" suggestion-domain="tagSuggestions" update="entry.persist()" placeholder="+Tag")
+      %ti-tag-entry(on="entry.tagList" suggestion-domain="tagSuggestions" update="entry.persist()" placeholder="+Tag")
 
 
 .entries-list-item-form-hidden-actions
