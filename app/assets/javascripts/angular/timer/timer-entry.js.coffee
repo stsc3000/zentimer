@@ -35,8 +35,8 @@ angular.module("timer").
       increment: ->
         @now = @timeSource()
         difference = ( ( @now.getTime() - @lastTick.getTime()) / 1000 )
-        @lastTick = @now
         @elapsed += difference
+        @lastTick = @now
 
       timeSource: ->
         new Date()
