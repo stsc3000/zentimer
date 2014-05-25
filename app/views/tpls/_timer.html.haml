@@ -27,16 +27,16 @@
         #timer-entry-properties-project.timer-entry-properties-row
           %ti-project-entry(on="timer.entry.project" update="entry.persist()" suggestion-domain="projects")
 
-  .entries-list(ng-controller="EntriesListCtrl")
-    .entries-list-item.entries-repeat-animation(ng-controller="EntryCtrl" ng-repeat="entry in entries | filter:{ current: false} | orderBy:'lastTick':true ")
+  .entries-list(ng-controller="TimerEntryListCtrl")
+    .entries-list-item.entries-repeat-animation(ng-repeat="entry in timer.entries.entries | filter:{ current: false } | orderBy:'lastTick':true")
       = render partial: "entries/entry", locals: { renderControls: true, renderLoggedAt: false, deleteFromQuery: false }
 
-    #bottom-menu
-      #left-icons  
-      #center-icons
-        %a#add-entry{"ng-click" => "addEntry()"}
-          %i.fa.fa-plus.fa-fw
-      #right-icons
-        %a#entries-clear.fa.fa-trash-o.fa-fw{"ng-click" => "clear()", "ng-show" => "entries.length > 0"}
-        %span#entries-total-elapsed
-          %ti-elapsed{elapsed: "totalElapsed()"}
+#bottom-menu
+  #left-icons  
+  #center-icons
+    %a#add-entry{"ng-click" => "addEntry()"}
+      %i.fa.fa-plus.fa-fw
+  #right-icons
+    %a#entries-clear.fa.fa-trash-o.fa-fw{"ng-click" => "clear()", "ng-show" => "entries.length > 0"}
+    %span#entries-total-elapsed
+      %ti-elapsed{elapsed: "totalElapsed()"}
