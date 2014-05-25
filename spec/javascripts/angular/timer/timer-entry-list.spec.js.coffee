@@ -21,4 +21,20 @@ describe "TimerEntryList", ->
 
     expect(timerEntryList.total()).toEqual(30)
 
+  it "clears entries", inject (TimerEntryList, TimerEntry) ->
+    anEntry = new TimerEntry(elapsed: 10)
+    anotherEntry = new TimerEntry(elapsed: 20)
+    timerEntryList = new TimerEntryList([anEntry, anotherEntry])
 
+    timerEntryList.clear()
+
+    expect(timerEntryList.entries.length).toEqual(0)
+
+  it "clears entries but ignores one", inject (TimerEntryList, TimerEntry) ->
+    anEntry = new TimerEntry(elapsed: 10)
+    anotherEntry = new TimerEntry(elapsed: 20)
+    timerEntryList = new TimerEntryList([anEntry, anotherEntry])
+
+    timerEntryList.clear(ignore: anEntry)
+
+    expect(timerEntryList.entries.length).toEqual(1)

@@ -13,6 +13,9 @@ angular.module("timer")
         _.remove @entries, (storedEntry) -> storedEntry == entry
       total: ->
         _.inject @entries, ((sum, entry) -> sum + entry.elapsed), 0
+      clear: (options = {}) ->
+        ignoreEntry = options["ignore"]
+        @entries = _.filter(@entries, (storedEntry) => storedEntry == ignoreEntry)
 
     }
 

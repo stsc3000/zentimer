@@ -6,7 +6,8 @@ angular.module("timer")
       @timer.addManualEntry()
 
     $scope.clear = ->
-      @timer.clear()
+      @timer.clear() if window.confirm(question)
+      question = "Are you sure you want to clear all entries?"
 
     $scope.totalElapsed = ->
       @timer.totalElapsed()
