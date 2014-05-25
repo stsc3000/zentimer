@@ -30,7 +30,7 @@
     .entries-list-item.entries-repeat-animation(ng-repeat="entry in timer.entries.entries | filter:{ current: false } | orderBy:'lastTick':true")
       = render partial: "entries/entry", locals: { renderControls: true, renderLoggedAt: false, deleteFromQuery: false }
 
-#bottom-menu
+#bottom-menu(ng-controller="TimerMenuCtrl")
   #left-icons  
   #center-icons
     %a#add-entry{"ng-click" => "addEntry()"}
