@@ -29,3 +29,21 @@ describe "ZenTimer", ->
   it "stores its entries in its entry list", inject (Timer) ->
     entry = Timer.entry
     expect(Timer.entries.includes(entry)).toBeTruthy()
+
+  it "toggles its current entry", inject (Timer) ->
+    entry = Timer.entry
+    expect(Timer.isRunning()).toBeFalsy()
+    Timer.toggle()
+    expect(Timer.isRunning()).toBeTruthy()
+    Timer.toggle()
+    expect(Timer.isRunning()).toBeFalsy()
+
+  it "is savable if the entry has run once and is paused", inject (Timer, TimerEntry) ->
+    expect(Timer.entryIsStoppable()).toBeFalsy()
+    entry = new TimerEntry( elapsed: 10 )
+    Timer.setEntry(entry)
+    Timer.start()
+    expect(Timer.entryIsStoppable()).toBeFalsy()
+    Timer.pause()
+    expect(Timer.entryIsStoppable()).toBeTruthy()
+

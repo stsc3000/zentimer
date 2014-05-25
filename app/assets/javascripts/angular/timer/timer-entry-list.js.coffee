@@ -8,7 +8,7 @@ angular.module("timer")
       includes: (entry) ->
         _.include @entries, entry
       store: (entry) ->
-        @entries.push(entry)
+        @entries.push(entry) unless @includes(entry)
       remove: (entry) ->
         _.remove @entries, (storedEntry) -> storedEntry == entry
     }

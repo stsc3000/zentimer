@@ -3,6 +3,7 @@ angular.module("timer").
     Timer = {
       isRunning: -> @entry.isRunning()
       isPaused: -> @entry.isPaused()
+      entryIsStoppable: -> @entry.isStoppable()
 
       init: ->
         @entries = new TimerEntryList()
@@ -21,8 +22,22 @@ angular.module("timer").
       pause: -> @entry.pause()
 
       setNewEntry: ->
-        @entry = new TimerEntry()
-        @entries.store(@entry)
+        @setEntry new TimerEntry() 
+
+      toggle: ->
+        if @isRunning()
+          @pause()
+        else
+          @start()
+
+      setEntry: (entry) ->
+        @entry = entry
+        @entries.store entry
+
+      removeEntry: ->
+        @entries.remove(@entry)
+        @setNewEntry()
+
 
     }
 

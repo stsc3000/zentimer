@@ -1,14 +1,15 @@
 #timer-page.page
-  #timer(ng-controller = "ZenTimerCtrl")
-    #timer-time-counter(ti-flash ng-class = "{paused: !timer.currentEntry.running, running: timer.currentEntry.running}" ng-click = "toggle()")
-      %a#timer-time-counter-toggle(style="width: 100%; display: block;" fittext="0.5" watchtext="{{timer.currentEntry.elapsed}}")
-        %ti-elapsed{elapsed: "timer.currentEntry.elapsed"}
-    #timer-entry-actions(ng-show = "timer.savable()")
-      %a#timer-entry-actions-save(ng-click = "done(); $event.stopPropagation()")
+  #timer(ng-controller = "TimerCtrl")
+    {{ timer.isRunning() }}
+    #timer-time-counter(ti-flash ng-class = "{paused: timer.isPaused(), running: timer.isRunning()}" ng-click = "toggle()")
+      %a#timer-time-counter-toggle(style="width: 100%; display: block;" fittext="0.5")
+        %ti-elapsed{elapsed: "timer.entry.elapsed"}
+    #timer-entry-actions(ng-show = "showEntryActions()")
+      %a#timer-entry-actions-save(ng-click = "stop(); $event.stopPropagation()")
         %i.save-icon
         DONE
 
-      %a#timer-entry-actions-delete(ng-click = "delete(); $event.stopPropagation();")
+      %a#timer-entry-actions-delete(ng-click = "removeCurrent(); $event.stopPropagation();")
         %i.delete-icon
         DELETE
 
@@ -17,14 +18,14 @@
 
     #timer-entry-properties(ti-quick-entry ng-class="{'show-additional-info': showAdditionalInfo}")
       #timer-entry-properties-description.timer-entry-properties-row
-        %textarea.description-entry(ng-model='timer.currentEntry.description' ng-blur="timer.currentEntry.persist()" placeholder="Description" ng-click="$event.stopPropagation()" msd-elastic)
+        %textarea.description-entry(ng-model='timer.entry.description' ng-blur="timer.entry.persist()" placeholder="Description" ng-click="$event.stopPropagation()" msd-elastic)
 
       #timer-entry-properties-additional-info
         #timer-entry-properties-tags.timer-entry-properties-row
-          %ti-tag-entry(on="timer.currentEntry.tag_list" suggestion-domain="suggestions" update="timer.currentEntry.persist()" placeholder="+Tag")
+          %ti-tag-entry(on="timer.entry.tag_list" suggestion-domain="suggestions" update="timer.entry.persist()" placeholder="+Tag")
 
         #timer-entry-properties-project.timer-entry-properties-row
-          %ti-project-entry(on="timer.currentEntry.project" update="entry.persist()" suggestion-domain="projects")
+          %ti-project-entry(on="timer.entry.project" update="entry.persist()" suggestion-domain="projects")
 
   .entries-list(ng-controller="EntriesListCtrl")
     .entries-list-item.entries-repeat-animation(ng-controller="EntryCtrl" ng-repeat="entry in entries | filter:{ current: false} | orderBy:'lastTick':true ")
