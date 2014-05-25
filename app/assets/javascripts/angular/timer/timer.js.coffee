@@ -19,7 +19,9 @@ angular.module("timer").
         @start()
 
       start: -> @entry.start()
-      pause: -> @entry.pause()
+
+      pause: (entry) ->
+        (entry || @entry).pause()
 
       setNewEntry: ->
         @setEntry new TimerEntry() 
@@ -34,10 +36,12 @@ angular.module("timer").
         @entry = entry
         @entries.store entry
 
-      removeEntry: ->
-        @entries.remove(@entry)
+      removeCurrent: ->
+        @remove(@entry)
         @setNewEntry()
 
+      remove: (entry) ->
+        @entries.remove(entry)
 
     }
 

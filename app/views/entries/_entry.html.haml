@@ -2,8 +2,8 @@
   .entries-list-item-form-quick-input
     .entries-list-item-form-flow-controls
       - if renderControls
-        %a.continue-icon(ng-hide="entry.running" ng-click="continue()")
-        %a.pause-icon(ng-show="entry.running" ng-click="pause()")
+        %a.continue-icon(ng-hide="entry.running" ng-click="continue(entry)")
+        %a.pause-icon(ng-show="entry.running" ng-click="pause(entry)")
     %ti-elapsed-entry(model="entry" elapsed="entry.elapsed" disabled="entry.running")
 
   .entries-list-item-form-main-inputs
@@ -17,10 +17,10 @@
 
 .entries-list-item-form-hidden-actions
   %a
-    %i.copy-icon(ti-copy copy-source="entry.tag_list" copy-comment="entry.description")
+    %i.copy-icon(ti-copy copy-source="entry.tagList" copy-comment="entry.description")
   - if deleteFromQuery
     %a(ng-click="query.deleteEntry(entry)" ng-hide="entry.current")
       %i.delete-icon
   - else
-    %a(ng-click="entry.delete()" ng-hide="entry.current")
+    %a(ng-click="remove(entry)" ng-hide="entry.current")
       %i.delete-icon

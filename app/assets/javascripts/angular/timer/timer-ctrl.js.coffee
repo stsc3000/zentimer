@@ -12,6 +12,6 @@ angular.module("timer")
       @timer.entryIsStoppable()
 
     $scope.removeCurrent = ->
-      @timer.removeEntry()
+      @timer.removeCurrent()
 
   )
