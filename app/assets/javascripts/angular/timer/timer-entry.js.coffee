@@ -4,11 +4,13 @@ angular.module("timer").
     defaultAttributes =
       id: null
       running: false
+      current: false
       elapsed: 0
       lastTick: null
       description: ""
       project: ""
       tagList: []
+      intentional: false
 
     TimerEntry = (attributes = {}) ->
       angular.extend @, defaultAttributes

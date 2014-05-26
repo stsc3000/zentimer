@@ -33,6 +33,7 @@ angular.module("timer").
           @start()
 
       setEntry: (entry) ->
+        entry.current = true
         @entry = entry
         @entries.store entry
 
@@ -48,6 +49,10 @@ angular.module("timer").
 
       clear: ->
         @entries.clear(ignore: @entry)
+
+      addIntentionalEntry: ->
+        entry = new TimerEntry(intentional: true)
+        @entries.store(entry)
 
     }
 

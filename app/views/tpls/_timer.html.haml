@@ -27,7 +27,7 @@
           %ti-project-entry(on="timer.entry.project" update="entry.persist()" suggestion-domain="projects")
 
   .entries-list(ng-controller="TimerEntryListCtrl")
-    .entries-list-item.entries-repeat-animation(ng-repeat="entry in timer.entries.entries | filter:{ current: false } | orderBy:'lastTick':true")
+    .entries-list-item.entries-repeat-animation(ng-repeat="entry in timer.entries.entries | filter:{'current':false } | orderBy:'lastTick':true" )
       = render partial: "entries/entry", locals: { renderControls: true, renderLoggedAt: false, deleteFromQuery: false }
 
 #bottom-menu(ng-controller="TimerMenuCtrl")
