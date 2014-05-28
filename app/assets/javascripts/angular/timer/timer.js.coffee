@@ -53,10 +53,9 @@ angular.module("timer").
       addIntentionalEntry: ->
         entry = new TimerEntry(intentional: true)
         @entries.store(entry)
+        entry.save()
 
     }
-
-    Timer.init()
 
     Timer
   )
