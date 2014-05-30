@@ -17,14 +17,14 @@
 
     #timer-entry-properties(ti-quick-entry ng-class="{'show-additional-info': showAdditionalInfo}")
       #timer-entry-properties-description.timer-entry-properties-row
-        %textarea.description-entry(ng-model='timer.entry.description' ng-blur="timer.entry.persist()" placeholder="Description" ng-click="$event.stopPropagation()" msd-elastic)
+        %textarea.description-entry(ng-model='timer.entry.description' ng-blur="timer.entry.save()" placeholder="Description" ng-click="$event.stopPropagation()" msd-elastic)
 
       #timer-entry-properties-additional-info
         #timer-entry-properties-tags.timer-entry-properties-row
-          %ti-tag-entry(on="timer.entry.tagList" suggestion-domain="tags" update="timer.entry.persist()" placeholder="+Tag")
+          %ti-tag-entry(on="timer.entry.tagList" suggestion-domain="tags" update="timer.entry.save()" placeholder="+Tag")
 
         #timer-entry-properties-project.timer-entry-properties-row
-          %ti-project-entry(on="timer.entry.project" update="entry.persist()" suggestion-domain="projects")
+          %ti-project-entry(on="timer.entry.project" update="timer.entry.save()" suggestion-domain="projects")
 
   .entries-list(ng-controller="TimerEntryListCtrl")
     .entries-list-item.entries-repeat-animation(ng-repeat="entry in timer.entries.entries | filter:{'current':false } | orderBy:'lastTick':true" )
