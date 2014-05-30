@@ -30,7 +30,7 @@ angular.module("app").
           hours = time.pop()
           elapsed += parseInt(hours) * 3600 if hours
           $scope.model.elapsed = elapsed
-          $scope.model.persist()
+          $scope.model.save()
 
       link: ($scope) ->
 
