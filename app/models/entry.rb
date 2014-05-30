@@ -41,7 +41,7 @@ class Entry < ActiveRecord::Base
   end
 
   def tagList=(other)
-    tag_list=other
+    self.tag_list=other
   end
 
   def self.today_or_current

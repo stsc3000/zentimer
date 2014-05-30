@@ -8,12 +8,11 @@
 
   .entries-list-item-form-main-inputs
     .entries-list-item-form-project.narrow
-      %ti-project-entry(on="entry.project" update="entry.persist()" suggestion-domain="projects")
+      %ti-project-entry(on="entry.project" update="entry.save()" suggestion-domain="projects")
     .entries-list-item-form-description.narrow
-      %textarea.description-entry(ng-model="entry.description" ng-blur="entry.persist()" placeholder="Description"  msd-elastic)
+      %textarea.description-entry(ng-model="entry.description" ng-blur="entry.save()" placeholder="Description"  msd-elastic)
     .entries-list-item-form-tags.narrow
-      %ti-tag-entry(on="entry.tagList" suggestion-domain="tags" update="entry.persist()" placeholder="+Tag")
-
+      %ti-tag-entry(on="entry.tagList" suggestion-domain="tags" update="entry.save()" placeholder="+Tag")
 
 .entries-list-item-form-hidden-actions
   %a
