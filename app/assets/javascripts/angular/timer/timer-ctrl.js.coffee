@@ -1,5 +1,6 @@
 angular.module("timer")
   .controller("TimerCtrl", ($scope, Timer, Settings) ->
+
     $scope.timer = Timer
 
     Settings.tags().then (tags) ->

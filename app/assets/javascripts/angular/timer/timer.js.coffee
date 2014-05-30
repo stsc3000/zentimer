@@ -1,13 +1,20 @@
 angular.module("timer").
-  factory("Timer", (TimerEntry, TimerEntryList) ->
+  factory("Timer", (TimerEntry, TimerEntryList, user, AjaxAdapter, LocalStorageAdapter) ->
     Timer = {
       isRunning: -> @entry.isRunning()
       isPaused: -> @entry.isPaused()
       entryIsStoppable: -> @entry.isStoppable()
 
-      init: ->
-        @entries = new TimerEntryList()
-        @setNewEntry()
+      loadEntries: ->
+        @entries = new TimerEntryList([], adapter: @entriesAdapter())
+        @entries.load().then =>
+          @setNewEntry() unless @entry = @entries.currentEntry()
+
+      entriesAdapter: ->
+        if user
+          AjaxAdapter
+        else
+          LocalStorageAdapter
 
       stop: ->
         @entry.stop()

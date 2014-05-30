@@ -1,7 +1,7 @@
 angular.module("timer").
   factory("TimerEntry", ($timeout) ->
 
-    defaultAttributes =
+    defaultAttributes = ->
       id: null
       running: false
       current: false
@@ -11,10 +11,12 @@ angular.module("timer").
       project: ""
       tagList: []
       intentional: false
+      list: null
 
     TimerEntry = (attributes = {}) ->
-      angular.extend @, defaultAttributes
-      angular.extend @, attributes
+      @assign angular.extend(defaultAttributes(), attributes)
+      @lastTick = new Date(attributes.lastTick) if @lastTick
+      @runLoop() if @running
       @
 
     instanceMethods = {
@@ -27,14 +29,17 @@ angular.module("timer").
         @lastTick = @timeSource()
         @current = true
         @running = true
+        @save()
         @runLoop()
 
       pause: -> 
         @running = false
+        @save()
 
       stop: ->
         @pause()
         @current = false
+        @save()
 
       runLoop: ->
         $timeout ( =>
@@ -42,6 +47,10 @@ angular.module("timer").
             @increment()
             @runLoop()
         ), 1000
+
+      assign: (attributes) ->
+        attributes.lastTick = new Date(attributes.lastTick) if attributes.lastTick
+        _.assign(@, attributes)
 
       increment: ->
         @now = @timeSource()
@@ -52,6 +61,18 @@ angular.module("timer").
       timeSource: ->
         new Date()
 
+      save: ->
+        @list.save(@) if @list
+
+      toJSON: ->
+        elapsed: @elapsed
+        lastTick: @lastTick
+        tagList: @tagList
+        current: @current
+        running: @running
+        project: @project
+        description: @description
+        id: @id
 
     }
 

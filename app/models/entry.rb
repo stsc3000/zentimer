@@ -36,6 +36,14 @@ class Entry < ActiveRecord::Base
 
   scope :tags, ->{ select( "tags.name" ).joins(:tags).order("tags.name").uniq }
 
+  def tagList
+    tag_list
+  end
+
+  def tagList=(other)
+    tag_list=other
+  end
+
   def self.today_or_current
     (today.concat current).uniq
   end

@@ -11,7 +11,7 @@ angular.element(document).ready ->
 
 angular.module("app")
   .config ($routeProvider) ->
-    $routeProvider.when('/', { templateUrl: 'tpls/timer' })
+    $routeProvider.when('/', { templateUrl: 'tpls/timer', resolve: { loadEntries: (Timer) -> Timer.loadEntries() } })
     .when('/settings', { templateUrl: 'tpls/settings' })
     .when('/analytics', { templateUrl: 'tpls/analytics' })
   .config (ngQuickDateDefaultsProvider) ->
