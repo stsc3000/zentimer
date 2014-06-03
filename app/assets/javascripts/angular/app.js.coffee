@@ -13,7 +13,7 @@ angular.module("app")
   .config ($routeProvider) ->
     $routeProvider.when('/', { templateUrl: 'tpls/timer', resolve: { loadEntries: (Timer) -> Timer.loadEntries() } })
     .when('/settings', { templateUrl: 'tpls/settings' })
-    .when('/analytics', { templateUrl: 'tpls/analytics' })
+    .when('/analytics', { templateUrl: 'tpls/analytics', resolve: { loadEntries: (Query) -> Query.fetch() } })
   .config (ngQuickDateDefaultsProvider) ->
     # Configure with icons from font-awesome
     ngQuickDateDefaultsProvider.set

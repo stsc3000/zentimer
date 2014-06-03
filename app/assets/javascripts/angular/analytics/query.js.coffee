@@ -1,7 +1,7 @@
 angular.module("analytics").
-  service("Query", ($http, $q, Entry, user) ->
+  service("Query", ($http, $q, TimerEntryList, AjaxAdapter, user) ->
     Query = {
-      dateFilters: 
+      dateFilters:
         [
           {
             id: 'today'
@@ -12,7 +12,7 @@ angular.module("analytics").
             subheadline: ->
               "#{@date.format("YYYY-MM-DD")}"
             toQuery: ->
-              { 
+              {
                 from: moment(@date).startOf('day').toISOString()
                 to: moment(@date).endOf('day').toISOString()
               }
@@ -27,7 +27,7 @@ angular.module("analytics").
             subheadline: ->
               "#{@from.format('YYYY-MM-DD')} - #{@to.format('YYYY-MM-DD')}"
             toQuery: ->
-              { 
+              {
                 from: moment(@from).startOf('day').toISOString()
                 to: moment(@to).endOf('day').toISOString()
               }
@@ -43,7 +43,7 @@ angular.module("analytics").
             subheadline: ->
               "#{@from.format('YYYY-MM-DD')} - #{@to.format('YYYY-MM-DD')}"
             toQuery: ->
-              { 
+              {
                 from: moment(@from).startOf('day').toISOString()
                 to: moment(@to).endOf('day').toISOString()
               }
@@ -60,7 +60,7 @@ angular.module("analytics").
             subheadline: ->
               "#{moment(@from).format('YYYY-MM-DD')} - #{moment(@to).format('YYYY-MM-DD')}"
             toQuery: ->
-              { 
+              {
                 from: moment(@from).startOf('day').toISOString()
                 to: moment(@to).endOf('day').toISOString()
               }
@@ -88,25 +88,23 @@ angular.module("analytics").
         data.query.projects = @projects
         data.query.tags = @tags
 
-        $http.post("/entries/filter", data).success (response) =>
-          @entries = _.map response.entries, (entry) -> new Entry(entry)
+        @entryList ||= new TimerEntryList([], adapter: AjaxAdapter, subscribers: [@])
+        @entryList.setQueryData(data)
+
+        @entryList.query().then (response) =>
           @paginatedEntries.clear()
           @pageIndex = 0
           @nextPage()
           @updateEntriesGroupedByProject()
 
-      entries: []
       entriesGroupedByProject: []
 
       paginatedEntries: []
       pageIndex: 0
       perPage: 5
 
-      total: ->
-        _.reduce @entries, ((sum, entry) -> sum + entry.elapsed), 0
-
       updateEntriesGroupedByProject: ->
-        grouped = _.groupBy(@entries, (entry) -> entry.project || "No Project")
+        grouped = _.groupBy(@entryList.entries, (entry) -> entry.project || "No Project")
         @entriesGroupedByProject = _.map grouped, (entries, project) ->
           sum = _.inject(entries, ((acc, entry) -> acc + entry.elapsed), 0)
           { key: project, value: sum }
@@ -119,19 +117,21 @@ angular.module("analytics").
 
       tagDomain: []
 
+      onEntrySave: ->
+        @updateEntriesGroupedByProject()
+
       fetchTagDomain: ->
         $http.get("#{user.token}/tags").success (response) =>
           @tagDomain = response.tags
 
       deleteEntry: (entry) ->
-        _.remove(@entries, (searchEntry) -> searchEntry == entry)
+        @entryList.remove(entry)
         _.remove(@paginatedEntries, (searchEntry) -> searchEntry == entry)
         @updateEntriesGroupedByProject()
-        entry.delete()
         @pageIndex = @pageIndex-1
 
       nextPage: ->
-        _.each @entries.slice(@pageIndex, @perPage + @pageIndex), (entry) =>
+        _.each @entryList.entries.slice(@pageIndex, @perPage + @pageIndex), (entry) =>
           @paginatedEntries.push(entry)
         @pageIndex = @pageIndex + @perPage
 

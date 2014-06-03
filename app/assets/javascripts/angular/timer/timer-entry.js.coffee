@@ -25,14 +25,14 @@ angular.module("timer").
       isPaused: -> !@running
       isStoppable: -> @elapsed > 0 && @isPaused()
 
-      start: -> 
+      start: ->
         @lastTick = @timeSource()
         @current = true
         @running = true
         @save()
         @runLoop()
 
-      pause: -> 
+      pause: ->
         @running = false
         @save()
 

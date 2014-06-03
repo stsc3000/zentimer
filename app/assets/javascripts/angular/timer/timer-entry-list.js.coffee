@@ -2,7 +2,9 @@ angular.module("timer")
   .factory("TimerEntryList", ($q, TimerEntry) ->
     TimerEntryList = (entries, options = {})->
       @entries = entries || []
-      @adapter = options["adapter"]
+      entry.list = @ for entry in entries
+      @adapter = options.adapter
+      @subscribers = options.subscribers || []
       @
 
     instanceMethods = {
@@ -20,6 +22,9 @@ angular.module("timer")
 
       total: ->
         _.inject @entries, ((sum, entry) -> sum + entry.elapsed), 0
+
+      length: ->
+        @entries.length
 
       clear: (options = {}) ->
         ignoreEntry = options["ignore"]
@@ -45,7 +50,23 @@ angular.module("timer")
           deferred.resolve(@entries)
         deferred.promise
 
+      setQueryData: (queryData) ->
+        @queryData = queryData
+
+      query: ->
+        deferred = $q.defer()
+        that = @
+        that.adapter.query(@queryData).then (entries) =>
+          if entries
+            entries = _.map entries, (entry) ->
+              entry.list = that
+              new TimerEntry(entry)
+            that.entries = entries
+            deferred.resolve(that.entries)
+        deferred.promise
+
       save: (entry) ->
+        subscriber.onEntrySave(entry) for subscriber in @subscribers
         @adapter.save(entry) if @adapter
 
       delete: (entry) ->
