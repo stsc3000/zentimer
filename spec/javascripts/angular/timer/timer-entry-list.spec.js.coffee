@@ -38,3 +38,23 @@ describe "TimerEntryList", ->
     timerEntryList.clear(ignore: anEntry)
 
     expect(timerEntryList.entries.length).toEqual(1)
+
+  it "saves using the adapter", inject (TimerEntryList, TimerEntry) ->
+    entry = new TimerEntry()
+    adapter = { save: -> }
+    sinon.stub(adapter, "save")
+
+    timerEntryList = new TimerEntryList([entry], adapter: adapter)
+    timerEntryList.save(entry)
+
+    sinon.assert.calledOnce(adapter.save)
+
+  it "informs subscribers if an entry is saved", inject (TimerEntryList, TimerEntry) ->
+    entry = new TimerEntry()
+    subscriber = { onEntrySave: -> }
+    sinon.stub(subscriber, "onEntrySave")
+
+    timerEntryList = new TimerEntryList([entry], subscribers: [subscriber])
+    timerEntryList.save(entry)
+
+    sinon.assert.calledOnce(subscriber.onEntrySave)

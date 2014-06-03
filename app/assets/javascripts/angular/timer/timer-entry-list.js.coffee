@@ -2,7 +2,7 @@ angular.module("timer")
   .factory("TimerEntryList", ($q, TimerEntry) ->
     TimerEntryList = (entries, options = {})->
       @entries = entries || []
-      entry.list = @ for entry in entries
+      entry.list = @ for entry in @entries
       @adapter = options.adapter
       @subscribers = options.subscribers || []
       @

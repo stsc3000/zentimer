@@ -12,3 +12,12 @@ describe "TimerEntry", ->
     $timeout.flush()
     entry.pause()
     expect(entry.elapsed).toEqual(60)
+
+  it "saves using its list", inject (TimerEntry) ->
+    list = { save: -> }
+    sinon.stub(list, "save")
+
+    entry = new TimerEntry(list: list)
+    entry.save()
+
+    sinon.assert.calledOnce(list.save)
