@@ -26,12 +26,9 @@ angular.module("timer").
           onStop: onStop,
           onIncrement: onIncrement
 
-      stop: ->
-        @entry.stop()
-        @setNewEntry()
 
       continue: (entry) ->
-        @pause()
+        @stop()
         @entry = entry
         @start()
 
@@ -39,6 +36,10 @@ angular.module("timer").
 
       pause: (entry) ->
         (entry || @entry).pause()
+
+      stop: ->
+        @entry.stop()
+        @setNewEntry()
 
       setNewEntry: ->
         @setEntry new TimerEntry()
