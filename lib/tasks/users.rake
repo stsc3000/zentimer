@@ -3,7 +3,7 @@ namespace :users do
   task :new => :environment do
     TAGS = %w(Development Integration Team-Meeting Customer-Meeting)
     PROJECTS = %w(CoffeeInc TeaInc BigCorp SmallCorp)
-    user = User.create
+    user = User.create(tags: TAGS, projects: PROJECTS)
     10.times do 
       user.entries.create tag_list: TAGS.sample(2),
                           project: PROJECTS.sample,
