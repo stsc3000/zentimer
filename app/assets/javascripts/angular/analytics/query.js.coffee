@@ -88,7 +88,7 @@ angular.module("analytics").
         data.query.projects = @projects
         data.query.tags = @tags
 
-        @entryList ||= new TimerEntryList([], adapter: AjaxAdapter, subscribers: [@])
+        @entryList ||= new TimerEntryList([], adapter: AjaxAdapter, onSave: [_.bind(@onSave, @)])
         @entryList.setQueryData(data)
 
         @entryList.query().then (response) =>
@@ -117,7 +117,7 @@ angular.module("analytics").
 
       tagDomain: []
 
-      onEntrySave: ->
+      onSave: ->
         @updateEntriesGroupedByProject()
 
       fetchTagDomain: ->

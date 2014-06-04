@@ -3,22 +3,29 @@ angular.module("timer")
     TimerEntryList = (entries, options = {})->
       @entries = entries || []
       @adapter = options.adapter
-      @subscribers = options.subscribers || []
-      @notifier = options.notifier
 
-      entry.list = @ for entry in @entries
-      entry.notifier = @notifier for entry in @entries
+      @onSave = options.onSave || []
+      @onIncrement = options.onIncrement || []
+      @onStart = options.onStart || []
+      @onStop = options.onStop || []
+
+      @linkEntry(entry) for entry in @entries
 
       @
 
     instanceMethods = {
 
+      linkEntry: (entry) ->
+        entry.list = @
+        entry.onIncrement = @onIncrement
+        entry.onStart = @onStart
+        entry.onStop = @onStop
+
       includes: (entry) ->
         _.include @entries, entry
 
       store: (entry) ->
-        entry.list = @
-        entry.notifier = @notifier
+        @linkEntry(entry)
         @entries.push(entry) unless @includes(entry)
 
       remove: (entry) ->
@@ -46,9 +53,9 @@ angular.module("timer")
           that.adapter.index().then (entries) =>
             if entries
               entries = _.map entries, (entry) ->
-                entry.list = that
-                entry.notifier = that.notifier
-                new TimerEntry(entry)
+                timerEntry = new TimerEntry(entry)
+                that.linkEntry(timerEntry)
+                timerEntry
               that.entries = entries
               that.loaded = true
               deferred.resolve(that.entries)
@@ -65,15 +72,15 @@ angular.module("timer")
         that.adapter.query(@queryData).then (entries) =>
           if entries
             entries = _.map entries, (entry) ->
-              entry.list = that
-              entry.notifier = that.notifier
-              new TimerEntry(entry)
+              timerEntry = new TimerEntry(entry)
+              that.linkEntry(timerEntry)
+              timerEntry
             that.entries = entries
             deferred.resolve(that.entries)
         deferred.promise
 
       save: (entry) ->
-        subscriber.onEntrySave(entry) for subscriber in @subscribers
+        subscriber(entry) for subscriber in @onSave
         @adapter.save(entry) if @adapter
 
       delete: (entry) ->

@@ -30,8 +30,21 @@ describe "TimerEntry", ->
     sinon.stub(notifier, "start")
     sinon.stub(notifier, "stop")
 
-    entry = new TimerEntry(notifier: notifier)
+    entry = new TimerEntry(onStart: [notifier.start], onStop: [notifier.stop])
     entry.start()
     sinon.assert.calledOnce(notifier.start)
     entry.pause()
     sinon.assert.calledOnce(notifier.stop)
+
+  it "notifies of incrementation", inject (TimerEntry, $timeout) ->
+    notifier =
+      onIncrement: ->
+
+    sinon.stub(notifier, "onIncrement")
+
+    entry = new TimerEntry(onIncrement: [notifier.onIncrement])
+    entry.start()
+    $timeout.flush()
+    entry.pause()
+    sinon.assert.calledOnce(notifier.onIncrement)
+

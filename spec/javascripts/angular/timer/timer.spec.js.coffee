@@ -5,7 +5,13 @@ describe "Timer", ->
     $provide.value "user", null
     $provide.value "AjaxAdapter", null
     $provide.value "LocalStorageAdapter", null
-    $provide.value "Notifications", null
+    $provide.value "Notifications",
+      start: ->
+      stop: ->
+    $provide.value "Title",
+      set: ->
+      clear: ->
+
     return undefined
   )
 

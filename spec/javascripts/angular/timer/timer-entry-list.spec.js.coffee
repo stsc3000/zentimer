@@ -51,10 +51,10 @@ describe "TimerEntryList", ->
 
   it "informs subscribers if an entry is saved", inject (TimerEntryList, TimerEntry) ->
     entry = new TimerEntry()
-    subscriber = { onEntrySave: -> }
-    sinon.stub(subscriber, "onEntrySave")
+    subscriber = { onSave: -> }
+    sinon.stub(subscriber, "onSave")
 
-    timerEntryList = new TimerEntryList([entry], subscribers: [subscriber])
+    timerEntryList = new TimerEntryList([entry], onSave: [subscriber.onSave])
     timerEntryList.save(entry)
 
-    sinon.assert.calledOnce(subscriber.onEntrySave)
+    sinon.assert.calledOnce(subscriber.onSave)

@@ -12,7 +12,9 @@ angular.module("timer").
       tagList: []
       intentional: false
       list: null
-      notifier: null
+      onStart: []
+      onStop: []
+      onIncrement: []
 
     TimerEntry = (attributes = {}) ->
       @assign angular.extend(defaultAttributes(), attributes)
@@ -31,12 +33,12 @@ angular.module("timer").
         @current = true
         @running = true
         @save()
-        @notifyStart()
+        @triggerOnStart()
         @runLoop()
 
       pause: ->
         @running = false
-        @notifyStop()
+        @triggerOnStop()
         @save()
 
       stop: ->
@@ -51,11 +53,14 @@ angular.module("timer").
             @runLoop()
         ), 1000
 
-      notifyStart: ->
-        @notifier.start(@) if @notifier
+      triggerOnStart: ->
+        subscriber(@) for subscriber in @onStart
 
-      notifyStop: ->
-        @notifier.stop(@) if @notifier
+      triggerOnStop: ->
+        subscriber(@) for subscriber in @onStop
+
+      triggerOnIncrement: ->
+        subscriber(@) for subscriber in @onIncrement
 
       assign: (attributes) ->
         attributes.lastTick = new Date(attributes.lastTick) if attributes.lastTick
@@ -65,6 +70,7 @@ angular.module("timer").
         @now = @timeSource()
         difference = ( ( @now.getTime() - @lastTick.getTime()) / 1000 )
         @elapsed += difference
+        @triggerOnIncrement()
         @lastTick = @now
 
       timeSource: ->
