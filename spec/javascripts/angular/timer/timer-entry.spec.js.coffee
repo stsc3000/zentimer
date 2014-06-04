@@ -21,3 +21,17 @@ describe "TimerEntry", ->
     entry.save()
 
     sinon.assert.calledOnce(list.save)
+
+  it "notifies of start and stop", inject (TimerEntry) ->
+    notifier =
+      start: ->
+      stop: ->
+
+    sinon.stub(notifier, "start")
+    sinon.stub(notifier, "stop")
+
+    entry = new TimerEntry(notifier: notifier)
+    entry.start()
+    sinon.assert.calledOnce(notifier.start)
+    entry.pause()
+    sinon.assert.calledOnce(notifier.stop)

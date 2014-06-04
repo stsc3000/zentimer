@@ -12,6 +12,7 @@ angular.module("timer").
       tagList: []
       intentional: false
       list: null
+      notifier: null
 
     TimerEntry = (attributes = {}) ->
       @assign angular.extend(defaultAttributes(), attributes)
@@ -30,10 +31,12 @@ angular.module("timer").
         @current = true
         @running = true
         @save()
+        @notifyStart()
         @runLoop()
 
       pause: ->
         @running = false
+        @notifyStop()
         @save()
 
       stop: ->
@@ -47,6 +50,12 @@ angular.module("timer").
             @increment()
             @runLoop()
         ), 1000
+
+      notifyStart: ->
+        @notifier.start(@) if @notifier
+
+      notifyStop: ->
+        @notifier.stop(@) if @notifier
 
       assign: (attributes) ->
         attributes.lastTick = new Date(attributes.lastTick) if attributes.lastTick

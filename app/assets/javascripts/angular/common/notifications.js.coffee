@@ -24,7 +24,7 @@ angular.module("app").
           title += " #{entry.project}" if entry.project
           body = ""
           body += "Duration: #{@elapsedFilter(entry.elapsed)}"
-          body += "Tags: #{entry.tag_list.join(", ")}\t" if entry.tag_list.length > 0
+          body += "Tags: #{entry.tagList.join(", ")}\t" if entry.tagList.length > 0
           @currentNotification = new Notification title,
             body: body
 

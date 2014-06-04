@@ -2,9 +2,13 @@ angular.module("timer")
   .factory("TimerEntryList", ($q, TimerEntry) ->
     TimerEntryList = (entries, options = {})->
       @entries = entries || []
-      entry.list = @ for entry in @entries
       @adapter = options.adapter
       @subscribers = options.subscribers || []
+      @notifier = options.notifier
+
+      entry.list = @ for entry in @entries
+      entry.notifier = @notifier for entry in @entries
+
       @
 
     instanceMethods = {
@@ -14,6 +18,7 @@ angular.module("timer")
 
       store: (entry) ->
         entry.list = @
+        entry.notifier = @notifier
         @entries.push(entry) unless @includes(entry)
 
       remove: (entry) ->
@@ -42,6 +47,7 @@ angular.module("timer")
             if entries
               entries = _.map entries, (entry) ->
                 entry.list = that
+                entry.notifier = that.notifier
                 new TimerEntry(entry)
               that.entries = entries
               that.loaded = true
@@ -60,6 +66,7 @@ angular.module("timer")
           if entries
             entries = _.map entries, (entry) ->
               entry.list = that
+              entry.notifier = that.notifier
               new TimerEntry(entry)
             that.entries = entries
             deferred.resolve(that.entries)

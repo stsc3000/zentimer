@@ -5,6 +5,7 @@ describe "Timer", ->
     $provide.value "user", null
     $provide.value "AjaxAdapter", null
     $provide.value "LocalStorageAdapter", null
+    $provide.value "Notifications", null
     return undefined
   )
 
