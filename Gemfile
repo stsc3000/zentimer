@@ -35,7 +35,6 @@ gem 'pry-rails'
 
 gem 'haml-rails'
 
-gem 'active_model_serializers'
 gem 'acts-as-taggable-on'
 
 group :doc do
