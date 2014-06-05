@@ -19,7 +19,7 @@ angular.module("timer").
     TimerEntry = (attributes = {}) ->
       @assign angular.extend(defaultAttributes(), attributes)
       @lastTick = new Date(attributes.lastTick) if @lastTick
-      @runLoop() if @running
+      @run() if @running
       @
 
     instanceMethods = {
@@ -29,11 +29,15 @@ angular.module("timer").
       isStoppable: -> @elapsed > 0 && @isPaused()
 
       start: ->
-        @lastTick = @timeSource()
         @current = true
         @running = true
+        @lastTick = @timeSource()
         @save()
+        @run()
+
+      run: ->
         @triggerOnStart()
+        @updateElapsed()
         @runLoop()
 
       pause: ->
@@ -66,12 +70,15 @@ angular.module("timer").
         attributes.lastTick = new Date(attributes.lastTick) if attributes.lastTick
         _.assign(@, attributes)
 
-      increment: ->
+      updateElapsed: ->
         @now = @timeSource()
         difference = ( ( @now.getTime() - @lastTick.getTime()) / 1000 )
         @elapsed += difference
-        @triggerOnIncrement()
         @lastTick = @now
+
+      increment: ->
+        @updateElapsed()
+        @triggerOnIncrement()
 
       timeSource: ->
         new Date()
