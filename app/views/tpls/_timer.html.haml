@@ -1,14 +1,14 @@
 #timer-page.page
   #timer(ng-controller = "TimerCtrl")
     #timer-time-counter(ti-flash ng-class = "{paused: timer.isPaused(), running: timer.isRunning()}" ng-click = "toggle()")
-      %a#timer-time-counter-toggle(style="width: 100%; display: block;" fittext="0.5")
+      %a#timer-time-counter-toggle(style="width: 100%; display: block;" fittext="0.55" small-fittext="0.3")
         %ti-elapsed{elapsed: "timer.entry.elapsed"}
     #timer-entry-actions(ng-show = "showEntryActions()")
-      %a#timer-entry-actions-save(ng-click = "stop(); $event.stopPropagation()")
+      %a#timer-entry-actions-save(ng-click = "stop(); $event.stopPropagation()" fittext="1.5" fittext-max="24")
         %i.save-icon
         DONE
 
-      %a#timer-entry-actions-delete(ng-click = "removeCurrent(); $event.stopPropagation();")
+      %a#timer-entry-actions-delete(ng-click = "removeCurrent(); $event.stopPropagation();" fittext="1.5" fittext-max="24")
         %i.delete-icon
         DELETE
 

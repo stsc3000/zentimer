@@ -18,13 +18,15 @@ angular.module( 'ngFitText', [] )
 			restrict: 'A',
 			scope: {
 				"fittext": "@",
-				"watchtext": "@"	
+				"smallFittext": "@",
+				"watchtext": "@"
 			},
 			link: function( scope, element, attrs ) {
 				scope.compressor = attrs.fittext || 1;
+				scope.smallCompressor = attrs.smallFittext || 1;
 				scope.minFontSize = attrs.fittextMin || Number.NEGATIVE_INFINITY;
 				scope.maxFontSize = attrs.fittextMax || Number.POSITIVE_INFINITY;
-				scope.elementWidth = element[0].offsetWidth;
+				scope.elementWidth = $("#timer").width();
 
 				( scope.resizer = function() {
 					scope.fontSize = Math.max(
@@ -38,13 +40,13 @@ angular.module( 'ngFitText', [] )
 					$(element).css("font-size", scope.fontSize)
 				})();
 
-				//scope.$watch("watchtext", function() { 
+				//scope.$watch("watchtext", function() {
 					//scope.elementWidth = element[0].offsetWidth;
 					//scope.resizer();
 				//});
 
 				angular.element( window ).bind( 'resize', function() {
-					scope.elementWidth = element[0].offsetWidth;
+					scope.elementWidth = $("#timer").width();
 					scope.resizer();
 				});
 			}
