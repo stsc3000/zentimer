@@ -26,7 +26,6 @@ angular.module("timer").
           onStop: onStop,
           onIncrement: onIncrement
 
-
       continue: (entry) ->
         @stop()
         @entry = entry

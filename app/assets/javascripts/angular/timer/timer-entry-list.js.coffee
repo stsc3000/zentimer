@@ -80,8 +80,11 @@ angular.module("timer")
         deferred.promise
 
       save: (entry) ->
-        subscriber(entry) for subscriber in @onSave
-        @adapter.save(entry) if @adapter
+        if entry.isValid()
+          subscriber(entry) for subscriber in @onSave
+          @adapter.save(entry) if @adapter
+        else
+          _.remove @entries, (searchEntry) -> searchEntry == entry
 
       delete: (entry) ->
         @adapter.delete(entry) if @adapter

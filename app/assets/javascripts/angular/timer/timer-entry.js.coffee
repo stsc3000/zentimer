@@ -28,6 +28,9 @@ angular.module("timer").
       isPaused: -> !@running
       isStoppable: -> @elapsed > 0 && @isPaused()
 
+      isValid: ->
+        @elapsed > 0 || @description || @project || @tagList.length > 0 || @intentional
+
       start: ->
         @current = true
         @running = true
