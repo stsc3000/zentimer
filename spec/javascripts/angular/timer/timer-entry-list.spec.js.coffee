@@ -41,6 +41,7 @@ describe "TimerEntryList", ->
 
   it "saves using the adapter", inject (TimerEntryList, TimerEntry) ->
     entry = new TimerEntry()
+    sinon.stub(entry, "isValid").returns(true)
     adapter = { save: -> }
     sinon.stub(adapter, "save")
 
@@ -51,6 +52,7 @@ describe "TimerEntryList", ->
 
   it "informs subscribers if an entry is saved", inject (TimerEntryList, TimerEntry) ->
     entry = new TimerEntry()
+    sinon.stub(entry, "isValid").returns(true)
     subscriber = { onSave: -> }
     sinon.stub(subscriber, "onSave")
 

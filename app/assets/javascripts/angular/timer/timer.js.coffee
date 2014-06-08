@@ -27,11 +27,13 @@ angular.module("timer").
           onIncrement: onIncrement
 
       continue: (entry) ->
-        @stop()
-        @entry = entry
+        if entry != @entry
+          @entry.stop()
+          @entry = entry
         @start()
 
-      start: -> @entry.start()
+      start: ->
+        @entry.start()
 
       pause: (entry) ->
         (entry || @entry).pause()
