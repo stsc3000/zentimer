@@ -21,4 +21,16 @@ angular.module("timer")
     $scope.removeCurrent = ->
       @timer.removeCurrent()
 
+    $scope.$on 'keypress:112', (whateverThisIs, event) ->
+      $scope.toggle()
+    $scope.$on 'keypress:80', (whateverThisIs, event) ->
+      $scope.toggle()
+
+    $scope.$on 'keypress:110', (whateverThisIs, event) ->
+      $scope.stop()
+      $scope.toggle()
+    $scope.$on 'keypress:78', (whateverThisIs, event) ->
+      $scope.stop()
+      $scope.toggle()
+
   )

@@ -73,7 +73,6 @@ angular.module("timer").
         entry = new TimerEntry(intentional: true)
         @entries.store(entry)
         entry.save()
-
     }
 
     Timer
