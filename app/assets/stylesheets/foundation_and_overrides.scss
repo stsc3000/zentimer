@@ -65,7 +65,7 @@ $default-float: left;
 
 // $body-bg: #fff;
 $body-font-color: #ecf0f1;
-// $body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$body-font-family: 'Roboto Condensed', sans-serif;
 // $body-font-weight: normal;
 // $body-font-style: normal;
 
@@ -173,6 +173,7 @@ $row-width: em-calc(600);
 // Control header font styles
 
 // $header-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$header-body-font-family: 'Roboto Condensed', sans-serif;
 // $header-font-weight: bold;
 // $header-font-style: normal;
 // $header-font-color: #222;
