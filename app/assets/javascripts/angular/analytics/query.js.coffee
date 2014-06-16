@@ -18,8 +18,22 @@ angular.module("analytics").
               }
           },
           {
+            id: 'yesterday'
+            name: 'YESTERDAY'
+            date: moment().subtract('days', 1).startOf('day')
+            headline: ->
+              "#{@name}"
+            subheadline: ->
+              "#{@date.format("YYYY-MM-DD")}"
+            toQuery: ->
+              {
+                from: moment(@date).startOf('day').toISOString()
+                to: moment(@date).endOf('day').toISOString()
+              }
+          }
+          {
             id: 'week'
-            name: 'THIS WEEK'
+            name: 'WEEK'
             from: moment().startOf('week')
             to: moment().endOf('week')
             headline: ->
@@ -35,7 +49,7 @@ angular.module("analytics").
           },
           {
             id: 'month'
-            name: 'THIS MONTH'
+            name: 'MONTH'
             from: moment().startOf('month')
             to: moment().endOf('month')
             headline: ->
