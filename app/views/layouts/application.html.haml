@@ -16,6 +16,7 @@
       %meta{content: @user.token, name: "user-token"}/
     = csrf_meta_tags
   %body{"keypress-events" => ""}
+    = render partial: "layouts/spinner"
     #branding.row
     = render partial: 'tpls/menu'
     %div{"ng-class" => "{'view-animation': true}", "ng-cloak" => "", "ng-view" => ""}

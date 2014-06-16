@@ -11,9 +11,9 @@ angular.element(document).ready ->
 
 angular.module("app")
   .config ($routeProvider) ->
-    $routeProvider.when('/', { templateUrl: 'tpls/timer', resolve: { loadEntries: (Timer) -> Timer.loadEntries() } })
+    $routeProvider.when('/', { templateUrl: 'tpls/timer', resolve: { loadEntries: (Loading, Timer) -> Loading.wrap(Timer.loadEntries()) } })
     .when('/settings', { templateUrl: 'tpls/settings' })
-    .when('/analytics', { templateUrl: 'tpls/analytics', resolve: { loadEntries: (Query) -> Query.fetch() } })
+    .when('/analytics', { templateUrl: 'tpls/analytics', resolve: { loadEntries: (Loading, Query) -> Loading.wrap(Query.fetch()) } })
   .config (ngQuickDateDefaultsProvider) ->
     # Configure with icons from font-awesome
     ngQuickDateDefaultsProvider.set
@@ -26,11 +26,3 @@ angular.module("app")
 
     $rootScope.toggleMenu  = ->
       $rootScope.menuVisible = !$rootScope.menuVisible
-
-    $rootScope.$on "$viewContentLoaded", ->
-      #HACK! but I can't find a relevant callback for this
-      $timeout ( ->
-        $rootScope.enableAnimations = true unless $rootScope.enableAnimations
-      ), 200
-
-
