@@ -220,7 +220,7 @@ describe EntriesController do
 
     it "filters all entries by given params" do
 
-      get :filter, token: user.token, query: query
+      get :filter, token: user.token, query: query, format: :json
 
       entries = assigns :entries
       expect(entries).to include(an_entry)
@@ -230,7 +230,7 @@ describe EntriesController do
     end
 
     it "filtes all entries and returns json" do
-      get :filter, token: user.token, query: query
+      get :filter, token: user.token, query: query, format: :json
       expected_response = {
         :entries=>
           [
