@@ -50,7 +50,8 @@ describe "TimerEntry", ->
 
   it "assigns elapsed on start correctly", inject (TimerEntry) ->
     now = new Date()
-    entry = new TimerEntry(running: true, lastTick: now.toString() )
+    entry = new TimerEntry(lastTick: now.toString() )
+    entry.running = true
     timeSource = sinon.stub(entry, "timeSource")
     timeSource.returns(now)
 
