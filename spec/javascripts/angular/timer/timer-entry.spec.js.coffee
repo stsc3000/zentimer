@@ -48,3 +48,33 @@ describe "TimerEntry", ->
     entry.pause()
     sinon.assert.calledOnce(notifier.onIncrement)
 
+  it "assigns elapsed on start correctly", inject (TimerEntry) ->
+    now = new Date()
+    entry = new TimerEntry(running: true, lastTick: now.toString() )
+    timeSource = sinon.stub(entry, "timeSource")
+    timeSource.returns(now)
+
+    expect(parseInt(entry.elapsed)).toEqual(0)
+
+  it "assigns elapsed when running correctly", inject (TimerEntry) ->
+    timeItWasSaved = new Date(2012,12,12,12,0,0)
+    elapsedWhenItWasSaved = 0
+
+    timeSaveRequestReturns = new Date(2012,12,12,12,0,10)
+    elapsedWhenSaveRequestReturns = 10
+
+    entry = new TimerEntry
+    entry.elapsed = elapsedWhenSaveRequestReturns
+    entry.running = true
+    entry.lastTick = timeSaveRequestReturns
+    timeSource = sinon.stub(entry, "timeSource")
+    timeSource.returns(timeSaveRequestReturns)
+
+    entry.assign
+      lastTick: timeItWasSaved
+      elapsed: elapsedWhenItWasSaved
+
+    expect(parseInt(entry.elapsed)).toEqual(10)
+
+
+

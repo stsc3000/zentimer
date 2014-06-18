@@ -72,6 +72,13 @@ angular.module("timer").
       assign: (attributes) ->
         attributes.lastTick = new Date(attributes.lastTick) if attributes.lastTick
         _.assign(@, attributes)
+        @updateElapsed() if @running
+
+      assignOnSave: (attributes) ->
+        @assign
+          id: attributes.id
+          current: attributes.current
+          running: attributes.running
 
       updateElapsed: ->
         @now = @timeSource()
