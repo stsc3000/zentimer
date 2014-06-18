@@ -242,10 +242,12 @@ describe EntriesController do
               :running=>nil,
               :current=>false,
               :description=>nil,
-              :project=>"Important Project"
+              :project=>"Important Project",
+              :logged_at=>nil
             }
           ]
       }
+      expect(json_response).to eq(expected_response)
 
     end
 
