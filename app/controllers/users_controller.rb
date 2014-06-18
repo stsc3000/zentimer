@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = current_user!
+    @user = current_user
     respond_to do |format|
       format.html { render "pages/index" }
       format.json { render json: @user }
@@ -14,7 +14,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = current_user!
+    @user = current_user
     @user.update_attributes user_parameters
 
     respond_to do |format|

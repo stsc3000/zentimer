@@ -5,10 +5,7 @@ class ApplicationController < ActionController::Base
   include AngularCsrf
 
   def current_user
-    @current_user ||= User.find_by_token(params[:token])
-  end
-
-  def current_user!
     @current_user ||= User.find_by_token!(params[:token])
   end
+
 end
