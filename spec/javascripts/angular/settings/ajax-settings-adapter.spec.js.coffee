@@ -17,7 +17,7 @@ describe "AjaxSettingsAdapter", ->
     beforeEach inject ($injector) ->
       $httpBackend = $injector.get('$httpBackend')
       $httpBackend.when("PUT", "/1234.json").respond({ user: { entries: [], tags: ['tag1', 'tag2'], projects: ['projects1', 'projects2'] }})
- 
+
     it "updates settings via ajax", inject (AjaxSettingsAdapter, $rootScope) ->
       $httpBackend.expectPUT('/1234.json', { user: { tags: ['tag1', 'tag2'] } })
 
