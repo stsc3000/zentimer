@@ -15,9 +15,9 @@ describe EntriesController do
           [{:id=>entry.id,
             :elapsed=>nil,
             :lastTick=>nil,
-            :tag_list=>[],
+            :tagList=>[],
             :running=>nil,
-            :current=>nil,
+            :current=>false,
             :project=>nil,
             :description=>nil,
             :logged_at=>nil}
@@ -32,9 +32,9 @@ describe EntriesController do
           [{:id=>entry.id,
             :elapsed=>nil,
             :lastTick=>nil,
-            :tag_list=>[],
+            :tagList=>[],
             :running=>nil,
-            :current=>nil,
+            :current=>false,
             :project=>nil,
             :description=>nil,
             :logged_at=>nil
@@ -43,7 +43,7 @@ describe EntriesController do
           {:id=>old_entry.id,
             :elapsed=>nil,
             :lastTick=>nil,
-            :tag_list=>[],
+            :tagList=>[],
             :running=>true,
             :current=>true,
             :project=>nil,
@@ -65,9 +65,9 @@ describe EntriesController do
           entry: {:id=>entry.id,
                   :elapsed=>nil,
                   :lastTick=>nil,
-                  :tag_list=>[],
+                  :tagList=>[],
                   :running=>nil,
-                  :current=>nil,
+                  :current=>false,
                   :project=>nil,
                   :description=>nil,
                   :logged_at=>nil}
@@ -82,7 +82,7 @@ describe EntriesController do
       params = {
         :elapsed=>10,
         :lastTick=>"2012,12,12",
-        :tag_list=>["a tag"],
+        :tagList=>["a tag"],
         :running=>true,
         :current=>true,
         :project=>"a project",
@@ -97,7 +97,7 @@ describe EntriesController do
       params = {
         :elapsed=>10,
         :lastTick=>"2012-12-12",
-        :tag_list=>["a description"],
+        :tagList=>["a description"],
         :running=>true,
         :current=>true,
         :project=>"a project",
@@ -110,7 +110,7 @@ describe EntriesController do
           {:id=>entry_id,
           :elapsed=>10,
           :lastTick=>"2012-12-12T00:00:00Z",
-          :tag_list=>["a description"],
+          :tagList=>["a description"],
           :running=>true,
           :current=>true,
           :project=>"a project",
@@ -125,23 +125,23 @@ describe EntriesController do
   context "PUT #update" do
 
     it "updates an entry" do
-      entry = user.entries.create(tag_list: ["my description"])
+      entry = user.entries.create(tagList: ["my description"])
 
       params = {
-        tag_list: ["new tag"]
+        tagList: ["new tag"]
       }
 
       expect {
         put :update, id: entry.id, entry: params, token: user.token
-      }.to change{entry.reload.tag_list}.to(["new tag"])
+      }.to change{entry.reload.tagList}.to(["new tag"])
 
     end
 
     it "renders the entry" do
-      entry = user.entries.create(tag_list: ["my description"])
+      entry = user.entries.create(tagList: ["my description"])
 
       params = {
-        tag_list: ["new tag"]
+        tagList: ["new tag"]
       }
 
       put :update, id: entry.id, entry: params, token: user.token
@@ -151,9 +151,9 @@ describe EntriesController do
           {:id=>entry.id,
           :elapsed=> nil,
           :lastTick=> nil,
-          :tag_list=>["new tag"],
+          :tagList=>["new tag"],
           :running=>nil,
-          :current=>nil,
+          :current=>false,
           :project=>nil,
           :description=>nil,
           :logged_at=>nil}
@@ -165,7 +165,7 @@ describe EntriesController do
 
   context "DELETE #destroy" do
     it "destroys the entry" do
-      entry = user.entries.create(tag_list: ["my description"])
+      entry = user.entries.create(tagList: ["my description"])
 
       expect {
         delete :destroy, id: entry.id, token: user.token
@@ -177,35 +177,35 @@ describe EntriesController do
 
   context "DELETE #index" do
     it "clears all entries that are not running" do
-      user.entries.create(tag_list: ["its running"], running: true)
-      user.entries.create(tag_list: ["my description"])
+      user.entries.create(tagList: ["its running"], running: true)
+      user.entries.create(tagList: ["my description"])
 
       expect {
         delete :clear, token: user.token, ids: user.entries.map(&:id)
       }.to change{Entry.count}.from(2).to(1)
 
-      expect(Entry.first.tag_list).to eq(["its running"])
+      expect(Entry.first.tagList).to eq(["its running"])
     end
   end
 
   context "GET #filter" do
     let(:another_user){ User.create }
     let!(:an_entry) do
-      Entry.create(tag_list: ["work", "coffee"], project: "Important Project", user: user).tap do |entry|
+      Entry.create(tagList: ["work", "coffee"], project: "Important Project", user: user).tap do |entry|
         entry.update_column :updated_at,  Time.zone.parse("2012-1-1")
       end
     end
     let!(:another_entry) do
-      Entry.create(tag_list: ["work", "tea"], project: "Some Other Project", user: user).tap do |entry|
+      Entry.create(tagList: ["work", "tea"], project: "Some Other Project", user: user).tap do |entry|
         entry.update_column :updated_at,  Time.zone.parse("2012-1-2")
       end
     end
     let!(:entry_by_someone_else) do
-      Entry.create(tag_list: ["work", "tea"], project: "Some Other Project", user: another_user).tap do |entry|
+      Entry.create(tagList: ["work", "tea"], project: "Some Other Project", user: another_user).tap do |entry|
         entry.update_column :updated_at,  Time.zone.parse("2012-1-1")
       end
     end
-    let(:query) do 
+    let(:query) do
       {
         date_filter: {
           from: Time.zone.parse('2012-1-1').beginning_of_day.iso8601,
@@ -216,7 +216,7 @@ describe EntriesController do
         },
         projects: ["Important Project"]
       }
-    end 
+    end
 
     it "filters all entries by given params" do
 
@@ -231,16 +231,16 @@ describe EntriesController do
 
     it "filtes all entries and returns json" do
       get :filter, token: user.token, query: query
-      expected_response = { 
+      expected_response = {
         :entries=>
           [
             {
               :id=>an_entry.id,
               :elapsed=>nil,
               :lastTick=>nil,
-              :tag_list=>["work", "coffee"],
+              :tagList=>["work", "coffee"],
               :running=>nil,
-              :current=>nil,
+              :current=>false,
               :description=>nil,
               :project=>"Important Project"
             }
