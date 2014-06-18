@@ -19,7 +19,7 @@ class Entry < ActiveRecord::Base
     where(project: Array(projects)) if projects.present?
   end
 
-  scope :with_tags, ->(tags) do 
+  scope :with_tags, ->(tags) do
     scoped = all
     scoped = scoped.tagged_with(Array(tags[:include])) if tags[:include].present?
     scoped = scoped.tagged_with(Array(tags[:exclude]), exclude: true) if tags[:exclude].present?
@@ -36,16 +36,10 @@ class Entry < ActiveRecord::Base
 
   scope :tags, ->{ select( "tags.name" ).joins(:tags).order("tags.name").uniq }
 
-  def tagList
-    tag_list
-  end
-
-  def tagList=(other)
-    self.tag_list=other
-  end
+  alias_attribute :tagList, :tag_list
 
   def self.today_or_current
-    (today.concat current).uniq
+    today.concat(current).uniq
   end
 
   def self.force_only_one_current_entry(user, entry)
