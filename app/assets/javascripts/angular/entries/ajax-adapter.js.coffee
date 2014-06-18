@@ -23,7 +23,7 @@ angular.module("entries").
 
       query: (data) ->
         deferred = $q.defer()
-        $http.post("/entries/filter", data).success (response) =>
+        $http.post("/entries/filter.json", data).success (response) =>
           deferred.resolve response.entries
         deferred.promise
 
