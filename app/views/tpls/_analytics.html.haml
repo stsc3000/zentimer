@@ -50,11 +50,6 @@
         %h2.analytics-headline
           {{ query.selectedDateFilter.headline() }}
           %small.analytics-subheadline {{ query.selectedDateFilter.subheadline() }}
-          %small
-            %a.fa.fa-fw.fa-refresh(ng-click="query.fetch()")
-          %small
-            %a(ng-href="{{ query.csvUrl() }}")
-              CSV
   %ti-bar-chart(chart-data="query.entriesGroupedByProject" chart-id="bar-chart" chart-title="{{ query.entryList.total() | elapsed }}" elapsed-filter="elapsedFilter" id="bar-chart-container")
   .row
     .large-12.columns
@@ -70,3 +65,11 @@
             = render partial: 'entries/entry', locals: { renderControls: false, renderLoggedAt: true, deleteFromQuery: true }
 
         %ti-scroll-spy(update="query.nextPage()")
+
+  #bottom-menu
+    #left-icons  
+    #center-icons
+      &nbsp;
+    #right-icons
+      %a.fa.fa-fw.fa-refresh(ng-click="query.fetch()")
+      %a.download-icon(ng-href="{{ query.csvUrl() }}")
