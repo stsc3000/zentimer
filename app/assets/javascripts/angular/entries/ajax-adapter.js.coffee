@@ -27,18 +27,17 @@ angular.module("entries").
           deferred.resolve response.entries
         deferred.promise
 
-      queryCsv: (data) ->
-        deferred = $q.defer()
-        params = {
-          "token": data.token
-          "query[date_filter][from]": data.query.date_filter.from
-          "query[date_filter][to]": data.query.date_filter.to
-          "query[date_filter][to]": data.query.date_filter.to
-          "query[projects]": data.query.projects
-          "query[tags][include]": data.query.tags.include
-          "query[tags][exclude]": data.query.tags.exclude
-        }
-        $http.get("/entries/filter.csv", { params: params })
+      queryCsvUrl: (queryData) ->
+        params = [
+          "token=#{queryData.token}",
+          "query[date_filter][from]=#{queryData.query.date_filter.from}",
+          "query[date_filter][to]=#{queryData.query.date_filter.to}",
+          "query[projects]=#{queryData.query.projects || []}",
+          "query[tags][include]=#{queryData.query.tags.include || []}",
+          "query[tags][exclude]=#{queryData.query.tags.exclude || []}",
+        ]
+        "entries/filter.csv/?#{params.join("&")}"
+
 
       delete: (entry) ->
         deferred = $q.defer()

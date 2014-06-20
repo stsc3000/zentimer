@@ -53,7 +53,7 @@
           %small
             %a.fa.fa-fw.fa-refresh(ng-click="query.fetch()")
           %small
-            %a(ng-href="{{ csvUrl() }}")
+            %a(ng-href="{{ query.csvUrl() }}")
               CSV
   %ti-bar-chart(chart-data="query.entriesGroupedByProject" chart-id="bar-chart" chart-title="{{ query.entryList.total() | elapsed }}" elapsed-filter="elapsedFilter" id="bar-chart-container")
   .row

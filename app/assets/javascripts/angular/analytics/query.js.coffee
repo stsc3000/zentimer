@@ -117,6 +117,9 @@ angular.module("analytics").
       pageIndex: 0
       perPage: 5
 
+      csvUrl: ->
+        @entryList.queryCsvUrl()
+
       updateEntriesGroupedByProject: ->
         grouped = _.groupBy(@entryList.entries, (entry) -> entry.project || "No Project")
         @entriesGroupedByProject = _.map grouped, (entries, project) ->

@@ -26,18 +26,5 @@ angular.module("analytics").
 
     $scope.query.fetch()
 
-    $scope.csvUrl = ->
-      queryData = $scope.query.entryList.queryData
-      params = [
-        "token=#{queryData.token}",
-        "query[date_filter][from]=#{queryData.query.date_filter.from}",
-        "query[date_filter][to]=#{queryData.query.date_filter.to}",
-        "query[projects]=#{queryData.query.projects || []}",
-        "query[tags][include]=#{queryData.query.tags.include || []}",
-        "query[tags][exclude]=#{queryData.query.tags.exclude || []}",
-      ]
-      "entries/filter.csv/?#{params.join("&")}"
-
-
     $scope.$watch "query.entries", ( -> $scope.query.updateEntriesGroupedByProject() ), true
 )

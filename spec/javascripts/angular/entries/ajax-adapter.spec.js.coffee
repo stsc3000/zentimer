@@ -86,3 +86,17 @@ describe "AjaxAdapter", ->
 
       $httpBackend.flush()
       $rootScope.$apply()
+
+  describe "csv url", ->
+    it "provides the query csv url", inject (AjaxAdapter) ->
+      queryData = {
+        token: "1234",
+        query: {
+          date_filter: { from: new Date(2012,12,12), to: new Date(2012,12,12) },
+          projects: ["projectA", "projectB"],
+          tags: { include: ["TagA"], exclude: ["TagB"] }
+        }
+      }
+      expectedUrl = "entries/filter.csv/?token=1234&query[date_filter][from]=Sat Jan 12 2013 00:00:00 GMT+0100 (CET)&query[date_filter][to]=Sat Jan 12 2013 00:00:00 GMT+0100 (CET)&query[projects]=projectA,projectB&query[tags][include]=TagA&query[tags][exclude]=TagB"
+      url = AjaxAdapter.queryCsvUrl(queryData)
+      expect(url).toEqual(expectedUrl)
