@@ -1,6 +1,6 @@
 angular.module("entries").
   service("AjaxAdapter", ($http, $q, user) ->
-    {
+    AjaxAdapter = {
       save: (entry) ->
         deferred = $q.defer()
         @saveRequest(entry).success (response) =>
@@ -23,9 +23,21 @@ angular.module("entries").
 
       query: (data) ->
         deferred = $q.defer()
-        $http.post("/entries/filter", data).success (response) =>
+        $http.post("/entries/filter.json", data).success (response) =>
           deferred.resolve response.entries
         deferred.promise
+
+      queryCsvUrl: (queryData) ->
+        params = [
+          "token=#{queryData.token}",
+          "query[date_filter][from]=#{queryData.query.date_filter.from}",
+          "query[date_filter][to]=#{queryData.query.date_filter.to}",
+          "query[projects]=#{queryData.query.projects || []}",
+          "query[tags][include]=#{queryData.query.tags.include || []}",
+          "query[tags][exclude]=#{queryData.query.tags.exclude || []}",
+        ]
+        "entries/filter.csv/?#{params.join("&")}"
+
 
       delete: (entry) ->
         deferred = $q.defer()
@@ -42,4 +54,8 @@ angular.module("entries").
         deferred.promise
 
     }
+
+    window.adapter = AjaxAdapter
+
+    AjaxAdapter
   )

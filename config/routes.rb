@@ -4,6 +4,7 @@ NgRailsTimeTracker::Application.routes.draw do
   resources :entries do
     delete '/', to: :clear, on: :collection
     post 'filter', on: :collection
+    get 'filter', on: :collection
   end
 
   get ':token' => 'users#show', as: :user

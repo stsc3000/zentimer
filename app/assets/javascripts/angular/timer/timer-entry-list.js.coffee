@@ -79,6 +79,9 @@ angular.module("timer")
             deferred.resolve(that.entries)
         deferred.promise
 
+      queryCsvUrl: ->
+        @adapter.queryCsvUrl(@queryData)
+
       save: (entry) ->
         if entry.isValid()
           subscriber(entry) for subscriber in @onSave

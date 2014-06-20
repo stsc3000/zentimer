@@ -37,7 +37,10 @@ class EntriesController < ApplicationController
 
   def filter
     @entries = current_user.entries.filter(filter_params).includes(:tags)
-    render json: @entries
+    respond_to do |format|
+      format.json { render json: @entries }
+      format.csv { send_data Entry::CSVRenderer.to_csv(@entries), filename: "entries.csv", disposition: :attachment }
+    end
   end
 
   def projects
