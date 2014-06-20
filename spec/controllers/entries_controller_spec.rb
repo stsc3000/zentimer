@@ -191,7 +191,7 @@ describe EntriesController do
   context "GET #filter" do
     let(:another_user){ User.create }
     let!(:an_entry) do
-      Entry.create(tagList: ["work", "coffee"], project: "Important Project", user: user).tap do |entry|
+      Entry.create(description: "Important Entry", tagList: ["work", "coffee"], project: "Important Project", elapsed: 10, lastTick: Time.new(2012,12,12), running: false, current: false,  user: user).tap do |entry|
         entry.update_column :updated_at,  Time.zone.parse("2012-1-1")
       end
     end
@@ -220,7 +220,7 @@ describe EntriesController do
 
     it "filters all entries by given params" do
 
-      get :filter, token: user.token, query: query
+      get :filter, token: user.token, query: query, format: :json
 
       entries = assigns :entries
       expect(entries).to include(an_entry)
@@ -230,25 +230,32 @@ describe EntriesController do
     end
 
     it "filtes all entries and returns json" do
-      get :filter, token: user.token, query: query
+      get :filter, token: user.token, query: query, format: :json
       expected_response = {
         :entries=>
           [
             {
               :id=>an_entry.id,
-              :elapsed=>nil,
-              :lastTick=>nil,
+              :elapsed=>10,
+              :lastTick=>"2012-12-11T23:00:00Z",
               :tagList=>["work", "coffee"],
-              :running=>nil,
+              :running=>false,
               :current=>false,
-              :description=>nil,
+              :description=>"Important Entry",
               :project=>"Important Project",
-              :logged_at=>nil
+              :logged_at=>"2012-12-11"
             }
           ]
       }
       expect(json_response).to eq(expected_response)
 
+    end
+
+    it "returns it as csv" do
+      get :filter, token: user.token, query: query, format: :csv
+      csv = "Description,Project,Tags,Elapsed (s),Running,Current,User,Last Tick\nImportant Entry,Important Project,\"work, coffee\",10,false,false,#{user.id},2012-12-11 23:00:00 UTC\n"
+
+      expect(response.body).to eq(csv)
     end
 
   end
