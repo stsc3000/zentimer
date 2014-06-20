@@ -19,10 +19,10 @@ class Entry < ActiveRecord::Base
     where(project: Array(projects)) if projects.present?
   end
 
-  scope :with_tags, ->(tags) do 
+  scope :with_tags, ->(tags) do
     scoped = all
-    scoped = scoped.tagged_with(Array(tags[:include])) if tags[:include].present?
-    scoped = scoped.tagged_with(Array(tags[:exclude]), exclude: true) if tags[:exclude].present?
+    scoped = scoped.tagged_with(Array(tags[:include])) if tags.try(:[], :include).present?
+    scoped = scoped.tagged_with(Array(tags[:exclude]), exclude: true) if tags.try(:[], :exclude).present?
     scoped
   end
 
