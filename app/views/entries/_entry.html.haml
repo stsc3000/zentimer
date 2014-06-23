@@ -5,6 +5,9 @@
         %a.continue-icon(ng-hide="entry.running" ng-click="continue(entry)")
         %a.pause-icon(ng-show="entry.running" ng-click="pause(entry)")
     %ti-elapsed-entry(model="entry" elapsed="entry.elapsed" disabled="entry.running")
+    - unless renderControls
+      .entries-list-item-form-last-tick
+        {{ entry.lastTick | date:'shortDate'  }}
 
   .entries-list-item-form-main-inputs
     .entries-list-item-form-project.narrow
