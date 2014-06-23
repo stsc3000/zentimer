@@ -65,12 +65,16 @@
     @extend .row
 
     .filter-menu-secondary-level-item
-      @extend .large-2
+      @extend .medium-12
       @extend .columns
-      width: 20%
-      padding-left: 0px
-      padding-right: 0px
-      text-align: center
+      text-align: left
+      @media only screen and (min-width: 768px)
+        @extend .large-2
+        width: 20%
+        padding-left: 0px
+        padding-right: 0px
+        text-align: center
+
 
     .filter-menu-secondary-level-full-item
       @extend .large-12
