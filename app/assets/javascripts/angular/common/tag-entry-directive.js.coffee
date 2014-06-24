@@ -10,7 +10,7 @@ angular.module("app").
                   </ul>
                   <div class="tags-entry-suggestion-list">
                     <ul>
-                      <li class="tags-entry-suggestion-item" ng-class="{active:$index==suggestionIndex}" ng-mousedown="selectTag(suggestion)" ng-repeat="suggestion in suggestions | orderBy:\'toString()\'">
+                      <li class="tags-entry-suggestion-item" ng-class="{active:$index==suggestionIndex}" ng-mousedown="selectTag(suggestion)" ng-repeat="suggestion in suggestions">
                         <a>{{ suggestion }}</a>
                       </li>
                     </ul>
@@ -55,6 +55,7 @@ angular.module("app").
             if tag
               allSuggestions = _.filter( $scope.suggestionDomain, ((potentialMatch) -> potentialMatch.toLowerCase().indexOf(tag.toLowerCase()) == 0 ))
               $scope.suggestions = _.difference(allSuggestions, $scope.targetValue)
+              $scope.suggestions = _.sortBy($scope.suggestions)
             else
               $scope.clearSuggestions()
             if $scope.suggestions.length == 0

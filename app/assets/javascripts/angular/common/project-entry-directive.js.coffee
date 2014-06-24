@@ -7,7 +7,7 @@ angular.module("app").
                 <input ng-model="targetValue" class="projects-entry-project-input" placeholder="Project" data-role="project-entry">
                 <div class="projects-entry-suggestion-list">
                   <ul>
-                    <li class="projects-entry-suggestion-item" ng-class="{active:$index==suggestionIndex}" ng-mousedown="selectProject(suggestion)" ng-repeat="suggestion in suggestions | orderBy:\'toString()\'">
+                    <li class="projects-entry-suggestion-item" ng-class="{active:$index==suggestionIndex}" ng-mousedown="selectProject(suggestion)" ng-repeat="suggestion in suggestions">
                       <a>{{ suggestion }}</a>
                     </li>
                   </ul>
@@ -38,6 +38,7 @@ angular.module("app").
           if $scope.suggestionsEnabled()
             if $scope.targetValue
               $scope.suggestions = _.filter( $scope.suggestionDomain, ((potentialMatch) -> potentialMatch.toLowerCase().indexOf($scope.targetValue.toLowerCase()) == 0 ))
+              $scope.suggestions = _.sortBy($scope.suggestions)
             else
               $scope.clearSuggestions()
             if $scope.suggestions.length == 0
@@ -68,10 +69,10 @@ angular.module("app").
 
           if event.keyCode == 40
             if $scope.suggestionIndex <= $scope.suggestions.length - 2
-              $scope.suggestionIndex += 1 
+              $scope.suggestionIndex += 1
           if event.keyCode == 38
             if $scope.suggestionIndex > -1
-              $scope.suggestionIndex -= 1 
+              $scope.suggestionIndex -= 1
 
           #press , or enter
           if event.keyCode == 13
