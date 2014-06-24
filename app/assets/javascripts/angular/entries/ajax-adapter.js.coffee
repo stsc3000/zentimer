@@ -3,8 +3,14 @@ angular.module("entries").
     AjaxAdapter = {
       save: (entry) ->
         deferred = $q.defer()
+
+        timestamp = (new Date).getTime()
+        @saving[entry] = timestamp if entry.id
+
         @saveRequest(entry).success (response) =>
-          entry.assignOnSave response.entry
+          if !@saving[entry] || @saving[entry] == timestamp
+            entry.assignOnSave response.entry
+            delete @saving[entry]
           deferred.resolve(entry)
         deferred.promise
 
@@ -14,6 +20,8 @@ angular.module("entries").
           $http.put("/entries/#{entry.id}", data)
         else
           $http.post("/entries", data)
+
+      saving: {}
 
       index: ->
         deferred = $q.defer()

@@ -49,7 +49,8 @@ angular.module("timer").
         @save()
 
       stop: ->
-        @pause()
+        @running = false
+        @triggerOnStop()
         @current = false
         @save()
 
