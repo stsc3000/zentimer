@@ -18,7 +18,6 @@ angular.module("timer").
 
     TimerEntry = (attributes = {}) ->
       @assign angular.extend(defaultAttributes(), attributes)
-      @lastTick = new Date(attributes.lastTick) if @lastTick
       @run() if @running
       @
 
