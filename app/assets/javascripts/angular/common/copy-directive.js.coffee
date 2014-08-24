@@ -14,7 +14,7 @@ angular.module("app").
         client.on "load", (client, args) ->
           client.on 'mouseover', (client, args) ->
             text = $scope.copySource.join(", ")
-            text += "!!!" + $scope.copyComment if $scope.copyComment
+            text += "!!" + $scope.copyComment if $scope.copyComment
             client.setText text
             $(el).closest(".entries-list-item").addClass("hover")
           client.on 'mouseout', (client, args) ->
